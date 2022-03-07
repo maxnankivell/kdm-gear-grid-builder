@@ -1,0 +1,66 @@
+@import url("https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap");
+@import "constants";
+
+/*
+- Spacing system (px)
+2 / 4 / 8 / 12 / 16 / 24 / 32 / 48 / 64 / 80 / 96 / 128
+
+- Font sizes (px)
+10 / 12 / 14 / 16 / 18 / 20 / 24 / 30 / 36 / 44 / 52 / 62 / 74 / 86 / 98
+*/
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  /* font-size: 16px; */
+  /* 10px / 16px = 0.625 = 62.5% */
+  /* Percentage of user's browser font-size setting */
+  font-size: 62.5%;
+  font-family: "Roboto", sans-serif;
+}
+
+body {
+  margin: 0;
+}
+
+#app {
+  color: $platinum;
+  text-align: center;
+  background-color: black;
+  width: 100vw;
+  height: 100vh;
+}
+
+::-webkit-scrollbar {
+  width: 10px;
+}
+::-webkit-scrollbar-track {
+  background: $black-2-light;
+  border-radius: 4px;
+}
+::-webkit-scrollbar-thumb {
+  background: $oxford-blue-2-light;
+  border-radius: 4px;
+  &:hover {
+    background: $oxford-blue-3-light;
+  }
+}
+::-webkit-scrollbar-button,
+::-webkit-scrollbar-corner {
+  display: none;
+}
+
+button {
+  background-color: $oxford-blue;
+  color: $platinum;
+  cursor: pointer;
+  border: 0;
+  border-radius: 8px;
+
+  &:hover {
+    background-color: $oxford-blue-2-light;
+    color: $white;
+  }
+}
