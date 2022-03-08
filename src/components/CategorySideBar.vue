@@ -7,18 +7,9 @@
 </template>
 
 <script setup lang="ts">
-import { defineProps, reactive, ref, withDefaults } from "vue";
+import { reactive, ref } from "vue";
 import gearArray from "../gear-array";
 import ImageAccordion from "./ImageAccordion.vue";
-
-interface Props {
-  msg: string;
-  test?: string;
-}
-
-const props = withDefaults(defineProps<Props>(), {
-  test: "hello",
-});
 
 const categories = ref<string[]>([]);
 for (const gear of gearArray) {

@@ -1,7 +1,7 @@
 <template>
   <nav class="nav">
-    <div class="nav-option" @click="gridState = 'one'">Scroll</div>
-    <div class="nav-option" @click="gridState = 'four'">Cycle</div>
+    <div class="nav-option" @click="gridState = 'one'">Cycle</div>
+    <div class="nav-option" @click="gridState = 'four'">Scroll</div>
     <div class="nav-option save-button">Save Grids</div>
   </nav>
 </template>

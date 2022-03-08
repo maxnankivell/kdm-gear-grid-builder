@@ -12,7 +12,8 @@
   "dependencies": {
     "phosphor-vue": "next",
     "pinia": "^2.0.11",
-    "vue": "^3.2.25"
+    "vue": "^3.2.25",
+    "vue-window-size": "^1.1.2"
   },
   "devDependencies": {
     "@types/node": "^17.0.21",

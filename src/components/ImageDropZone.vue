@@ -10,8 +10,8 @@
     <div>
       <img
         :src="imageSource"
-        class="gear-image"
         :class="{ 'no-drag': isDefaultImage }"
+        :style="{ width: useImageSize, height: useImageSize }"
         :draggable="!isDefaultImage"
         @dragstart="onDragStart($event)"
         @dragend="onDragEnd($event)"
@@ -22,6 +22,7 @@
 
 <script setup lang="ts">
 import { computed, ref, defineProps } from "vue";
+import { useImageSize } from "@/window-size-calculator";
 
 interface Props {
   id: string;
@@ -73,8 +74,6 @@ function onDragEnd(event: DragEvent): void {
 
 <style scoped lang="scss">
 .dropzone {
-  width: 180px;
-  height: 180px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -84,11 +83,6 @@ function onDragEnd(event: DragEvent): void {
 
 .highlighted {
   background-color: $black-2-light;
-}
-
-.gear-image {
-  width: 150px;
-  height: 150px;
 }
 
 .no-drag {

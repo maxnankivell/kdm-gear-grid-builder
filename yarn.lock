@@ -1981,6 +1981,7 @@ __metadata:
     vite: ^2.8.0
     vue: ^3.2.25
     vue-tsc: ^0.29.8
+    vue-window-size: ^1.1.2
   languageName: unknown
   linkType: soft
 
@@ -3292,6 +3293,17 @@ __metadata:
   languageName: node
   linkType: hard
 
+"vue-window-size@npm:^1.1.2":
+  version: 1.1.2
+  resolution: "vue-window-size@npm:1.1.2"
+  dependencies:
+    window-resize-subject: ^1.5.0
+  peerDependencies:
+    vue: ">=3.0.0"
+  checksum: 553e5df734964e09f0a236b2a908dc1505c12f90e650e6ee838b9754ed5c055417c756b92b096b832a43bd1a50d605ec7b652dd290364a30b49ca65c76a0eb4c
+  languageName: node
+  linkType: hard
+
 "vue@npm:^3.2.25":
   version: 3.2.31
   resolution: "vue@npm:3.2.31"
@@ -3322,6 +3334,13 @@ __metadata:
   dependencies:
     string-width: ^1.0.2 || 2 || 3 || 4
   checksum: d5fc37cd561f9daee3c80e03b92ed3e84d80dde3365a8767263d03dacfc8fa06b065ffe1df00d8c2a09f731482fcacae745abfbb478d4af36d0a891fad4834d3
+  languageName: node
+  linkType: hard
+
+"window-resize-subject@npm:^1.5.0":
+  version: 1.5.0
+  resolution: "window-resize-subject@npm:1.5.0"
+  checksum: ed5c93f803622da921183b6fa5f337c4de1667f59bf9994d392c2fd10170045c3f21bb0da197cf1dc74ea0dc183aadca996d3f8c471b52e9a51efdc64341c70f
   languageName: node
   linkType: hard
 
