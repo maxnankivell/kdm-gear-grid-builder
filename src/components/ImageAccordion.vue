@@ -10,13 +10,7 @@
     </div>
     <div v-if="isOpen" class="image-container">
       <template v-for="image in images" :key="image">
-        <img
-          :src="image"
-          alt="gear image"
-          class="image"
-          draggable="true"
-          @dragstart="onDragStart($event, image)"
-        />
+        <img :src="image" alt="gear image" class="image" draggable="true" @dragstart="onDragStart($event, image)" />
       </template>
     </div>
   </div>
@@ -37,12 +31,12 @@ const isOpen = ref(false);
 
 function onDragStart(event: DragEvent, imageSource: string) {
   if (!event.dataTransfer) {
-    console.error("event null");
+    console.warn("drag cancel");
     return;
   }
   event.dataTransfer.effectAllowed = "copy";
   event.dataTransfer.dropEffect = "copy";
-  event.dataTransfer.setData("text", imageSource);
+  event.dataTransfer.setData("text", imageSource + "|-1");
 }
 </script>
 
@@ -77,5 +71,6 @@ function onDragStart(event: DragEvent, imageSource: string) {
 
 .image {
   width: 100%;
+  cursor: grab;
 }
 </style>

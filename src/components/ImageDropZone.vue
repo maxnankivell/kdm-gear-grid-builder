@@ -1,33 +1,71 @@
 <template>
   <div
     class="dropzone"
-    :class="{ highlighted: isHovered }"
+    :class="{ highlighted: dragPositionCounter > 0 }"
     @drop="onDrop($event)"
-    @dragenter="onDragEnter($event)"
-    @dragleave="isHovered = false"
+    @dragenter.prevent="dragPositionCounter++"
+    @dragleave="dragPositionCounter--"
     @dragover.prevent
   >
-    <img :src="imageSource" class="gear-image" />
+    <div>
+      <img
+        :src="imageSource"
+        class="gear-image"
+        :class="{ 'no-drag': isDefaultImage }"
+        :draggable="!isDefaultImage"
+        @dragstart="onDragStart($event)"
+        @dragend="onDragEnd($event)"
+      />
+    </div>
   </div>
 </template>
 
 <script setup lang="ts">
-import { ref } from "vue";
+import { computed, ref, defineProps } from "vue";
 
-const imageSource = ref("");
-function onDrop(event: DragEvent) {
+interface Props {
+  id: string;
+}
+
+const props = defineProps<Props>();
+
+const defaultImage = new URL("../assets/gear_default.webp", import.meta.url).href;
+const imageSource = ref(defaultImage);
+
+let dropId = `-1`;
+
+function onDrop(event: DragEvent): void {
   if (!event.dataTransfer) {
     console.error("event null");
     return;
   }
-  imageSource.value = event.dataTransfer.getData("text");
-  isHovered.value = false;
+  const arr = event.dataTransfer.getData("text").split(`|`);
+  imageSource.value = arr[0];
+  dropId = arr[1];
+  dragPositionCounter.value = 0;
 }
 
-const isHovered = ref(false);
-function onDragEnter(event: DragEvent) {
-  event.preventDefault();
-  isHovered.value = true;
+const dragPositionCounter = ref(0); // if 0 then not hovering a dropzone and if > 0 is hovering
+
+const isDefaultImage = computed(() => imageSource.value.endsWith("gear_default.webp"));
+
+function onDragStart(event: DragEvent): void {
+  if (!event.dataTransfer || isDefaultImage.value) {
+    console.warn("drag cancel");
+    event.preventDefault();
+    return;
+  }
+  event.dataTransfer.effectAllowed = "move";
+  event.dataTransfer.dropEffect = "move";
+  event.dataTransfer.setData("text", imageSource.value + `|${props.id}`);
+}
+
+function onDragEnd(event: DragEvent): void {
+  if (!event.dataTransfer || event.dataTransfer.dropEffect === "none" || dropId === props.id) {
+    dropId = `-1`;
+    return;
+  }
+  imageSource.value = defaultImage;
 }
 </script>
 
@@ -47,8 +85,20 @@ function onDragEnter(event: DragEvent) {
 }
 
 .gear-image {
-  pointer-events: none;
   width: 150px;
   height: 150px;
+}
+
+.no-drag {
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -o-user-select: none;
+  user-select: none;
+  -webkit-user-drag: none;
+  -khtml-user-drag: none;
+  -moz-user-drag: none;
+  -o-user-drag: none;
+  user-drag: none;
 }
 </style>

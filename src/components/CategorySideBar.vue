@@ -1,10 +1,7 @@
 <template>
-  <div class="category-container">
+  <div class="category-container" @dragenter.prevent @dragover.prevent>
     <template v-for="category in categories" :key="category">
-      <ImageAccordion
-        :category="category"
-        :images="imagesByCategory[category]"
-      />
+      <ImageAccordion :category="category" :images="imagesByCategory[category]" />
     </template>
   </div>
 </template>
