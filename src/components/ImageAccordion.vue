@@ -36,7 +36,7 @@ function onDragStart(event: DragEvent, imageSource: string) {
   }
   event.dataTransfer.effectAllowed = "copy";
   event.dataTransfer.dropEffect = "copy";
-  event.dataTransfer.setData("text", imageSource);
+  event.dataTransfer.setData("text", imageSource + "|-1");
 }
 </script>
 

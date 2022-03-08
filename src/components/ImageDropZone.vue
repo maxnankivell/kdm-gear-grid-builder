@@ -14,38 +14,42 @@
         :class="{ 'no-drag': isDefaultImage }"
         :draggable="!isDefaultImage"
         @dragstart="onDragStart($event)"
+        @dragend="onDragEnd($event)"
       />
     </div>
   </div>
 </template>
 
 <script setup lang="ts">
-import { computed, ref, watch } from "vue";
+import { computed, ref, defineProps } from "vue";
 
-function test() {
-  // console.log(imageSource.value);
-  // console.log(isDefaultImage.value);
-  console.log("leave");
+interface Props {
+  id: string;
 }
 
-const imageSource = ref(new URL("../assets/gear_default.webp", import.meta.url).href);
+const props = defineProps<Props>();
 
-function onDrop(event: DragEvent) {
+const defaultImage = new URL("../assets/gear_default.webp", import.meta.url).href;
+const imageSource = ref(defaultImage);
+
+let dropId = `-1`;
+
+function onDrop(event: DragEvent): void {
   if (!event.dataTransfer) {
     console.error("event null");
     return;
   }
-  imageSource.value = event.dataTransfer.getData("text");
+  const arr = event.dataTransfer.getData("text").split(`|`);
+  imageSource.value = arr[0];
+  dropId = arr[1];
   dragPositionCounter.value = 0;
 }
 
 const dragPositionCounter = ref(0); // if 0 then not hovering a dropzone and if > 0 is hovering
-// watch(dragPositionCounter, () => console.log(dragPositionCounter.value));
 
 const isDefaultImage = computed(() => imageSource.value.endsWith("gear_default.webp"));
 
-function onDragStart(event: DragEvent) {
-  console.log(isDefaultImage.value);
+function onDragStart(event: DragEvent): void {
   if (!event.dataTransfer || isDefaultImage.value) {
     console.warn("drag cancel");
     event.preventDefault();
@@ -53,7 +57,15 @@ function onDragStart(event: DragEvent) {
   }
   event.dataTransfer.effectAllowed = "move";
   event.dataTransfer.dropEffect = "move";
-  event.dataTransfer.setData("text", imageSource.value);
+  event.dataTransfer.setData("text", imageSource.value + `|${props.id}`);
+}
+
+function onDragEnd(event: DragEvent): void {
+  if (!event.dataTransfer || event.dataTransfer.dropEffect === "none" || dropId === props.id) {
+    dropId = `-1`;
+    return;
+  }
+  imageSource.value = defaultImage;
 }
 </script>
 
