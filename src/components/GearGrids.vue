@@ -2,7 +2,7 @@
   <div class="scroll-pane">
     <div class="gear-grids-container">
       <div v-for="index in 4" :key="index" class="gear-grid">
-        <ImageDropZone v-for="index2 in 9" :key="index2" />
+        <ImageDropZone v-for="index2 in 9" :id="'' + index + index2" :key="index2" />
       </div>
     </div>
   </div>
