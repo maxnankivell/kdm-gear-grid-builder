@@ -71,5 +71,6 @@ function onDragStart(event: DragEvent, imageSource: string) {
 
 .image {
   width: 100%;
+  cursor: grab;
 }
 </style>

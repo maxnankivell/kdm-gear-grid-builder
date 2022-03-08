@@ -3,7 +3,7 @@
     class="dropzone"
     :class="{ highlighted: dragPositionCounter > 0 }"
     @drop="onDrop($event)"
-    @dragenter="onDragEnter($event)"
+    @dragenter.prevent="dragPositionCounter++"
     @dragleave="dragPositionCounter--"
     @dragover.prevent
   >
@@ -41,10 +41,6 @@ function onDrop(event: DragEvent) {
 
 const dragPositionCounter = ref(0); // if 0 then not hovering a dropzone and if > 0 is hovering
 // watch(dragPositionCounter, () => console.log(dragPositionCounter.value));
-function onDragEnter(event: DragEvent) {
-  event.preventDefault();
-  dragPositionCounter.value++;
-}
 
 const isDefaultImage = computed(() => imageSource.value.endsWith("gear_default.webp"));
 
