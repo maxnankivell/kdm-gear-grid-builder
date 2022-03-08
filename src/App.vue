@@ -1,14 +1,8 @@
 <template>
   <div class="page-container">
     <TopBar style="grid-area: header" />
-    <CategorySideBar
-      :msg="'Hello Vue 3 + TypeScript + Vite'"
-      style="grid-area: sidebar"
-    />
-    <GearGrids
-      :msg="'Hello Vue 3 + TypeScript + Vite'"
-      style="grid-area: gear-grid"
-    />
+    <CategorySideBar :msg="'Hello Vue 3 + TypeScript + Vite'" style="grid-area: sidebar" />
+    <GearGrids :msg="'Hello Vue 3 + TypeScript + Vite'" style="grid-area: gear-grid" />
   </div>
 </template>
 
@@ -16,6 +10,9 @@
 import TopBar from "@/components/TopBar.vue";
 import GearGrids from "@/components/GearGrids.vue";
 import CategorySideBar from "@/components/CategorySideBar.vue";
+import { ref } from "vue";
+
+const isDragging = ref(false);
 </script>
 
 <style scoped lang="scss">

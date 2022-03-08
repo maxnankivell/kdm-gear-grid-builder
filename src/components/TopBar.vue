@@ -1,14 +1,17 @@
 <template>
   <nav class="nav">
-    <div class="nav-option">One</div>
-    <div class="nav-option">Two</div>
-    <div class="nav-option">Three</div>
-    <div class="nav-option">Four</div>
+    <div class="nav-option" @click="gridState = 'one'">Scroll</div>
+    <div class="nav-option" @click="gridState = 'four'">Cycle</div>
     <div class="nav-option save-button">Save Grids</div>
   </nav>
 </template>
 
-<script setup lang="ts"></script>
+<script setup lang="ts">
+import { useGridStateStore } from "@/grid-state-store";
+import { storeToRefs } from "pinia";
+
+const { gridState } = storeToRefs(useGridStateStore());
+</script>
 
 <style scoped lang="scss">
 .nav {

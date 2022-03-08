@@ -1,5 +1,5 @@
 <template>
-  <div class="category-container" @dragenter.prevent @dragover.prevent>
+  <div class="category-container" @dragenter.prevent @dragover.prevent @drop.prevent>
     <template v-for="category in categories" :key="category">
       <ImageAccordion :category="category" :images="imagesByCategory[category]" />
     </template>
@@ -44,9 +44,6 @@ for (const category of categories.value) {
     }
   }
 }
-
-console.log(categories.value);
-console.log(imagesByCategory);
 </script>
 
 <style scoped lang="scss">

@@ -36,7 +36,7 @@ function onDragStart(event: DragEvent, imageSource: string) {
   }
   event.dataTransfer.effectAllowed = "copy";
   event.dataTransfer.dropEffect = "copy";
-  event.dataTransfer.setData("text", imageSource + "|-1");
+  event.dataTransfer.setData("imageAndPosition", imageSource + "|-1");
 }
 </script>
 
@@ -71,6 +71,15 @@ function onDragStart(event: DragEvent, imageSource: string) {
 
 .image {
   width: 100%;
+
   cursor: grab;
+  cursor: -moz-grab;
+  cursor: -webkit-grab;
+
+  &:active {
+    cursor: grabbing;
+    cursor: -moz-grabbing;
+    cursor: -webkit-grabbing;
+  }
 }
 </style>

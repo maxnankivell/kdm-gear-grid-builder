@@ -11,6 +11,7 @@
   },
   "dependencies": {
     "phosphor-vue": "next",
+    "pinia": "^2.0.11",
     "vue": "^3.2.25"
   },
   "devDependencies": {

@@ -35,14 +35,16 @@ const imageSource = ref(defaultImage);
 let dropId = `-1`;
 
 function onDrop(event: DragEvent): void {
-  if (!event.dataTransfer) {
+  event.preventDefault();
+  dragPositionCounter.value = 0;
+
+  if (!event.dataTransfer || !event.dataTransfer.getData("imageAndPosition")) {
     console.error("event null");
     return;
   }
-  const arr = event.dataTransfer.getData("text").split(`|`);
+  const arr = event.dataTransfer.getData("imageAndPosition").split(`|`);
   imageSource.value = arr[0];
   dropId = arr[1];
-  dragPositionCounter.value = 0;
 }
 
 const dragPositionCounter = ref(0); // if 0 then not hovering a dropzone and if > 0 is hovering
@@ -57,7 +59,7 @@ function onDragStart(event: DragEvent): void {
   }
   event.dataTransfer.effectAllowed = "move";
   event.dataTransfer.dropEffect = "move";
-  event.dataTransfer.setData("text", imageSource.value + `|${props.id}`);
+  event.dataTransfer.setData("imageAndPosition", imageSource.value + `|${props.id}`);
 }
 
 function onDragEnd(event: DragEvent): void {
