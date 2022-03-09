@@ -83,7 +83,7 @@ import ImageDropZone from "./ImageDropZone.vue";
 import { useGridStateStore } from "@/grid-state-store";
 import { useClearButtonStore } from "@/clear-button-store";
 import { storeToRefs } from "pinia";
-import { onBeforeMount, reactive, ref, watch } from "vue";
+import { computed, onBeforeMount, reactive, ref, watch } from "vue";
 import { PhCaretLeft, PhCaretRight } from "phosphor-vue";
 import { useSideBarSpacingDecorated } from "@/coded-styles";
 
@@ -99,6 +99,8 @@ const previousDisplay = ref(1);
 
 const defaultImage = ref(new URL("../assets/gear_default.webp", import.meta.url).href);
 const imageLocations: ImageLocations = reactive({});
+
+const overflow = computed(() => (gridState.value === "one" ? "hidden" : "auto"));
 
 onBeforeMount(() => fillImageLocations());
 
@@ -142,7 +144,7 @@ function fillImageLocations() {
 <style scoped lang="scss">
 #scroll-pane {
   display: grid;
-  overflow: hidden;
+  overflow: v-bind(overflow);
   position: relative;
 }
 
