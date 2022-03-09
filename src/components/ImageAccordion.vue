@@ -16,6 +16,7 @@
         <img
           :src="image"
           alt="gear image"
+          class="image"
           :style="{ width: useImageSize + `px`, height: useImageSize + `px` }"
           draggable="true"
           @dragstart="onDragStart($event, image)"
@@ -81,8 +82,6 @@ function onDragStart(event: DragEvent, imageSource: string) {
 }
 
 .image {
-  width: 100%;
-
   cursor: grab;
   cursor: -moz-grab;
   cursor: -webkit-grab;
