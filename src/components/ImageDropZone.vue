@@ -10,7 +10,7 @@
     <div>
       <img
         :src="imageSource"
-        class="width-height-transition"
+        class="image"
         :class="{ 'no-drag': isDefaultImage }"
         :style="{ width: useImageSize + `px`, height: useImageSize + `px` }"
         :draggable="!isDefaultImage"
@@ -23,7 +23,7 @@
 
 <script setup lang="ts">
 import { computed, ref, defineProps, defineEmits } from "vue";
-import { useImageSize } from "@/coded-styles";
+import { useImageSize, useSideBarSpacingDecorated } from "@/coded-styles";
 
 interface Props {
   id: string;
@@ -86,7 +86,7 @@ function onDragEnd(event: DragEvent): void {
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 15px;
+  padding: v-bind(useSideBarSpacingDecorated);
   background-color: $black-1-light;
 }
 
@@ -94,9 +94,23 @@ function onDragEnd(event: DragEvent): void {
   background-color: $black-2-light;
 }
 
-.width-height-transition {
-  transition: width 0.4s linear;
-  transition: height 0.4s linear;
+.image {
+  transition: all 0.4s linear;
+
+  cursor: grab;
+  cursor: -moz-grab;
+  cursor: -webkit-grab;
+
+  &:active {
+    cursor: grabbing;
+    cursor: -moz-grabbing;
+    cursor: -webkit-grabbing;
+    transform: scale(1.1);
+  }
+
+  &:hover {
+    transform: scale(1.1);
+  }
 }
 
 .no-drag {
@@ -110,5 +124,20 @@ function onDragEnd(event: DragEvent): void {
   -moz-user-drag: none;
   -o-user-drag: none;
   user-drag: none;
+
+  cursor: default;
+  cursor: -moz-default;
+  cursor: -webkit-default;
+
+  &:active {
+    cursor: default;
+    cursor: -moz-default;
+    cursor: -webkit-default;
+    transform: scale(1);
+  }
+
+  &:hover {
+    transform: scale(1);
+  }
 }
 </style>

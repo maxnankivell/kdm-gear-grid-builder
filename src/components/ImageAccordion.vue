@@ -21,14 +21,7 @@
       <transition name="slide-down">
         <div v-if="isOpen" class="image-container">
           <template v-for="image in images" :key="image">
-            <img
-              :src="image"
-              alt="gear image"
-              class="image"
-              :style="{ width: useImageSize + `px`, height: useImageSize + `px` }"
-              draggable="true"
-              @dragstart="onDragStart($event, image)"
-            />
+            <img :src="image" alt="gear image" class="image" draggable="true" @dragstart="onDragStart($event, image)" />
           </template>
         </div>
       </transition>
@@ -58,6 +51,8 @@ const formattedCategory = computed(() => {
   }
   return result.join(" ");
 });
+
+const formattedImageSize = computed(() => useImageSize.value + `px`);
 
 function onDragStart(event: DragEvent, imageSource: string) {
   if (!event.dataTransfer) {
@@ -116,8 +111,10 @@ function onDragStart(event: DragEvent, imageSource: string) {
 }
 
 .image {
-  transition: width 0.4s linear;
-  transition: height 0.4s linear;
+  transition: all 0.4s linear;
+
+  width: v-bind(formattedImageSize);
+  height: v-bind(formattedImageSize);
 
   cursor: grab;
   cursor: -moz-grab;
@@ -127,6 +124,11 @@ function onDragStart(event: DragEvent, imageSource: string) {
     cursor: grabbing;
     cursor: -moz-grabbing;
     cursor: -webkit-grabbing;
+    transform: scale(1.1);
+  }
+
+  &:hover {
+    transform: scale(1.1);
   }
 }
 </style>

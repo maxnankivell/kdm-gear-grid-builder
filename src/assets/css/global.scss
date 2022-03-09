@@ -40,6 +40,8 @@ button {
   cursor: pointer;
   border: 0;
   border-radius: 8px;
+  padding: 12px;
+  transition: all 0.4s linear;
 
   &:hover {
     background-color: $oxford-blue-2-light;

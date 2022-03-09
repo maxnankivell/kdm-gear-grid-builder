@@ -82,14 +82,14 @@ const imageLocations: ImageLocations = reactive({});
 
 onBeforeMount(() => fillImageLocations());
 
-watch(gridState, () => hideOverflow(600));
+watch(gridState, () => hideXOverflow("scroll-pane", 1000));
 watch(clearButtonState, () => {
   fillImageLocations();
   clearButtonState.value = false;
 });
 
 function cycleGrid(change: number) {
-  hideOverflow(800);
+  hideXOverflow("scroll-pane", 1000);
 
   previousDisplay.value = currentDisplay.value;
   currentDisplay.value = currentDisplay.value + change;
@@ -103,12 +103,12 @@ function fillImageLocations() {
   }
 }
 
-function hideOverflow(time: number) {
+function hideXOverflow(elementId: string, time: number) {
   // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-  document.getElementById("scroll-pane")!.style.overflowX = "hidden";
+  document.getElementById(elementId)!.style.overflowX = "hidden";
   setTimeout(function () {
     // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-    document.getElementById("scroll-pane")!.style.overflowX = "auto";
+    document.getElementById(elementId)!.style.overflowX = "auto";
   }, time);
 }
 </script>
