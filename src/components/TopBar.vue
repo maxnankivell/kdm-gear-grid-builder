@@ -1,8 +1,9 @@
 <template>
   <nav class="nav">
-    <div class="nav-option" @click="gridState = 'one'">Cycle</div>
-    <div class="nav-option" @click="gridState = 'four'">Scroll</div>
-    <div class="nav-option save-button">Save Grids</div>
+    <div class="nav-option right-nav-option" @click="gridState = 'one'">Cycle</div>
+    <div class="nav-option right-nav-option" @click="gridState = 'four'">Scroll</div>
+    <div class="nav-option left-nav-option" style="margin-left: auto" @click="onClear()">Clear</div>
+    <div class="nav-option left-nav-option save-button">Save Grids</div>
   </nav>
 </template>
 
@@ -11,13 +12,27 @@ import { useGridStateStore } from "@/grid-state-store";
 import { storeToRefs } from "pinia";
 
 const { gridState } = storeToRefs(useGridStateStore());
+
+function onClear() {
+  console.log("onClear");
+  if (gridState.value === "one") {
+    gridState.value = "four";
+    setTimeout(() => (gridState.value = "one"), 1);
+    return;
+  }
+  if (gridState.value === "four") {
+    gridState.value = "one";
+    setTimeout(() => (gridState.value = "four"), 1);
+    return;
+  }
+}
 </script>
 
 <style scoped lang="scss">
 .nav {
   display: flex;
   background-color: $oxford-blue;
-  font-size: 1.2rem;
+  font-size: 1.6rem;
 }
 
 .nav-option {
@@ -26,7 +41,6 @@ const { gridState } = storeToRefs(useGridStateStore());
   justify-content: center;
   height: 40px;
   padding: 2rem 1.2rem;
-  border-right: 2px solid $black;
   color: $white;
   cursor: pointer;
 
@@ -35,8 +49,15 @@ const { gridState } = storeToRefs(useGridStateStore());
   }
 }
 
+.right-nav-option {
+  border-right: 2px solid $black;
+}
+
+.left-nav-option {
+  border-left: 2px solid $black;
+}
+
 .save-button {
-  margin-left: auto;
   border-right: 0 solid $black;
   border-left: 2px solid $black;
   background-color: $orange-web;
