@@ -10,6 +10,7 @@
     <div>
       <img
         :src="imageSource"
+        class="width-height-transition"
         :class="{ 'no-drag': isDefaultImage }"
         :style="{ width: useImageSize + `px`, height: useImageSize + `px` }"
         :draggable="!isDefaultImage"
@@ -21,19 +22,31 @@
 </template>
 
 <script setup lang="ts">
-import { computed, ref, defineProps } from "vue";
+import { computed, ref, defineProps, defineEmits } from "vue";
 import { useImageSize } from "@/coded-styles";
 
 interface Props {
   id: string;
+  imageSource: string;
 }
+
+const emit = defineEmits<{
+  (emit: "update:image-source", source: string): void;
+  (emit: "reset-image"): void;
+}>();
 
 const props = defineProps<Props>();
 
-const defaultImage = new URL("../assets/gear_default.webp", import.meta.url).href;
-const imageSource = ref(defaultImage);
+const imageSource = computed({
+  get: () => props.imageSource,
+  set: (newValue: string) => emit("update:image-source", newValue),
+});
 
 let dropId = `-1`;
+
+const dragPositionCounter = ref(0); // if 0 then not hovering a dropzone and if > 0 is hovering
+
+const isDefaultImage = computed(() => imageSource.value.endsWith("gear_default.webp"));
 
 function onDrop(event: DragEvent): void {
   event.preventDefault();
@@ -47,10 +60,6 @@ function onDrop(event: DragEvent): void {
   imageSource.value = arr[0];
   dropId = arr[1];
 }
-
-const dragPositionCounter = ref(0); // if 0 then not hovering a dropzone and if > 0 is hovering
-
-const isDefaultImage = computed(() => imageSource.value.endsWith("gear_default.webp"));
 
 function onDragStart(event: DragEvent): void {
   if (!event.dataTransfer || isDefaultImage.value) {
@@ -68,7 +77,7 @@ function onDragEnd(event: DragEvent): void {
     dropId = `-1`;
     return;
   }
-  imageSource.value = defaultImage;
+  emit("reset-image");
 }
 </script>
 
@@ -83,6 +92,11 @@ function onDragEnd(event: DragEvent): void {
 
 .highlighted {
   background-color: $black-2-light;
+}
+
+.width-height-transition {
+  transition: width 0.4s linear;
+  transition: height 0.4s linear;
 }
 
 .no-drag {

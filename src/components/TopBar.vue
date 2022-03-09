@@ -2,29 +2,18 @@
   <nav class="nav">
     <div class="nav-option right-nav-option" @click="gridState = 'one'">Cycle</div>
     <div class="nav-option right-nav-option" @click="gridState = 'four'">Scroll</div>
-    <div class="nav-option left-nav-option" style="margin-left: auto" @click="onClear()">Clear</div>
+    <div class="nav-option left-nav-option" style="margin-left: auto" @click="clearButtonState = true">Clear</div>
     <div class="nav-option left-nav-option save-button">Save Grids</div>
   </nav>
 </template>
 
 <script setup lang="ts">
 import { useGridStateStore } from "@/grid-state-store";
+import { useClearButtonStore } from "@/clear-button-store";
 import { storeToRefs } from "pinia";
 
 const { gridState } = storeToRefs(useGridStateStore());
-
-function onClear() {
-  if (gridState.value === "one") {
-    gridState.value = "four";
-    setTimeout(() => (gridState.value = "one"), 1);
-    return;
-  }
-  if (gridState.value === "four") {
-    gridState.value = "one";
-    setTimeout(() => (gridState.value = "four"), 1);
-    return;
-  }
-}
+const { clearButtonState } = storeToRefs(useClearButtonStore());
 </script>
 
 <style scoped lang="scss">
@@ -42,6 +31,7 @@ function onClear() {
   padding: 2rem 1.2rem;
   color: $white;
   cursor: pointer;
+  transition: all 0.4s linear;
 
   &:hover {
     background-color: $oxford-blue-2-light;
@@ -60,6 +50,8 @@ function onClear() {
   border-right: 0 solid $black;
   border-left: 2px solid $black;
   background-color: $orange-web;
+  transition: all 0.4s linear;
+
   &:hover {
     background-color: $orange-web-2-light;
   }

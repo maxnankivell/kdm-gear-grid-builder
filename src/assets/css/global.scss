@@ -19,18 +19,7 @@ html {
   /* Percentage of user's browser font-size setting */
   font-size: 62.5%;
   font-family: "Roboto", sans-serif;
-}
-
-@media only screen and (min-width: 1950px) {
-  html {
-    font-size: 87.5%;
-  }
-}
-
-@media only screen and (min-width: 1500px) {
-  html {
-    font-size: 75%;
-  }
+  transition: font-size 0.4s linear;
 }
 
 body {
@@ -43,6 +32,31 @@ body {
   background-color: black;
   width: 100vw;
   height: 100vh;
+}
+
+button {
+  background-color: $oxford-blue;
+  color: $platinum;
+  cursor: pointer;
+  border: 0;
+  border-radius: 8px;
+
+  &:hover {
+    background-color: $oxford-blue-2-light;
+    color: $white;
+  }
+}
+
+@media only screen and (min-width: 1950px) {
+  html {
+    font-size: 87.5%;
+  }
+}
+
+@media only screen and (min-width: 1500px) {
+  html {
+    font-size: 75%;
+  }
 }
 
 ::-webkit-scrollbar {
@@ -64,15 +78,42 @@ body {
   display: none;
 }
 
-button {
-  background-color: $oxford-blue;
-  color: $platinum;
-  cursor: pointer;
-  border: 0;
-  border-radius: 8px;
+// fade transition
+.fade-enter-from,
+.fade-leave-to {
+  opacity: 0;
+}
+.fade-enter-active {
+  transition: all 0.2s ease-out;
+}
+.fade-leave-active {
+  transition: all 0.2s ease-in;
+}
+.fade-enter-to,
+.fade-leave-from {
+  opacity: 1;
+}
 
-  &:hover {
-    background-color: $oxford-blue-2-light;
-    color: $white;
-  }
+// Slide down
+.slide-down-enter-from {
+  opacity: 0;
+  transform: translateY(-100%);
+}
+.slide-down-enter-active {
+  transition: all 0.4s ease-out;
+}
+.slide-down-enter-to {
+  opacity: 1;
+  transform: translateY(0);
+}
+.slide-down-leave-from {
+  opacity: 1;
+  transform: translateY(0);
+}
+.slide-down-leave-active {
+  transition: all 0.4s ease-in;
+}
+.slide-down-leave-to {
+  opacity: 0;
+  transform: translateY(-100%);
 }
