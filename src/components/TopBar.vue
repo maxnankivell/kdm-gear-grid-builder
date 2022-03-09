@@ -14,7 +14,6 @@ import { storeToRefs } from "pinia";
 const { gridState } = storeToRefs(useGridStateStore());
 
 function onClear() {
-  console.log("onClear");
   if (gridState.value === "one") {
     gridState.value = "four";
     setTimeout(() => (gridState.value = "one"), 1);
