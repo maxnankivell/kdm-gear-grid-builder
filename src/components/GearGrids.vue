@@ -3,6 +3,10 @@
     <Transition name="fade" mode="out-in">
       <div v-if="gridState === 'four'" class="gear-grids-container-four">
         <div v-for="index in 4" :key="index" class="gear-grid">
+          <div class="grid-header">
+            <h1>Survivor {{ index }}:</h1>
+            <button style="flex-grow: 0" @click="clearOneGrid(index)">Clear</button>
+          </div>
           <ImageDropZone
             v-for="index2 in 9"
             :id="'' + index + index2"
@@ -16,6 +20,10 @@
         <ph-caret-left v-if="currentDisplay > 1" class="arrow left-arrow" :size="64" @click="cycleGrid(-1)" />
         <Transition :name="currentDisplay > previousDisplay ? 'cycle-right' : 'cycle-left'" mode="out-in">
           <div v-if="currentDisplay === 1" key="1" class="gear-grid">
+            <div class="grid-header">
+              <h1>Survivor 1:</h1>
+              <button style="flex-grow: 0" @click="clearOneGrid(1)">Clear</button>
+            </div>
             <ImageDropZone
               v-for="index in 9"
               :id="'' + 1 + index"
@@ -25,6 +33,10 @@
             />
           </div>
           <div v-else-if="currentDisplay === 2" key="2" class="gear-grid">
+            <div class="grid-header">
+              <h1>Survivor 2:</h1>
+              <button style="flex-grow: 0" @click="clearOneGrid(2)">Clear</button>
+            </div>
             <ImageDropZone
               v-for="index in 9"
               :id="'' + 2 + index"
@@ -34,6 +46,10 @@
             />
           </div>
           <div v-else-if="currentDisplay === 3" key="3" class="gear-grid">
+            <div class="grid-header">
+              <h1>Survivor 3:</h1>
+              <button style="flex-grow: 0" @click="clearOneGrid(3)">Clear</button>
+            </div>
             <ImageDropZone
               v-for="index in 9"
               :id="'' + 3 + index"
@@ -43,6 +59,10 @@
             />
           </div>
           <div v-else-if="currentDisplay === 4" key="4" class="gear-grid">
+            <div class="grid-header">
+              <h1>Survivor 4:</h1>
+              <button style="flex-grow: 0" @click="clearOneGrid(4)">Clear</button>
+            </div>
             <ImageDropZone
               v-for="index in 9"
               :id="'' + 4 + index"
@@ -82,14 +102,20 @@ const imageLocations: ImageLocations = reactive({});
 
 onBeforeMount(() => fillImageLocations());
 
-watch(gridState, () => hideXOverflow("scroll-pane", 1000));
+// watch(gridState, () => hideXOverflow("scroll-pane", 1000));
 watch(clearButtonState, () => {
   fillImageLocations();
   clearButtonState.value = false;
 });
 
+function clearOneGrid(index: number) {
+  for (let i = 1; i <= 9; i++) {
+    imageLocations["" + index + i] = defaultImage.value;
+  }
+}
+
 function cycleGrid(change: number) {
-  hideXOverflow("scroll-pane", 1000);
+  // hideXOverflow("scroll-pane", 2000);
 
   previousDisplay.value = currentDisplay.value;
   currentDisplay.value = currentDisplay.value + change;
@@ -103,20 +129,20 @@ function fillImageLocations() {
   }
 }
 
-function hideXOverflow(elementId: string, time: number) {
-  // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-  document.getElementById(elementId)!.style.overflowX = "hidden";
-  setTimeout(function () {
-    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-    document.getElementById(elementId)!.style.overflowX = "auto";
-  }, time);
-}
+// function hideXOverflow(elementId: string, time: number) {
+//   // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+//   document.getElementById(elementId)!.style.overflowX = "hidden";
+//   setTimeout(function () {
+//     // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+//     document.getElementById(elementId)!.style.overflowX = "auto";
+//   }, time);
+// }
 </script>
 
 <style scoped lang="scss">
 #scroll-pane {
   display: grid;
-  overflow: auto;
+  overflow: hidden;
   position: relative;
 }
 
@@ -133,10 +159,18 @@ function hideXOverflow(elementId: string, time: number) {
   margin: auto;
 }
 
+.grid-header {
+  grid-area: 1/1/1/4;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1.6rem;
+}
+
 .gear-grid {
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
-  grid-template-rows: 1fr 1fr 1fr;
+  grid-template-rows: auto 1fr 1fr 1fr;
   gap: 0.8rem;
   margin: auto;
 }

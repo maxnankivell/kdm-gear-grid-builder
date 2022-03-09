@@ -31,22 +31,25 @@ export const useImageSize = computed((): number => {
     }
     return 250;
   } else {
-    if (width.value < 1160 || height.value < 780) {
+    if (width.value < 960 || height.value < 700) {
+      return 110;
+    }
+    if (width.value < 1160 || height.value < 830) {
       return 150;
     }
-    if (width.value < 1360 || height.value < 930) {
+    if (width.value < 1360 || height.value < 980) {
       return 190;
     }
-    if (width.value < 1560 || height.value < 1030) {
+    if (width.value < 1560 || height.value < 1080) {
       return 230;
     }
-    if (width.value < 1760 || height.value < 1150) {
+    if (width.value < 1760 || height.value < 1200) {
       return 270;
     }
-    if (width.value < 1960 || height.value < 1250) {
+    if (width.value < 1960 || height.value < 1300) {
       return 310;
     }
-    if (width.value < 2160 || height.value < 1370) {
+    if (width.value < 2160 || height.value < 1420) {
       return 350;
     }
     return 390;
