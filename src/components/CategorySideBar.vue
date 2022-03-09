@@ -10,6 +10,7 @@
 import { reactive, ref } from "vue";
 import gearArray from "../gear-array";
 import ImageAccordion from "./ImageAccordion.vue";
+import { useSideBarSpacingDecorated } from "@/coded-styles";
 
 const categories = ref<string[]>([]);
 for (const gear of gearArray) {
@@ -41,8 +42,8 @@ for (const category of categories.value) {
 .category-container {
   display: flex;
   flex-direction: column;
-  gap: 0.8rem;
-  padding: 8px;
+  gap: v-bind(useSideBarSpacingDecorated);
+  padding: v-bind(useSideBarSpacingDecorated);
   overflow-x: hidden;
   overflow-y: auto;
   background-color: $black-1-light;

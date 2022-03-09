@@ -9,4 +9,4 @@ export const useGridStateStore = defineStore("gridStateStore", () => {
 
 // import { useGridStateStore } from '@/grid-state-store'
 // import { storeToRefs } from 'pinia'
-// const { gridState } = storeToRefs(useStore())
+// const { gridState } = storeToRefs(useGridStateStore())

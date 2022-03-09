@@ -25,7 +25,7 @@ const { gridState } = storeToRefs(useGridStateStore());
   align-items: center;
   justify-content: center;
   height: 40px;
-  padding: 0 1.2rem;
+  padding: 2rem 1.2rem;
   border-right: 2px solid $black;
   color: $white;
   cursor: pointer;

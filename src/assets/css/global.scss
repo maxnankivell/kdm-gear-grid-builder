@@ -21,6 +21,18 @@ html {
   font-family: "Roboto", sans-serif;
 }
 
+@media only screen and (min-width: 1950px) {
+  html {
+    font-size: 87.5%;
+  }
+}
+
+@media only screen and (min-width: 1500px) {
+  html {
+    font-size: 75%;
+  }
+}
+
 body {
   margin: 0;
 }
@@ -31,12 +43,6 @@ body {
   background-color: black;
   width: 100vw;
   height: 100vh;
-}
-
-@media only screen and (min-width: 600px) {
-  #app {
-    background-color: green;
-  }
 }
 
 ::-webkit-scrollbar {

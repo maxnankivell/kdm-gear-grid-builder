@@ -2,7 +2,10 @@
   <div>
     <div
       class="accordion-header"
-      :style="{ 'border-radius': isOpen ? '8px 8px 0 0 ' : '8px' }"
+      :style="{
+        'border-radius': isOpen ? '8px 8px 0 0 ' : '8px',
+        width: useImageSize * 2 + useSideBarSpacingRaw * 3 + `px`,
+      }"
       @click="isOpen = !isOpen"
     >
       <div class="question">{{ category }}</div>
@@ -10,7 +13,13 @@
     </div>
     <div v-if="isOpen" class="image-container">
       <template v-for="image in images" :key="image">
-        <img :src="image" alt="gear image" class="image" draggable="true" @dragstart="onDragStart($event, image)" />
+        <img
+          :src="image"
+          alt="gear image"
+          :style="{ width: useImageSize + `px`, height: useImageSize + `px` }"
+          draggable="true"
+          @dragstart="onDragStart($event, image)"
+        />
       </template>
     </div>
   </div>
@@ -19,6 +28,7 @@
 <script setup lang="ts">
 import { defineProps, ref } from "vue";
 import { PhCaretDown } from "phosphor-vue";
+import { useImageSize, useSideBarSpacingRaw, useSideBarSpacingDecorated } from "@/coded-styles";
 
 interface Props {
   category: string;
@@ -65,7 +75,8 @@ function onDragStart(event: DragEvent, imageSource: string) {
   display: grid;
   grid-template-columns: 1fr 1fr;
   grid-template-rows: auto;
-  padding: 8px;
+  padding: v-bind(useSideBarSpacingDecorated);
+  gap: v-bind(useSideBarSpacingDecorated);
   background-color: $oxford-blue-1-light;
 }
 

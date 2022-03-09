@@ -11,7 +11,7 @@
       <img
         :src="imageSource"
         :class="{ 'no-drag': isDefaultImage }"
-        :style="{ width: useImageSize, height: useImageSize }"
+        :style="{ width: useImageSize + `px`, height: useImageSize + `px` }"
         :draggable="!isDefaultImage"
         @dragstart="onDragStart($event)"
         @dragend="onDragEnd($event)"
@@ -22,7 +22,7 @@
 
 <script setup lang="ts">
 import { computed, ref, defineProps } from "vue";
-import { useImageSize } from "@/window-size-calculator";
+import { useImageSize } from "@/coded-styles";
 
 interface Props {
   id: string;

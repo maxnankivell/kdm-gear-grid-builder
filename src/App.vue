@@ -17,8 +17,8 @@ import CategorySideBar from "@/components/CategorySideBar.vue";
   display: grid;
   height: 100vh;
   width: 100vw;
-  grid-template-columns: 300px 1fr;
-  grid-template-rows: 40px 1fr;
+  grid-template-columns: auto 1fr;
+  grid-template-rows: auto 1fr;
   grid-template-areas:
     "header header"
     "sidebar gear-grid";
