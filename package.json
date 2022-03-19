@@ -10,12 +10,14 @@
     "deploy": "vue-tsc --noEmit && vite build && git checkout main && git add dist -f && git commit -m 'deploy' && git subtree push --prefix dist origin gh-pages"
   },
   "dependencies": {
+    "lodash": "^4.17.21",
     "phosphor-vue": "next",
     "pinia": "^2.0.11",
     "vue": "^3.2.25",
     "vue-window-size": "^1.1.2"
   },
   "devDependencies": {
+    "@types/lodash": "^4.14.180",
     "@types/node": "^17.0.21",
     "@typescript-eslint/eslint-plugin": "^5.13.0",
     "@typescript-eslint/parser": "^5.13.0",

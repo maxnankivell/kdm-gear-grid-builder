@@ -12,7 +12,7 @@
         :src="imageSource"
         class="image"
         :class="{ 'no-drag': isDefaultImage }"
-        :style="{ width: useImageSize + `px`, height: useImageSize + `px` }"
+        :style="{ width: imageSize + `px`, height: imageSize + `px` }"
         :draggable="!isDefaultImage"
         @dragstart="onDragStart($event)"
         @dragend="onDragEnd($event)"
@@ -41,6 +41,8 @@ const imageSource = computed({
   get: () => props.imageSource,
   set: (newValue: string) => emit("update:image-source", newValue),
 });
+
+const imageSize = useImageSize();
 
 let dropId = `-1`;
 
@@ -95,7 +97,7 @@ function onDragEnd(event: DragEvent): void {
 }
 
 .image {
-  transition: all 0.4s linear;
+  transition: all 0.25s linear;
 
   cursor: grab;
   cursor: -moz-grab;

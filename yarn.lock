@@ -159,6 +159,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@types/lodash@npm:^4.14.180":
+  version: 4.14.180
+  resolution: "@types/lodash@npm:4.14.180"
+  checksum: fc42ae3473695cac6e91553f832fef8eb51a31c1c0381cafa81b00dc3efe18e279786bdda77caf0b90a8340ba2ba7aa46ae6541d69870565f775d04c89128bc1
+  languageName: node
+  linkType: hard
+
 "@types/node@npm:^17.0.21":
   version: 17.0.21
   resolution: "@types/node@npm:17.0.21"
@@ -1962,6 +1969,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "kdm-gear-grid@workspace:."
   dependencies:
+    "@types/lodash": ^4.14.180
     "@types/node": ^17.0.21
     "@typescript-eslint/eslint-plugin": ^5.13.0
     "@typescript-eslint/parser": ^5.13.0
@@ -1972,6 +1980,7 @@ __metadata:
     eslint-config-prettier: ^8.4.0
     eslint-plugin-prettier: ^4.0.0
     eslint-plugin-vue: ^8.5.0
+    lodash: ^4.17.21
     phosphor-vue: next
     pinia: ^2.0.11
     prettier: ^2.5.1

@@ -19,7 +19,8 @@ html {
   /* Percentage of user's browser font-size setting */
   font-size: 62.5%;
   font-family: "Roboto", sans-serif;
-  transition: font-size 0.4s linear;
+  transition: font-size 0.25s linear;
+  line-height: 1;
 }
 
 body {
@@ -45,9 +46,10 @@ button {
   color: $platinum;
   cursor: pointer;
   border: 0;
-  border-radius: 8px;
-  padding: 12px;
-  transition: all 0.4s linear;
+  border-radius: 0.8rem;
+  padding: 1.2rem;
+  font-size: 1.2rem;
+  transition: all 0.25s linear;
 
   &:hover {
     background-color: $oxford-blue-2-light;
@@ -92,10 +94,10 @@ button {
   opacity: 0;
 }
 .fade-enter-active {
-  transition: all 0.2s ease-out;
+  transition: all 0.15s ease-out;
 }
 .fade-leave-active {
-  transition: all 0.2s ease-in;
+  transition: all 0.15s ease-in;
 }
 .fade-enter-to,
 .fade-leave-from {
@@ -108,7 +110,7 @@ button {
   transform: translateY(-100%);
 }
 .slide-down-enter-active {
-  transition: all 0.4s ease-out;
+  transition: all 0.25s ease-out;
 }
 .slide-down-enter-to {
   opacity: 1;
@@ -119,7 +121,7 @@ button {
   transform: translateY(0);
 }
 .slide-down-leave-active {
-  transition: all 0.4s ease-in;
+  transition: all 0.25s ease-in;
 }
 .slide-down-leave-to {
   opacity: 0;

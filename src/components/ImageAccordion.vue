@@ -4,7 +4,7 @@
       class="accordion-header"
       :style="{
         'border-radius': isOpen ? '8px 8px 0 0 ' : '8px',
-        width: useImageSize * 2 + useSideBarSpacingRaw * 3 + `px`,
+        width: imageSize * 2 + useSideBarSpacingRaw * 3 + `px`,
       }"
       @click="isOpen = !isOpen"
       @mouseenter="isHovered = true"
@@ -44,6 +44,8 @@ const props = defineProps<Props>();
 const isOpen = ref(false);
 const isHovered = ref(false);
 
+const imageSize = useImageSize();
+
 const formattedCategory = computed(() => {
   const result = props.category.split("-");
   for (let i = 0; i < result.length; i++) {
@@ -52,7 +54,7 @@ const formattedCategory = computed(() => {
   return result.join(" ");
 });
 
-const formattedImageSize = computed(() => useImageSize.value + `px`);
+const formattedImageSize = computed(() => imageSize.value + `px`);
 
 function onDragStart(event: DragEvent, imageSource: string) {
   if (!event.dataTransfer) {
@@ -74,7 +76,7 @@ function onDragStart(event: DragEvent, imageSource: string) {
   background-color: $oxford-blue;
   color: $platinum;
   cursor: pointer;
-  transition: all 0.4s linear;
+  transition: all 0.25s linear;
   // border-radius: 8px; handled by inline style
 
   &:hover {
@@ -90,7 +92,7 @@ function onDragStart(event: DragEvent, imageSource: string) {
 
 .chevron {
   margin-left: auto;
-  transition: transform 0.4s linear;
+  transition: transform 0.25s linear;
 }
 
 .rotate-chevron-90 {
@@ -111,7 +113,7 @@ function onDragStart(event: DragEvent, imageSource: string) {
 }
 
 .image {
-  transition: all 0.4s linear;
+  transition: all 0.25s linear;
 
   width: v-bind(formattedImageSize);
   height: v-bind(formattedImageSize);

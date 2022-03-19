@@ -1,10 +1,8 @@
 <template>
   <div>
     <nav class="nav">
-      <div class="nav-option right-nav-option" @click="gridState = 'one'">Cycle</div>
-      <div class="nav-option right-nav-option" @click="gridState = 'four'">Scroll</div>
-      <div class="nav-option left-nav-option" style="margin-left: auto" @click="showModal = true">Clear</div>
-      <div class="nav-option left-nav-option save-button">Save Grids</div>
+      <div class="nav-option" style="margin-left: auto" @click="showModal = true">Global Clear</div>
+      <div class="nav-option save-button">Export Grids</div>
     </nav>
     <ModalWindow v-if="showModal">
       <div class="modal">
@@ -18,14 +16,12 @@
 </template>
 
 <script setup lang="ts">
-import { useGridStateStore } from "@/grid-state-store";
 import { useClearButtonStore } from "@/clear-button-store";
 import { storeToRefs } from "pinia";
 import { useSideBarSpacingDecorated } from "@/coded-styles";
 import ModalWindow from "@/components/ModalWindow.vue";
 import { ref } from "vue";
 
-const { gridState } = storeToRefs(useGridStateStore());
 const { clearButtonState } = storeToRefs(useClearButtonStore());
 
 const showModal = ref(false);
@@ -39,6 +35,7 @@ function onYes() {
 <style scoped lang="scss">
 .nav {
   display: flex;
+  justify-content: end;
   background-color: $oxford-blue;
   font-size: 1.6rem;
 }
@@ -50,27 +47,20 @@ function onYes() {
   height: 40px;
   padding: 2rem 1.2rem;
   color: $white;
+  border-left: 2px solid $black;
   cursor: pointer;
-  transition: all 0.4s linear;
+  transition: all 0.25s linear;
 
   &:hover {
     background-color: $oxford-blue-2-light;
   }
 }
 
-.right-nav-option {
-  border-right: 2px solid $black;
-}
-
-.left-nav-option {
-  border-left: 2px solid $black;
-}
-
 .save-button {
   border-right: 0 solid $black;
   border-left: 2px solid $black;
   background-color: $orange-web;
-  transition: all 0.4s linear;
+  transition: all 0.25s linear;
 
   &:hover {
     background-color: $orange-web-2-light;
