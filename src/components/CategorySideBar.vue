@@ -59,6 +59,16 @@ for (const category of allCategoriesOnGear) {
       imagesByCategory[category].push(gear.source);
     }
   }
+
+  imagesByCategory[category].sort((a, b) => {
+    const aFormatted = a.split("/")[a.split("/").length - 1].split(".")[0].replaceAll("_", " ");
+    const bFormatted = b.split("/")[a.split("/").length - 1].split(".")[0].replaceAll("_", " ");
+    if ([aFormatted, bFormatted].sort()[0] === aFormatted) {
+      return -1;
+    } else {
+      return 1;
+    }
+  });
 }
 </script>
 
