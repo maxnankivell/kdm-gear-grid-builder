@@ -1,10 +1,10 @@
 <template>
   <div>
     <nav class="nav">
-      <div class="nav-option" style="margin-left: auto" @click="showModal = true">Global Clear</div>
-      <div class="nav-option save-button">Export Grids</div>
+      <div class="nav-option" @click="showModal = true">Global Clear</div>
+      <div class="nav-option save-button" @click="showExportGridModal = true">Export Grids</div>
     </nav>
-    <ModalWindow v-if="showModal">
+    <ModalWindow v-if="showModal" :width="'420px'" :height="'220px'">
       <div class="modal">
         <h2 style="grid-area: header">Confirm</h2>
         <p style="grid-area: paragraph">Are you sure you want to clear ALL grids?</p>
@@ -21,7 +21,9 @@ import { storeToRefs } from "pinia";
 import { useSideBarSpacingDecorated } from "@/coded-styles";
 import ModalWindow from "@/components/ModalWindow.vue";
 import { ref } from "vue";
+import { useNavBarStateStore } from "@/nav-bar-state-store";
 
+const { showExportGridModal } = storeToRefs(useNavBarStateStore());
 const { clearButtonState } = storeToRefs(useClearButtonStore());
 
 const showModal = ref(false);

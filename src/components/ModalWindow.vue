@@ -7,6 +7,14 @@
 
 <script setup lang="ts">
 import { useSideBarSpacingDecorated } from "@/coded-styles";
+import { computed, defineProps, ref } from "vue";
+
+interface Props {
+  width: string;
+  height: string;
+}
+
+const props = defineProps<Props>();
 </script>
 
 <style scoped lang="scss">
@@ -15,8 +23,8 @@ import { useSideBarSpacingDecorated } from "@/coded-styles";
   left: 50vw;
   top: 50vh;
   transform: translate(-50%, -50%);
-  width: 420px;
-  height: 220px;
+  width: v-bind(width);
+  height: v-bind(height);
   display: flex;
   flex-direction: column;
   gap: v-bind(useSideBarSpacingDecorated);

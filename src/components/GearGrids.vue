@@ -30,7 +30,7 @@
         </div>
         <ph-caret-left v-if="currentDisplay > 1" class="arrow left-arrow" :size="72" @click="cycleGrid(-1)" />
         <Transition :name="currentDisplay > previousDisplay ? 'cycle-right' : 'cycle-left'" mode="out-in">
-          <div v-if="currentDisplay === 1" key="1" class="gear-grid">
+          <div v-if="currentDisplay === 1" key="1" ref="gridDiv" class="gear-grid">
             <div class="grid-header">
               <div></div>
               <div>
@@ -106,12 +106,12 @@
         <ph-caret-right v-if="currentDisplay < 4" class="arrow right-arrow" :size="72" @click="cycleGrid(1)" />
       </div>
     </Transition>
-    <ModalWindow v-if="showModal">
+    <ModalWindow v-if="showExportGridModal" :width="'60%'" :height="'80%'">
       <div class="modal">
-        <h2 style="grid-area: header">Confirm</h2>
-        <p style="grid-area: paragraph">Are you sure you want to clear ALL grids?</p>
-        <button style="grid-area: yes" @click="onYes">Yes</button>
-        <button style="grid-area: no" @click="showModal = false">No</button>
+        <h2 style="grid-area: header">Test Header</h2>
+        <img ref="gridImage" style="grid-area: image; place-self: center" />
+        <button style="grid-area: yes" @click="download()">Download</button>
+        <button style="grid-area: no" @click="showExportGridModal = false">Close</button>
       </div>
     </ModalWindow>
   </div>
@@ -126,6 +126,11 @@ import { storeToRefs } from "pinia";
 import { computed, onBeforeMount, reactive, ref, watch } from "vue";
 import { PhCaretLeft, PhCaretRight } from "phosphor-vue";
 import { useSideBarSpacingDecorated } from "@/coded-styles";
+import * as htmlToImage from "html-to-image";
+import { toPng } from "html-to-image";
+import { useNavBarStateStore } from "@/nav-bar-state-store";
+import mergeImages from "merge-images";
+import { readAndCompressImage } from "browser-image-resizer";
 
 interface ImageLocations {
   [id: string]: string;
@@ -133,11 +138,44 @@ interface ImageLocations {
 
 const { gridState } = storeToRefs(useGridStateStore());
 const { clearButtonState } = storeToRefs(useClearButtonStore());
+const { showExportGridModal } = storeToRefs(useNavBarStateStore());
 
-const showModal = ref(false);
-function onYes() {
-  clearButtonState.value = true;
-  showModal.value = false;
+const gridDiv = ref<HTMLDivElement>();
+const gridImage = ref<HTMLImageElement>();
+
+async function download() {
+  if (!gridImage.value) {
+    console.error("image element is null");
+    return;
+  }
+  try {
+    const base64DataUrl = await mergeImages(
+      [
+        { src: imageLocations["11"], x: 0, y: 0 },
+        { src: imageLocations["12"], x: 520, y: 0 },
+        { src: imageLocations["13"], x: 1040, y: 0 },
+        { src: imageLocations["14"], x: 0, y: 520 },
+        { src: imageLocations["15"], x: 520, y: 520 },
+        { src: imageLocations["16"], x: 1040, y: 520 },
+        { src: imageLocations["17"], x: 0, y: 1040 },
+        { src: imageLocations["18"], x: 520, y: 1040 },
+        { src: imageLocations["19"], x: 1040, y: 1040 },
+      ],
+      {
+        width: 1540,
+        height: 1540,
+      }
+    );
+    const rawImageBlob = await (await fetch(base64DataUrl)).blob();
+    const resizedImageBlob = await readAndCompressImage(rawImageBlob, {
+      quality: 0.8,
+      width: 800,
+      height: 800,
+    });
+    gridImage.value.src = URL.createObjectURL(resizedImageBlob);
+  } catch (error) {
+    console.error("Image merge or resize failed", error);
+  }
 }
 
 const currentDisplay = ref(1);
@@ -150,11 +188,20 @@ const overflow = computed(() => (gridState.value === "one" ? "hidden" : "auto"))
 
 onBeforeMount(() => fillImageLocations());
 
-// watch(gridState, () => hideXOverflow("scroll-pane", 1000));
-watch(clearButtonState, () => {
+const someStore = useClearButtonStore();
+someStore.$subscribe(() => {
   fillImageLocations();
-  clearButtonState.value = false;
+  someStore.clearButtonState = false;
 });
+
+// watch(
+//   () => clearButtonState.value,
+//   () => {
+//     fillImageLocations();
+//     clearButtonState.value = false;
+//   }
+// );
+watch(gridImage, () => download());
 
 function clearOneGrid(index: number) {
   for (let i = 1; i <= 9; i++) {
@@ -163,8 +210,6 @@ function clearOneGrid(index: number) {
 }
 
 function cycleGrid(change: number) {
-  // hideXOverflow("scroll-pane", 2000);
-
   previousDisplay.value = currentDisplay.value;
   currentDisplay.value = currentDisplay.value + change;
 }
@@ -177,14 +222,7 @@ function fillImageLocations() {
   }
 }
 
-// function hideXOverflow(elementId: string, time: number) {
-//   // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-//   document.getElementById(elementId)!.style.overflowX = "hidden";
-//   setTimeout(function () {
-//     // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-//     document.getElementById(elementId)!.style.overflowX = "auto";
-//   }, time);
-// }
+const b64toBlob = async (base64: string) => (await fetch(base64)).blob();
 </script>
 
 <style scoped lang="scss">
@@ -249,6 +287,17 @@ function fillImageLocations() {
 
 .right-arrow {
   right: v-bind(useSideBarSpacingDecorated);
+}
+
+.modal {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: auto 1fr auto;
+  gap: v-bind(useSideBarSpacingDecorated);
+  grid-template-areas:
+    "header header"
+    "image image"
+    "yes no";
 }
 
 // cycle right
