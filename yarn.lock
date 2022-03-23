@@ -543,6 +543,49 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@vueuse/core@npm:^8.1.2":
+  version: 8.1.2
+  resolution: "@vueuse/core@npm:8.1.2"
+  dependencies:
+    "@vueuse/metadata": 8.1.2
+    "@vueuse/shared": 8.1.2
+    vue-demi: "*"
+  peerDependencies:
+    "@vue/composition-api": ^1.1.0
+    vue: ^2.6.0 || ^3.2.0
+  peerDependenciesMeta:
+    "@vue/composition-api":
+      optional: true
+    vue:
+      optional: true
+  checksum: 3fe0ea7883ac7cf513ab5149de234ca779097d8c920aa95973ae4d2b46613b7ca88c4e75fffa13d9e91a6c9943ad88965527ecd2974085a5e4afc361c088278b
+  languageName: node
+  linkType: hard
+
+"@vueuse/metadata@npm:8.1.2":
+  version: 8.1.2
+  resolution: "@vueuse/metadata@npm:8.1.2"
+  checksum: 84c42f893bf16504b33ec33e8b58cc1f2bb982d03889c6259d5ad51054aeab6136e3913e5954152a67c45579fbd1556c681efef9121c886d09ec4c6a64c80878
+  languageName: node
+  linkType: hard
+
+"@vueuse/shared@npm:8.1.2":
+  version: 8.1.2
+  resolution: "@vueuse/shared@npm:8.1.2"
+  dependencies:
+    vue-demi: "*"
+  peerDependencies:
+    "@vue/composition-api": ^1.1.0
+    vue: ^2.6.0 || ^3.2.0
+  peerDependenciesMeta:
+    "@vue/composition-api":
+      optional: true
+    vue:
+      optional: true
+  checksum: 45ecac2c4aada45aec2568411e95a39cb5797395bb3d8315c113863c7ffde563e467bd23a6ee3b8e834980217609354b992231c98dc148528bc352cfe98e7eb7
+  languageName: node
+  linkType: hard
+
 "abbrev@npm:1":
   version: 1.1.1
   resolution: "abbrev@npm:1.1.1"
@@ -2021,6 +2064,7 @@ __metadata:
     "@vitejs/plugin-vue": ^2.2.0
     "@vue/eslint-config-prettier": ^7.0.0
     "@vue/eslint-config-typescript": ^10.0.0
+    "@vueuse/core": ^8.1.2
     browser-image-resizer: ^2.2.1
     eslint: ^8.10.0
     eslint-config-prettier: ^8.4.0

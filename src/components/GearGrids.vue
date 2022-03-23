@@ -3,16 +3,16 @@
     <Transition name="fade" mode="out-in">
       <div v-if="gridState === 'four'" class="gear-grids-container-four">
         <div class="swap-grid-button-container">
-          <button class="swap-grid-button" @click="gridState = 'one'">Single Grid</button>
+          <button class="swap-grid-button" @click="gridState = 'one'">Change To Single Grid View</button>
         </div>
         <div v-for="index in 4" :key="index" class="gear-grid">
-          <div class="grid-header">
+          <div style="grid-area: 1/1/1/4" class="grid-header">
             <div></div>
             <div>
               <h1>Survivor {{ index }}</h1>
             </div>
             <div style="justify-self: end">
-              <button style="font-size: 1.4rem" @click="clearOneGrid(index)">Clear</button>
+              <button @click="clearOneGrid(index)">Clear</button>
             </div>
           </div>
           <ImageDropZone
@@ -26,18 +26,18 @@
       </div>
       <div v-else-if="gridState === 'one'" class="gear-grids-container-one">
         <div class="swap-grid-button-container">
-          <button class="swap-grid-button" @click="gridState = 'four'">All Grids</button>
+          <button class="swap-grid-button" @click="gridState = 'four'">Change To All Grid View</button>
         </div>
         <ph-caret-left v-if="currentDisplay > 1" class="arrow left-arrow" :size="72" @click="cycleGrid(-1)" />
         <Transition :name="currentDisplay > previousDisplay ? 'cycle-right' : 'cycle-left'" mode="out-in">
-          <div v-if="currentDisplay === 1" key="1" ref="gridDiv" class="gear-grid">
-            <div class="grid-header">
+          <div v-if="currentDisplay === 1" key="1" class="gear-grid">
+            <div style="grid-area: 1/1/1/4" class="grid-header">
               <div></div>
               <div>
                 <h1>Survivor 1</h1>
               </div>
               <div style="justify-self: end">
-                <button style="font-size: 1.4rem" @click="clearOneGrid(1)">Clear</button>
+                <button @click="clearOneGrid(1)">Clear</button>
               </div>
             </div>
             <ImageDropZone
@@ -49,13 +49,13 @@
             />
           </div>
           <div v-else-if="currentDisplay === 2" key="2" class="gear-grid">
-            <div class="grid-header">
+            <div style="grid-area: 1/1/1/4" class="grid-header">
               <div></div>
               <div>
                 <h1>Survivor 2</h1>
               </div>
               <div style="justify-self: end">
-                <button style="font-size: 1.4rem" @click="clearOneGrid(2)">Clear</button>
+                <button @click="clearOneGrid(2)">Clear</button>
               </div>
             </div>
             <ImageDropZone
@@ -67,13 +67,13 @@
             />
           </div>
           <div v-else-if="currentDisplay === 3" key="3" class="gear-grid">
-            <div class="grid-header">
+            <div style="grid-area: 1/1/1/4" class="grid-header">
               <div></div>
               <div>
                 <h1>Survivor 3</h1>
               </div>
               <div style="justify-self: end">
-                <button style="font-size: 1.4rem" @click="clearOneGrid(3)">Clear</button>
+                <button @click="clearOneGrid(3)">Clear</button>
               </div>
             </div>
             <ImageDropZone
@@ -85,13 +85,13 @@
             />
           </div>
           <div v-else-if="currentDisplay === 4" key="4" class="gear-grid">
-            <div class="grid-header">
+            <div style="grid-area: 1/1/1/4" class="grid-header">
               <div></div>
               <div>
                 <h1>Survivor 4</h1>
               </div>
               <div style="justify-self: end">
-                <button style="font-size: 1.4rem" @click="clearOneGrid(4)">Clear</button>
+                <button @click="clearOneGrid(4)">Clear</button>
               </div>
             </div>
             <ImageDropZone
@@ -106,77 +106,38 @@
         <ph-caret-right v-if="currentDisplay < 4" class="arrow right-arrow" :size="72" @click="cycleGrid(1)" />
       </div>
     </Transition>
-    <ModalWindow v-if="showExportGridModal" :width="'60%'" :height="'80%'">
-      <div class="modal">
-        <h2 style="grid-area: header">Test Header</h2>
-        <img ref="gridImage" style="grid-area: image; place-self: center" />
-        <button style="grid-area: yes" @click="download()">Download</button>
-        <button style="grid-area: no" @click="showExportGridModal = false">Close</button>
+    <ExportGridModal
+      v-if="showExportGridModal"
+      :image-locations="imageLocations"
+      :modal-width="'60vw'"
+      :modal-height="'90vh'"
+      @close="showExportGridModal = false"
+    />
+    <ModalWindow v-if="showClearAllModal" :modal-width="'420px'" :modal-height="'220px'">
+      <div class="clear-all-modal">
+        <h1 style="grid-area: header">Confirm</h1>
+        <p style="grid-area: paragraph; font-size: 1.2rem">Are you sure you want to clear ALL grids?</p>
+        <button style="grid-area: yes" @click="onClearAll">Yes</button>
+        <button style="grid-area: no" @click="showClearAllModal = false">No</button>
       </div>
     </ModalWindow>
   </div>
 </template>
 
 <script setup lang="ts">
-import ImageDropZone from "./ImageDropZone.vue";
+import ImageDropZone from "@/components/ImageDropZone.vue";
 import ModalWindow from "@/components/ModalWindow.vue";
 import { useGridStateStore } from "@/grid-state-store";
-import { useClearButtonStore } from "@/clear-button-store";
 import { storeToRefs } from "pinia";
-import { computed, onBeforeMount, reactive, ref, watch } from "vue";
+import { computed, onBeforeMount, reactive, ref } from "vue";
 import { PhCaretLeft, PhCaretRight } from "phosphor-vue";
 import { useSideBarSpacingDecorated } from "@/coded-styles";
-import * as htmlToImage from "html-to-image";
-import { toPng } from "html-to-image";
 import { useNavBarStateStore } from "@/nav-bar-state-store";
-import mergeImages from "merge-images";
-import { readAndCompressImage } from "browser-image-resizer";
-
-interface ImageLocations {
-  [id: string]: string;
-}
+import { ImageLocations } from "@/types";
+import ExportGridModal from "./ExportGridModal.vue";
 
 const { gridState } = storeToRefs(useGridStateStore());
-const { clearButtonState } = storeToRefs(useClearButtonStore());
-const { showExportGridModal } = storeToRefs(useNavBarStateStore());
-
-const gridDiv = ref<HTMLDivElement>();
-const gridImage = ref<HTMLImageElement>();
-
-async function download() {
-  if (!gridImage.value) {
-    console.error("image element is null");
-    return;
-  }
-  try {
-    const base64DataUrl = await mergeImages(
-      [
-        { src: imageLocations["11"], x: 0, y: 0 },
-        { src: imageLocations["12"], x: 520, y: 0 },
-        { src: imageLocations["13"], x: 1040, y: 0 },
-        { src: imageLocations["14"], x: 0, y: 520 },
-        { src: imageLocations["15"], x: 520, y: 520 },
-        { src: imageLocations["16"], x: 1040, y: 520 },
-        { src: imageLocations["17"], x: 0, y: 1040 },
-        { src: imageLocations["18"], x: 520, y: 1040 },
-        { src: imageLocations["19"], x: 1040, y: 1040 },
-      ],
-      {
-        width: 1540,
-        height: 1540,
-      }
-    );
-    const rawImageBlob = await (await fetch(base64DataUrl)).blob();
-    const resizedImageBlob = await readAndCompressImage(rawImageBlob, {
-      quality: 0.8,
-      width: 800,
-      height: 800,
-    });
-    gridImage.value.src = URL.createObjectURL(resizedImageBlob);
-  } catch (error) {
-    console.error("Image merge or resize failed", error);
-  }
-}
+const { showExportGridModal, showClearAllModal } = storeToRefs(useNavBarStateStore());
 
 const currentDisplay = ref(1);
 const previousDisplay = ref(1);
@@ -186,22 +147,7 @@ const imageLocations: ImageLocations = reactive({});
 
 const overflow = computed(() => (gridState.value === "one" ? "hidden" : "auto"));
 
-onBeforeMount(() => fillImageLocations());
-
-const someStore = useClearButtonStore();
-someStore.$subscribe(() => {
-  fillImageLocations();
-  someStore.clearButtonState = false;
-});
-
-// watch(
-//   () => clearButtonState.value,
-//   () => {
-//     fillImageLocations();
-//     clearButtonState.value = false;
-//   }
-// );
-watch(gridImage, () => download());
+onBeforeMount(() => resetImagesToDefault());
 
 function clearOneGrid(index: number) {
   for (let i = 1; i <= 9; i++) {
@@ -214,7 +160,7 @@ function cycleGrid(change: number) {
   currentDisplay.value = currentDisplay.value + change;
 }
 
-function fillImageLocations() {
+function resetImagesToDefault() {
   for (let i = 1; i <= 4; i++) {
     for (let j = 1; j <= 9; j++) {
       imageLocations["" + i + j] = defaultImage.value;
@@ -222,7 +168,10 @@ function fillImageLocations() {
   }
 }
 
-const b64toBlob = async (base64: string) => (await fetch(base64)).blob();
+function onClearAll() {
+  resetImagesToDefault();
+  showClearAllModal.value = false;
+}
 </script>
 
 <style scoped lang="scss">
@@ -258,7 +207,6 @@ const b64toBlob = async (base64: string) => (await fetch(base64)).blob();
 }
 
 .grid-header {
-  grid-area: 1/1/1/4;
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
   align-items: center;
@@ -289,14 +237,15 @@ const b64toBlob = async (base64: string) => (await fetch(base64)).blob();
   right: v-bind(useSideBarSpacingDecorated);
 }
 
-.modal {
+.clear-all-modal {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  grid-template-rows: auto 1fr auto;
+  grid-template-rows: 1fr 1fr;
+  height: 100%;
   gap: v-bind(useSideBarSpacingDecorated);
   grid-template-areas:
     "header header"
-    "image image"
+    "paragraph paragraph"
     "yes no";
 }
 

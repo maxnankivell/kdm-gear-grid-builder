@@ -1,10 +1,11 @@
 import { defineStore } from "pinia";
 import { ref } from "vue";
 
-export const useNavBarStateStore = defineStore("clearButtonStore", () => {
+export const useNavBarStateStore = defineStore("navBarStateStore", () => {
   const showExportGridModal = ref(false);
-  return { showExportGridModal };
+  const showClearAllModal = ref(false);
+  return { showExportGridModal, showClearAllModal };
 });
 
 // import { useNavBarStateStore } from "@/nav-bar-state-store";
-// const { showExportGridModal } = storeToRefs(useNavBarStateStore());
+// const { showExportGridModal, showClearAllModal } = storeToRefs(useNavBarStateStore());

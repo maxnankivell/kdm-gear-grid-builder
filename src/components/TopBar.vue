@@ -1,37 +1,17 @@
 <template>
   <div>
     <nav class="nav">
-      <div class="nav-option" @click="showModal = true">Global Clear</div>
+      <div class="nav-option" @click="showClearAllModal = true">Global Clear</div>
       <div class="nav-option save-button" @click="showExportGridModal = true">Export Grids</div>
     </nav>
-    <ModalWindow v-if="showModal" :width="'420px'" :height="'220px'">
-      <div class="modal">
-        <h2 style="grid-area: header">Confirm</h2>
-        <p style="grid-area: paragraph">Are you sure you want to clear ALL grids?</p>
-        <button style="grid-area: yes" @click="onYes">Yes</button>
-        <button style="grid-area: no" @click="showModal = false">No</button>
-      </div>
-    </ModalWindow>
   </div>
 </template>
 
 <script setup lang="ts">
-import { useClearButtonStore } from "@/clear-button-store";
 import { storeToRefs } from "pinia";
-import { useSideBarSpacingDecorated } from "@/coded-styles";
-import ModalWindow from "@/components/ModalWindow.vue";
-import { ref } from "vue";
 import { useNavBarStateStore } from "@/nav-bar-state-store";
 
-const { showExportGridModal } = storeToRefs(useNavBarStateStore());
-const { clearButtonState } = storeToRefs(useClearButtonStore());
-
-const showModal = ref(false);
-
-function onYes() {
-  clearButtonState.value = true;
-  showModal.value = false;
-}
+const { showExportGridModal, showClearAllModal } = storeToRefs(useNavBarStateStore());
 </script>
 
 <style scoped lang="scss">
@@ -67,16 +47,5 @@ function onYes() {
   &:hover {
     background-color: $orange-web-2-light;
   }
-}
-
-.modal {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  grid-template-rows: 1fr 1fr;
-  gap: v-bind(useSideBarSpacingDecorated);
-  grid-template-areas:
-    "header header"
-    "paragraph paragraph"
-    "yes no";
 }
 </style>
