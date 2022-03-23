@@ -21,7 +21,7 @@
           <div>Download Survivor: {{ index }}</div>
           <ToggleSwitch v-model="toggleSwitches[index - 1]"></ToggleSwitch>
         </div>
-        <button style="margin-top: 1.2rem" @click="download()">Download</button>
+        <button style="margin-top: 1.2rem" @click="downloadImage()">Download</button>
       </div>
     </div>
   </ModalWindow>
@@ -36,6 +36,7 @@ import { readAndCompressImage } from "browser-image-resizer";
 import { ImageLocations } from "@/types";
 import { useWindowSize } from "vue-window-size";
 import { watchDebounced } from "@vueuse/core";
+import download from "downloadjs";
 
 interface Props {
   imageLocations: ImageLocations;
@@ -68,8 +69,13 @@ onMounted(() => loadGridImagePreview());
 
 watchDebounced([width, height], () => loadGridImagePreview(), { debounce: 20 });
 
-function download() {
-  console.log("TODO");
+async function downloadImage() {
+  for (let i = 1; i <= toggleSwitches.value.length; i++) {
+    if (toggleSwitches.value[i - 1]) {
+      const test = await createGridImage(i);
+      download(test, "survivor-" + i + ".png", "image/png");
+    }
+  }
 }
 
 async function loadGridImagePreview() {

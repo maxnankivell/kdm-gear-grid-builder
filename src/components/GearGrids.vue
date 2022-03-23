@@ -127,14 +127,16 @@
 <script setup lang="ts">
 import ImageDropZone from "@/components/ImageDropZone.vue";
 import ModalWindow from "@/components/ModalWindow.vue";
-import { useGridStateStore } from "@/grid-state-store";
+import { useGridStateStore } from "@/stores/grid-state-store";
 import { storeToRefs } from "pinia";
-import { computed, onBeforeMount, reactive, ref } from "vue";
+import { computed, ref } from "vue";
 import { PhCaretLeft, PhCaretRight } from "phosphor-vue";
 import { useSideBarSpacingDecorated } from "@/coded-styles";
-import { useNavBarStateStore } from "@/nav-bar-state-store";
+import { useNavBarStateStore } from "@/stores/nav-bar-state-store";
 import { ImageLocations } from "@/types";
 import ExportGridModal from "./ExportGridModal.vue";
+import { useStorage } from "@vueuse/core";
+import initialImageStructure from "@/structures/initial-image-structure";
 
 const { gridState } = storeToRefs(useGridStateStore());
 const { showExportGridModal, showClearAllModal } = storeToRefs(useNavBarStateStore());
@@ -143,15 +145,13 @@ const currentDisplay = ref(1);
 const previousDisplay = ref(1);
 
 const defaultImage = ref(new URL("../assets/gear_default.webp", import.meta.url).href);
-const imageLocations: ImageLocations = reactive({});
+const imageLocations = useStorage<ImageLocations>("imageLocations", initialImageStructure);
 
 const overflow = computed(() => (gridState.value === "one" ? "hidden" : "auto"));
 
-onBeforeMount(() => resetImagesToDefault());
-
 function clearOneGrid(index: number) {
   for (let i = 1; i <= 9; i++) {
-    imageLocations["" + index + i] = defaultImage.value;
+    imageLocations.value["" + index + i] = defaultImage.value;
   }
 }
 
@@ -163,9 +163,10 @@ function cycleGrid(change: number) {
 function resetImagesToDefault() {
   for (let i = 1; i <= 4; i++) {
     for (let j = 1; j <= 9; j++) {
-      imageLocations["" + i + j] = defaultImage.value;
+      imageLocations.value["" + i + j] = defaultImage.value;
     }
   }
+  console.log(imageLocations.value);
 }
 
 function onClearAll() {

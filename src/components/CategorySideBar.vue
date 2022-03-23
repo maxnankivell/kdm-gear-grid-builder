@@ -15,8 +15,8 @@
 
 <script setup lang="ts">
 import { reactive, ref } from "vue";
-import gearArray from "../gear-array";
-import categoryStructure from "../category-structure";
+import gearArray from "@/structures/gear-array";
+import categoryStructure from "../structures/category-structure";
 import ImageAccordion from "./ImageAccordion.vue";
 import { useSideBarSpacingDecorated } from "@/coded-styles";
 import { startCase } from "lodash";

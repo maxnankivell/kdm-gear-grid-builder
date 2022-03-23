@@ -1,6 +1,6 @@
 import { computed, ref } from "vue";
 import { useWindowSize } from "vue-window-size";
-import { useGridStateStore } from "@/grid-state-store";
+import { useGridStateStore } from "@/stores/grid-state-store";
 import { storeToRefs } from "pinia";
 
 // Returns size of image in pixels

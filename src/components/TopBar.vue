@@ -9,7 +9,7 @@
 
 <script setup lang="ts">
 import { storeToRefs } from "pinia";
-import { useNavBarStateStore } from "@/nav-bar-state-store";
+import { useNavBarStateStore } from "@/stores/nav-bar-state-store";
 
 const { showExportGridModal, showClearAllModal } = storeToRefs(useNavBarStateStore());
 </script>
