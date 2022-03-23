@@ -48,7 +48,7 @@ const gearArray: GearImage[] = [
   },
   {
     source: "gear-images/blacksmith/lantern_cuirass.webp",
-    categories: ["blacksmith", "armour", "set", "metal", "heavy", "chest-armour", "green", "blue"],
+    categories: ["blacksmith", "armour", "set", "metal", "heavy", "chest-armour", "green", "blue", "lantern-armour"],
   },
   {
     source: "gear-images/blacksmith/lantern_dagger.webp",
@@ -56,7 +56,7 @@ const gearArray: GearImage[] = [
   },
   {
     source: "gear-images/blacksmith/lantern_gauntlets.webp",
-    categories: ["blacksmith", "armour", "set", "metal", "heavy", "arm-armour", "green"],
+    categories: ["blacksmith", "armour", "set", "metal", "heavy", "arm-armour", "green", "lantern-armour"],
   },
   {
     source: "gear-images/blacksmith/lantern_glaive.webp",
@@ -64,15 +64,15 @@ const gearArray: GearImage[] = [
   },
   {
     source: "gear-images/blacksmith/lantern_greaves.webp",
-    categories: ["blacksmith", "armour", "set", "metal", "heavy", "leg-armour", "red", "blue"],
+    categories: ["blacksmith", "armour", "set", "metal", "heavy", "leg-armour", "red", "blue", "lantern-armour"],
   },
   {
     source: "gear-images/blacksmith/lantern_helm.webp",
-    categories: ["blacksmith", "armour", "set", "metal", "heavy", "head-armour", "blue"],
+    categories: ["blacksmith", "armour", "set", "metal", "heavy", "head-armour", "blue", "lantern-armour"],
   },
   {
     source: "gear-images/blacksmith/lantern_mail.webp",
-    categories: ["blacksmith", "armour", "set", "metal", "heavy", "waist-armour", "green"],
+    categories: ["blacksmith", "armour", "set", "metal", "heavy", "waist-armour", "green", "lantern-armour"],
   },
   {
     source: "gear-images/blacksmith/lantern_sword.webp",
@@ -178,23 +178,23 @@ const gearArray: GearImage[] = [
   },
   {
     source: "gear-images/catarium/white_lion_boots.webp",
-    categories: ["catarium", "armour", "set", "fur", "heavy", "leg-armour", "red"],
+    categories: ["catarium", "armour", "set", "fur", "heavy", "leg-armour", "red", "white-lion-armour"],
   },
   {
     source: "gear-images/catarium/white_lion_coat.webp",
-    categories: ["catarium", "armour", "set", "fur", "heavy", "chest-armour", "blue"],
+    categories: ["catarium", "armour", "set", "fur", "heavy", "chest-armour", "blue", "white-lion-armour"],
   },
   {
     source: "gear-images/catarium/white_lion_gauntlet.webp",
-    categories: ["catarium", "armour", "set", "fur", "heavy", "arm-armour"],
+    categories: ["catarium", "armour", "set", "fur", "heavy", "arm-armour", "white-lion-armour"],
   },
   {
     source: "gear-images/catarium/white_lion_helm.webp",
-    categories: ["catarium", "armour", "set", "fur", "heavy", "head-armour", "red"],
+    categories: ["catarium", "armour", "set", "fur", "heavy", "head-armour", "red", "white-lion-armour"],
   },
   {
     source: "gear-images/catarium/white_lion_skirt.webp",
-    categories: ["catarium", "armour", "set", "fur", "heavy", "waist-armour", "red"],
+    categories: ["catarium", "armour", "set", "fur", "heavy", "waist-armour", "red", "white-lion-armour"],
   },
   //exhausted lantern hoard
   {
@@ -247,23 +247,23 @@ const gearArray: GearImage[] = [
   },
   {
     source: "gear-images/leather-worker/leather_boots.webp",
-    categories: ["leather-worker", "armour", "set", "leather", "leg-armour", "green"],
+    categories: ["leather-worker", "armour", "set", "leather", "leg-armour", "green", "leather-armour"],
   },
   {
     source: "gear-images/leather-worker/leather_bracers.webp",
-    categories: ["leather-worker", "armour", "set", "leather", "arm-armour", "green"],
+    categories: ["leather-worker", "armour", "set", "leather", "arm-armour", "green", "leather-armour"],
   },
   {
     source: "gear-images/leather-worker/leather_cuirass.webp",
-    categories: ["leather-worker", "armour", "set", "leather", "chest-armour", "red", "blue"],
+    categories: ["leather-worker", "armour", "set", "leather", "chest-armour", "red", "blue", "leather-armour"],
   },
   {
     source: "gear-images/leather-worker/leather_mask.webp",
-    categories: ["leather-worker", "armour", "set", "leather", "head-armour", "red", "blue"],
+    categories: ["leather-worker", "armour", "set", "leather", "head-armour", "red", "blue", "leather-armour"],
   },
   {
     source: "gear-images/leather-worker/leather_skirt.webp",
-    categories: ["leather-worker", "armour", "set", "leather", "waist-armour", "green"],
+    categories: ["leather-worker", "armour", "set", "leather", "waist-armour", "green", "leather-armour"],
   },
   {
     source: "gear-images/leather-worker/round_leather_shield.webp",
@@ -359,23 +359,35 @@ const gearArray: GearImage[] = [
   },
   {
     source: "gear-images/plumery/phoenix_faulds.webp",
-    categories: ["plumery", "armour", "set", "feather", "metal", "flammable", "waist-armour"],
+    categories: ["plumery", "armour", "set", "feather", "metal", "flammable", "waist-armour", "phoenix-armour"],
   },
   {
     source: "gear-images/plumery/phoenix_gauntlet.webp",
-    categories: ["plumery", "armour", "set", "feather", "metal", "flammable", "arm-armour"],
+    categories: ["plumery", "armour", "set", "feather", "metal", "flammable", "arm-armour", "phoenix-armour"],
   },
   {
     source: "gear-images/plumery/phoenix_greaves.webp",
-    categories: ["plumery", "armour", "set", "feather", "metal", "flammable", "leg-armour", "red"],
+    categories: ["plumery", "armour", "set", "feather", "metal", "flammable", "leg-armour", "red", "phoenix-armour"],
   },
   {
     source: "gear-images/plumery/phoenix_helm.webp",
-    categories: ["plumery", "armour", "set", "feather", "metal", "flammable", "head-armour", "blue"],
+    categories: ["plumery", "armour", "set", "feather", "metal", "flammable", "head-armour", "blue", "phoenix-armour"],
   },
   {
     source: "gear-images/plumery/phoenix_plackart.webp",
-    categories: ["plumery", "armour", "set", "feather", "metal", "flammable", "chest-armour", "red", "green", "blue"],
+    categories: [
+      "plumery",
+      "armour",
+      "set",
+      "feather",
+      "metal",
+      "flammable",
+      "chest-armour",
+      "red",
+      "green",
+      "blue",
+      "phoenix-armour",
+    ],
   },
   {
     source: "gear-images/plumery/sonic_tomahawk.webp",
@@ -445,7 +457,7 @@ const gearArray: GearImage[] = [
   },
   {
     source: "gear-images/skinnery/rawhide_boots.webp",
-    categories: ["skinnery", "armour", "set", "rawhide", "leg-armour"],
+    categories: ["skinnery", "armour", "set", "rawhide", "leg-armour", "rawhide-armour"],
   },
   {
     source: "gear-images/skinnery/rawhide_drum.webp",
@@ -453,19 +465,19 @@ const gearArray: GearImage[] = [
   },
   {
     source: "gear-images/skinnery/rawhide_gloves.webp",
-    categories: ["skinnery", "armour", "set", "rawhide", "arm-armour", "red"],
+    categories: ["skinnery", "armour", "set", "rawhide", "arm-armour", "red", "rawhide-armour"],
   },
   {
     source: "gear-images/skinnery/rawhide_headband.webp",
-    categories: ["skinnery", "armour", "set", "rawhide", "head-armour", "blue"],
+    categories: ["skinnery", "armour", "set", "rawhide", "head-armour", "blue", "rawhide-armour"],
   },
   {
     source: "gear-images/skinnery/rawhide_pants.webp",
-    categories: ["skinnery", "armour", "set", "rawhide", "waist-armour"],
+    categories: ["skinnery", "armour", "set", "rawhide", "waist-armour", "rawhide-armour"],
   },
   {
     source: "gear-images/skinnery/rawhide_vest.webp",
-    categories: ["skinnery", "armour", "set", "rawhide", "chest-armour", "red", "blue"],
+    categories: ["skinnery", "armour", "set", "rawhide", "chest-armour", "red", "blue", "rawhide-armour"],
   },
   {
     source: "gear-images/skinnery/rawhide_whip.webp",
@@ -515,23 +527,23 @@ const gearArray: GearImage[] = [
   },
   {
     source: "gear-images/stone-circle/screaming_bracers.webp",
-    categories: ["stone-circle", "armour", "set", "bone", "arm-armour", "red", "green"],
+    categories: ["stone-circle", "armour", "set", "bone", "arm-armour", "red", "green", "screaming-armour"],
   },
   {
     source: "gear-images/stone-circle/screaming_coat.webp",
-    categories: ["stone-circle", "armour", "set", "bone", "chest-armour", "green", "blue"],
+    categories: ["stone-circle", "armour", "set", "bone", "chest-armour", "green", "blue", "screaming-armour"],
   },
   {
     source: "gear-images/stone-circle/screaming_horns.webp",
-    categories: ["stone-circle", "armour", "set", "bone", "head-armour", "blue"],
+    categories: ["stone-circle", "armour", "set", "bone", "head-armour", "blue", "screaming-armour"],
   },
   {
     source: "gear-images/stone-circle/screaming_leg_warmers.webp",
-    categories: ["stone-circle", "armour", "set", "bone", "leg-armour", "red", "blue"],
+    categories: ["stone-circle", "armour", "set", "bone", "leg-armour", "red", "blue", "screaming-armour"],
   },
   {
     source: "gear-images/stone-circle/screaming_skirt.webp",
-    categories: ["stone-circle", "armour", "set", "bone", "waist-armour", "green", "blue"],
+    categories: ["stone-circle", "armour", "set", "bone", "waist-armour", "green", "blue", "screaming-armour"],
   },
   //weapon crafter
   {

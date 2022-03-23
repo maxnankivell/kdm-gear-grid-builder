@@ -24,7 +24,15 @@ const categoryStructure: categorySectionObject = {
   affinities: ["blue", "green", "red"],
   primaryCategories: ["armour", "item", "weapon"],
   weaponTypes: ["axe", "bow", "club", "dagger", "grand-weapon", "katana", "katar", "shield", "spear", "sword", "whip"],
-  armourTypes: ["arm-armour", "chest-armour", "head-armour", "leg-armour", "waist-armour"],
+  armourLocations: ["arm-armour", "chest-armour", "head-armour", "leg-armour", "waist-armour"],
+  armourSets: [
+    "white-lion-armour",
+    "screaming-armour",
+    "phoenix-armour",
+    "rawhide-armour",
+    "leather-armour",
+    "lantern-armour",
+  ],
   miscellaneous: [
     "ammunition",
     "arrow",

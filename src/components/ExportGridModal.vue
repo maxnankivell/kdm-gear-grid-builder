@@ -18,8 +18,12 @@
       </div>
       <div style="grid-area: export-sidebar" class="export-sidebar">
         <div v-for="index in 4" :key="index" class="export-toggle-boxs">
-          <div>Download Survivor: {{ index }}</div>
-          <ToggleSwitch v-model="toggleSwitches[index - 1]"></ToggleSwitch>
+          <div>Download Survivor {{ index }}</div>
+          <ToggleSwitch v-model="toggleSwitches[index - 1]" style="margin-left: auto"></ToggleSwitch>
+        </div>
+        <div class="export-toggle-boxs">
+          <div>Download All In One Image</div>
+          <ToggleSwitch v-model="toggleSwitches[4]" style="margin-left: auto"></ToggleSwitch>
         </div>
         <button style="margin-top: 1.2rem" @click="downloadImage()">Download</button>
       </div>
@@ -50,7 +54,7 @@ const emit = defineEmits<{
 
 const props = defineProps<Props>();
 
-const toggleSwitches = ref([false, false, false, false]);
+const toggleSwitches = ref([false, false, false, false, false]);
 const gridImageOne = ref<HTMLImageElement>();
 const gridImageTwo = ref<HTMLImageElement>();
 const gridImageThree = ref<HTMLImageElement>();
@@ -60,7 +64,7 @@ const { width, height } = useWindowSize();
 
 const downSizedImageSize = computed(() => {
   const imageAreaHeight = (height.value * 0.9 - 120) / 2;
-  const imageAreaWidth = (width.value * 0.6 - 300) / 2;
+  const imageAreaWidth = (width.value * 0.6 - 340) / 2;
   const constrainingValue = imageAreaHeight < imageAreaWidth ? imageAreaHeight : imageAreaWidth;
   return constrainingValue < 600 ? constrainingValue : 600;
 });
@@ -70,11 +74,13 @@ onMounted(() => loadGridImagePreview());
 watchDebounced([width, height], () => loadGridImagePreview(), { debounce: 20 });
 
 async function downloadImage() {
-  for (let i = 1; i <= toggleSwitches.value.length; i++) {
+  for (let i = 1; i < toggleSwitches.value.length; i++) {
     if (toggleSwitches.value[i - 1]) {
-      const test = await createGridImage(i);
-      download(test, "survivor-" + i + ".png", "image/png");
+      download(await createGridImage(i), "survivor-" + i + ".png", "image/png");
     }
+  }
+  if (toggleSwitches.value[toggleSwitches.value.length - 1]) {
+    download(await createAllGridImage(), "all-survivor.png", "image/png");
   }
 }
 
@@ -113,6 +119,57 @@ async function createGridImage(gridNumber: number): Promise<Blob> {
     {
       width: 1540,
       height: 1540,
+    }
+  );
+  return (await fetch(base64DataUrl)).blob();
+}
+
+async function createAllGridImage(): Promise<Blob> {
+  const base64DataUrl = await mergeImages(
+    [
+      { src: props.imageLocations["11"], x: 0, y: 0 },
+      { src: props.imageLocations["12"], x: 520, y: 0 },
+      { src: props.imageLocations["13"], x: 1040, y: 0 },
+      { src: props.imageLocations["14"], x: 0, y: 520 },
+      { src: props.imageLocations["15"], x: 520, y: 520 },
+      { src: props.imageLocations["16"], x: 1040, y: 520 },
+      { src: props.imageLocations["17"], x: 0, y: 1040 },
+      { src: props.imageLocations["18"], x: 520, y: 1040 },
+      { src: props.imageLocations["19"], x: 1040, y: 1040 },
+
+      { src: props.imageLocations["21"], x: 1600, y: 0 },
+      { src: props.imageLocations["22"], x: 2120, y: 0 },
+      { src: props.imageLocations["23"], x: 2640, y: 0 },
+      { src: props.imageLocations["24"], x: 1600, y: 520 },
+      { src: props.imageLocations["25"], x: 2120, y: 520 },
+      { src: props.imageLocations["26"], x: 2640, y: 520 },
+      { src: props.imageLocations["27"], x: 1600, y: 1040 },
+      { src: props.imageLocations["28"], x: 2120, y: 1040 },
+      { src: props.imageLocations["29"], x: 2640, y: 1040 },
+
+      { src: props.imageLocations["31"], x: 0, y: 1600 },
+      { src: props.imageLocations["32"], x: 520, y: 1600 },
+      { src: props.imageLocations["33"], x: 1040, y: 1600 },
+      { src: props.imageLocations["34"], x: 0, y: 2120 },
+      { src: props.imageLocations["35"], x: 520, y: 2120 },
+      { src: props.imageLocations["36"], x: 1040, y: 2120 },
+      { src: props.imageLocations["37"], x: 0, y: 2640 },
+      { src: props.imageLocations["38"], x: 520, y: 2640 },
+      { src: props.imageLocations["39"], x: 1040, y: 2640 },
+
+      { src: props.imageLocations["41"], x: 1600, y: 1600 },
+      { src: props.imageLocations["42"], x: 2120, y: 1600 },
+      { src: props.imageLocations["43"], x: 2640, y: 1600 },
+      { src: props.imageLocations["44"], x: 1600, y: 2120 },
+      { src: props.imageLocations["45"], x: 2120, y: 2120 },
+      { src: props.imageLocations["46"], x: 2640, y: 2120 },
+      { src: props.imageLocations["47"], x: 1600, y: 2640 },
+      { src: props.imageLocations["48"], x: 2120, y: 2640 },
+      { src: props.imageLocations["49"], x: 2640, y: 2640 },
+    ],
+    {
+      width: 3140,
+      height: 3140,
     }
   );
   return (await fetch(base64DataUrl)).blob();
@@ -166,9 +223,9 @@ async function resizeGridImage(imageBlob: Blob): Promise<string> {
 
 .export-toggle-boxs {
   display: flex;
-  justify-content: center;
+  justify-content: start;
   align-items: center;
-  gap: 0.4rem;
+  gap: 0.8rem;
   font-size: 1.4rem;
 }
 </style>
