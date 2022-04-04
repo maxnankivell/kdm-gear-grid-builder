@@ -7,7 +7,16 @@
         </div>
         <div v-for="index in 4" :key="index" class="gear-grid">
           <div style="grid-area: 1/1/1/4" class="grid-header">
-            <div></div>
+            <div
+              class="trash-container"
+              :class="{ outline: dragPositionCounter[index - 1] > 0 }"
+              @dragenter.prevent="dragPositionCounter[index - 1]++"
+              @dragleave="dragPositionCounter[index - 1]--"
+              @dragover.prevent="if ($event.dataTransfer) $event.dataTransfer.dropEffect = 'link';"
+              @drop.prevent="dragPositionCounter[index - 1] = 0"
+            >
+              <ph-trash :size="40" />
+            </div>
             <div>
               <h1>Survivor {{ index }}</h1>
             </div>
@@ -20,6 +29,7 @@
             :id="'' + index + index2"
             :key="index2"
             v-model:imageSource="imageLocations['' + index + index2]"
+            @swap-image="(imageAndId) => (imageLocations[imageAndId.split(`|`)[1]] = imageAndId.split(`|`)[0])"
             @reset-image="imageLocations['' + index + index2] = defaultImage"
           />
         </div>
@@ -32,7 +42,16 @@
         <Transition :name="currentDisplay > previousDisplay ? 'cycle-right' : 'cycle-left'" mode="out-in">
           <div v-if="currentDisplay === 1" key="1" class="gear-grid">
             <div style="grid-area: 1/1/1/4" class="grid-header">
-              <div></div>
+              <div
+                class="trash-container"
+                :class="{ outline: dragPositionCounter[0] > 0 }"
+                @dragenter.prevent="dragPositionCounter[0]++"
+                @dragleave="dragPositionCounter[0]--"
+                @dragover.prevent="if ($event.dataTransfer) $event.dataTransfer.dropEffect = 'link';"
+                @drop.prevent="dragPositionCounter[0] = 0"
+              >
+                <ph-trash :size="40" />
+              </div>
               <div>
                 <h1>Survivor 1</h1>
               </div>
@@ -45,12 +64,22 @@
               :id="'' + 1 + index"
               :key="index"
               v-model:imageSource="imageLocations['' + 1 + index]"
+              @swap-image="(imageAndId) => (imageLocations[imageAndId.split(`|`)[1]] = imageAndId.split(`|`)[0])"
               @reset-image="imageLocations['' + 1 + index] = defaultImage"
             />
           </div>
           <div v-else-if="currentDisplay === 2" key="2" class="gear-grid">
             <div style="grid-area: 1/1/1/4" class="grid-header">
-              <div></div>
+              <div
+                class="trash-container"
+                :class="{ outline: dragPositionCounter[1] > 0 }"
+                @dragenter.prevent="dragPositionCounter[1]++"
+                @dragleave="dragPositionCounter[1]--"
+                @dragover.prevent="if ($event.dataTransfer) $event.dataTransfer.dropEffect = 'link';"
+                @drop.prevent="dragPositionCounter[1] = 0"
+              >
+                <ph-trash :size="40" />
+              </div>
               <div>
                 <h1>Survivor 2</h1>
               </div>
@@ -63,12 +92,22 @@
               :id="'' + 2 + index"
               :key="index"
               v-model:imageSource="imageLocations['' + 2 + index]"
+              @swap-image="(imageAndId) => (imageLocations[imageAndId.split(`|`)[1]] = imageAndId.split(`|`)[0])"
               @reset-image="imageLocations['' + 2 + index] = defaultImage"
             />
           </div>
           <div v-else-if="currentDisplay === 3" key="3" class="gear-grid">
             <div style="grid-area: 1/1/1/4" class="grid-header">
-              <div></div>
+              <div
+                class="trash-container"
+                :class="{ outline: dragPositionCounter[2] > 0 }"
+                @dragenter.prevent="dragPositionCounter[2]++"
+                @dragleave="dragPositionCounter[2]--"
+                @dragover.prevent="if ($event.dataTransfer) $event.dataTransfer.dropEffect = 'link';"
+                @drop.prevent="dragPositionCounter[2] = 0"
+              >
+                <ph-trash :size="40" />
+              </div>
               <div>
                 <h1>Survivor 3</h1>
               </div>
@@ -81,12 +120,22 @@
               :id="'' + 3 + index"
               :key="index"
               v-model:imageSource="imageLocations['' + 3 + index]"
+              @swap-image="(imageAndId) => (imageLocations[imageAndId.split(`|`)[1]] = imageAndId.split(`|`)[0])"
               @reset-image="imageLocations['' + 3 + index] = defaultImage"
             />
           </div>
           <div v-else-if="currentDisplay === 4" key="4" class="gear-grid">
             <div style="grid-area: 1/1/1/4" class="grid-header">
-              <div></div>
+              <div
+                class="trash-container"
+                :class="{ outline: dragPositionCounter[3] > 0 }"
+                @dragenter.prevent="dragPositionCounter[3]++"
+                @dragleave="dragPositionCounter[3]--"
+                @dragover.prevent="if ($event.dataTransfer) $event.dataTransfer.dropEffect = 'link';"
+                @drop.prevent="dragPositionCounter[3] = 0"
+              >
+                <ph-trash :size="40" />
+              </div>
               <div>
                 <h1>Survivor 4</h1>
               </div>
@@ -99,6 +148,7 @@
               :id="'' + 4 + index"
               :key="index"
               v-model:imageSource="imageLocations['' + 4 + index]"
+              @swap-image="(imageAndId) => (imageLocations[imageAndId.split(`|`)[1]] = imageAndId.split(`|`)[0])"
               @reset-image="imageLocations['' + 4 + index] = defaultImage"
             />
           </div>
@@ -114,11 +164,19 @@
       @close="showExportGridModal = false"
     />
     <ModalWindow v-if="showClearAllModal" :modal-width="'420px'" :modal-height="'220px'">
-      <div class="clear-all-modal">
+      <div class="clear-modal">
         <h1 style="grid-area: header">Confirm</h1>
         <p style="grid-area: paragraph; font-size: 1.2rem">Are you sure you want to clear ALL grids?</p>
         <button style="grid-area: yes" @click="onClearAll">Yes</button>
         <button style="grid-area: no" @click="showClearAllModal = false">No</button>
+      </div>
+    </ModalWindow>
+    <ModalWindow v-if="showClearModal" :modal-width="'420px'" :modal-height="'220px'">
+      <div class="clear-modal">
+        <h1 style="grid-area: header">Confirm</h1>
+        <p style="grid-area: paragraph; font-size: 1.2rem">Are you sure you want to clear ALL grids?</p>
+        <button style="grid-area: yes" @click="confirmClearOneGrid">Yes</button>
+        <button style="grid-area: no" @click="showClearModal = false">No</button>
       </div>
     </ModalWindow>
   </div>
@@ -130,7 +188,7 @@ import ModalWindow from "@/components/ModalWindow.vue";
 import { useGridStateStore } from "@/stores/grid-state-store";
 import { storeToRefs } from "pinia";
 import { computed, ref } from "vue";
-import { PhCaretLeft, PhCaretRight } from "phosphor-vue";
+import { PhCaretLeft, PhCaretRight, PhTrash } from "phosphor-vue";
 import { useSideBarSpacingDecorated } from "@/coded-styles";
 import { useNavBarStateStore } from "@/stores/nav-bar-state-store";
 import { ImageLocations } from "@/types";
@@ -144,15 +202,25 @@ const { showExportGridModal, showClearAllModal } = storeToRefs(useNavBarStateSto
 const currentDisplay = ref(1);
 const previousDisplay = ref(1);
 
+const dragPositionCounter = ref([0, 0, 0, 0]); // if 0 then not hovering a dropzone and if > 0 is hovering
+
+const showClearModal = ref(false);
+
 const defaultImage = ref(new URL("../assets/gear_default.webp", import.meta.url).href);
 const imageLocations = useStorage<ImageLocations>("imageLocations", initialImageStructure);
 
 const overflow = computed(() => (gridState.value === "one" ? "hidden" : "auto"));
 
+let gridToClear: number;
 function clearOneGrid(index: number) {
+  gridToClear = index;
+  showClearModal.value = true;
+}
+function confirmClearOneGrid() {
   for (let i = 1; i <= 9; i++) {
-    imageLocations.value["" + index + i] = defaultImage.value;
+    imageLocations.value["" + gridToClear + i] = defaultImage.value;
   }
+  showClearModal.value = false;
 }
 
 function cycleGrid(change: number) {
@@ -215,6 +283,18 @@ function onClearAll() {
   gap: 1.6rem;
 }
 
+.trash-container {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: start;
+  align-items: center;
+}
+
+.outline {
+  outline: 1px solid red;
+}
+
 .gear-grid {
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
@@ -238,7 +318,7 @@ function onClearAll() {
   right: v-bind(useSideBarSpacingDecorated);
 }
 
-.clear-all-modal {
+.clear-modal {
   display: grid;
   grid-template-columns: 1fr 1fr;
   grid-template-rows: 1fr 1fr;

@@ -1,4 +1,4 @@
-const defaultImage = new URL("../assets/gear_default.webp", import.meta.url).href;
+export const defaultImage = new URL("../assets/gear_default.webp", import.meta.url).href;
 
 export default {
   11: defaultImage,

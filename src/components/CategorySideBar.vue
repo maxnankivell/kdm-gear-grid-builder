@@ -1,5 +1,10 @@
 <template>
-  <div class="category-container" @dragenter.prevent @dragover.prevent @drop.prevent>
+  <div
+    class="category-container"
+    @dragenter.prevent
+    @dragover.prevent="if ($event.dataTransfer) $event.dataTransfer.dropEffect = 'link';"
+    @drop.prevent
+  >
     <template v-for="categorySection in categorySections" :key="categorySection">
       <div class="category-section-header-container">
         <div class="category-section-header">

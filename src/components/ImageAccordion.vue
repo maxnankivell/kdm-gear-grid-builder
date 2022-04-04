@@ -61,8 +61,8 @@ function onDragStart(event: DragEvent, imageSource: string) {
     console.warn("drag cancel");
     return;
   }
-  event.dataTransfer.effectAllowed = "copy";
-  event.dataTransfer.dropEffect = "copy";
+  event.dataTransfer.effectAllowed = "move";
+  event.dataTransfer.dropEffect = "move";
   event.dataTransfer.setData("imageAndPosition", imageSource + "|-1");
 }
 </script>

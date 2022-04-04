@@ -5,7 +5,7 @@
     @drop="onDrop($event)"
     @dragenter.prevent="dragPositionCounter++"
     @dragleave="dragPositionCounter--"
-    @dragover.prevent
+    @dragover.prevent="if ($event.dataTransfer) $event.dataTransfer.dropEffect = 'move';"
   >
     <div>
       <img
@@ -24,6 +24,7 @@
 <script setup lang="ts">
 import { computed, ref, defineProps, defineEmits } from "vue";
 import { useImageSize, useSideBarSpacingDecorated } from "@/coded-styles";
+import { defaultImage } from "@/structures/initial-image-structure";
 
 interface Props {
   id: string;
@@ -32,6 +33,7 @@ interface Props {
 
 const emit = defineEmits<{
   (emit: "update:image-source", source: string): void;
+  (emit: "swap-image", imageAndId: string): void;
   (emit: "reset-image"): void;
 }>();
 
@@ -44,11 +46,12 @@ const imageSource = computed({
 
 const imageSize = useImageSize();
 
-let dropId = `-1`;
+let recievedDropZoneId = `-1`;
+let imageToSendToReciever = defaultImage;
 
 const dragPositionCounter = ref(0); // if 0 then not hovering a dropzone and if > 0 is hovering
 
-const isDefaultImage = computed(() => imageSource.value.endsWith("gear_default.webp"));
+const isDefaultImage = computed(() => imageSource.value === defaultImage);
 
 function onDrop(event: DragEvent): void {
   event.preventDefault();
@@ -59,8 +62,15 @@ function onDrop(event: DragEvent): void {
     return;
   }
   const arr = event.dataTransfer.getData("imageAndPosition").split(`|`);
+  imageToSendToReciever = imageSource.value;
   imageSource.value = arr[0];
-  dropId = arr[1];
+  recievedDropZoneId = arr[1];
+
+  if (recievedDropZoneId === props.id || recievedDropZoneId === `-1`) {
+    recievedDropZoneId = `-1`;
+    return;
+  }
+  emit("swap-image", imageToSendToReciever + `|${recievedDropZoneId}`);
 }
 
 function onDragStart(event: DragEvent): void {
@@ -69,17 +79,14 @@ function onDragStart(event: DragEvent): void {
     event.preventDefault();
     return;
   }
-  event.dataTransfer.effectAllowed = "move";
-  event.dataTransfer.dropEffect = "move";
+  event.dataTransfer.effectAllowed = "linkMove"; // move is move or swap and link is delete
   event.dataTransfer.setData("imageAndPosition", imageSource.value + `|${props.id}`);
 }
 
 function onDragEnd(event: DragEvent): void {
-  if (!event.dataTransfer || event.dataTransfer.dropEffect === "none" || dropId === props.id) {
-    dropId = `-1`;
-    return;
+  if (event.dataTransfer && event.dataTransfer.dropEffect === "link") {
+    emit("reset-image");
   }
-  emit("reset-image");
 }
 </script>
 
