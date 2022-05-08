@@ -19,7 +19,6 @@ const categoryStructure: categorySectionObject = {
     "starting-gear",
     "stone-circle",
     "weapon-crafter",
-    "my-penis",
   ],
   affinities: ["blue", "green", "red"],
   primaryCategories: ["armour", "item", "weapon"],

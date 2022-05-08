@@ -55,6 +55,7 @@ const formattedCategory = computed(() => {
 });
 
 const formattedImageSize = computed(() => imageSize.value + `px`);
+const formattedBorderRadius = computed(() => imageSize.value / 10 + `px`);
 
 function onDragStart(event: DragEvent, imageSource: string) {
   if (!event.dataTransfer) {
@@ -114,7 +115,7 @@ function onDragStart(event: DragEvent, imageSource: string) {
 
 .image {
   transition: all 0.25s linear;
-
+  border-radius: v-bind(formattedBorderRadius);
   width: v-bind(formattedImageSize);
   height: v-bind(formattedImageSize);
 

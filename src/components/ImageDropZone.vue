@@ -12,7 +12,7 @@
         :src="imageSource"
         class="image"
         :class="{ 'no-drag': isDefaultImage }"
-        :style="{ width: imageSize + `px`, height: imageSize + `px` }"
+        :style="{ width: imageSize + `px`, height: imageSize + `px`, 'border-radius': imageSize / 10 + `px` }"
         :draggable="!isDefaultImage"
         @dragstart="onDragStart($event)"
         @dragend="onDragEnd($event)"

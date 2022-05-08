@@ -20,7 +20,8 @@
     "phosphor-vue": "next",
     "pinia": "^2.0.11",
     "vue": "^3.2.25",
-    "vue-window-size": "^1.1.2"
+    "vue-window-size": "^1.1.2",
+    "vue3-click-away": "^1.2.4"
   },
   "devDependencies": {
     "@types/lodash": "^4.14.180",

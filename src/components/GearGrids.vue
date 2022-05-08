@@ -187,7 +187,7 @@ import ImageDropZone from "@/components/ImageDropZone.vue";
 import ModalWindow from "@/components/ModalWindow.vue";
 import { useGridStateStore } from "@/stores/grid-state-store";
 import { storeToRefs } from "pinia";
-import { computed, ref } from "vue";
+import { computed, ref, watch } from "vue";
 import { PhCaretLeft, PhCaretRight, PhTrash } from "phosphor-vue";
 import { useSideBarSpacingDecorated } from "@/coded-styles";
 import { useNavBarStateStore } from "@/stores/nav-bar-state-store";
@@ -195,7 +195,9 @@ import { ImageLocations } from "@/types";
 import ExportGridModal from "./ExportGridModal.vue";
 import { useStorage } from "@vueuse/core";
 import initialImageStructure from "@/structures/initial-image-structure";
+import { useVersionStateStore } from "@/stores/version-state-store";
 
+const { version } = storeToRefs(useVersionStateStore());
 const { gridState } = storeToRefs(useGridStateStore());
 const { showExportGridModal, showClearAllModal } = storeToRefs(useNavBarStateStore());
 
@@ -210,6 +212,8 @@ const defaultImage = ref(new URL("../assets/gear_default.webp", import.meta.url)
 const imageLocations = useStorage<ImageLocations>("imageLocations", initialImageStructure);
 
 const overflow = computed(() => (gridState.value === "one" ? "hidden" : "auto"));
+
+watch(version, () => resetImagesAfterVersionChange(version.value));
 
 let gridToClear: number;
 function clearOneGrid(index: number) {
@@ -234,7 +238,22 @@ function resetImagesToDefault() {
       imageLocations.value["" + i + j] = defaultImage.value;
     }
   }
-  console.log(imageLocations.value);
+}
+
+function resetImagesAfterVersionChange(newVerson: number) {
+  for (let i = 1; i <= 4; i++) {
+    for (let j = 1; j <= 9; j++) {
+      if (newVerson === 1.5) {
+        if (imageLocations.value["" + i + j].includes(`1.6`)) {
+          imageLocations.value["" + i + j] = defaultImage.value;
+        }
+      } else if (newVerson === 1.6) {
+        if (imageLocations.value["" + i + j].includes(`1.5`)) {
+          imageLocations.value["" + i + j] = defaultImage.value;
+        }
+      }
+    }
+  }
 }
 
 function onClearAll() {

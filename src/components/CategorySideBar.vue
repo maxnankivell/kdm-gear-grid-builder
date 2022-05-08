@@ -5,6 +5,7 @@
     @dragover.prevent="if ($event.dataTransfer) $event.dataTransfer.dropEffect = 'link';"
     @drop.prevent
   >
+    <DropdownWidget v-model="version" :versions="[1.5, 1.6]"></DropdownWidget>
     <template v-for="categorySection in categorySections" :key="categorySection">
       <div class="category-section-header-container">
         <div class="category-section-header">
@@ -19,29 +20,38 @@
 </template>
 
 <script setup lang="ts">
-import { reactive, ref } from "vue";
+import { computed, ref, watch } from "vue";
 import gearArray from "@/structures/gear-array";
 import categoryStructure from "../structures/category-structure";
 import ImageAccordion from "./ImageAccordion.vue";
 import { useSideBarSpacingDecorated } from "@/coded-styles";
 import { startCase } from "lodash";
+import DropdownWidget from "./DropdownWidget.vue";
+import { useVersionStateStore } from "@/stores/version-state-store";
+import { storeToRefs } from "pinia";
+
+const { version } = storeToRefs(useVersionStateStore());
+
+const filteredGearArray = computed(() =>
+  gearArray.filter((gear) => gear.versions.includes(version.value.toString()) || gear.versions.includes(`all`))
+);
 
 const categorySections = ref<string[]>(Object.keys(categoryStructure));
-
-const allCategoriesOnGear: string[] = [...new Set(gearArray.flatMap((gear) => gear.categories))];
-
+const allCategoriesOnGear = computed<string[]>(() => [
+  ...new Set(filteredGearArray.value.flatMap((gear) => gear.categories)),
+]);
 const allCategoriesInSections: string[] = Object.values(categoryStructure).flat();
 
 // Remove all categories that are not assigned to any gear
 for (const categorySection in categoryStructure) {
   categoryStructure[categorySection] = categoryStructure[categorySection].filter((category) =>
-    allCategoriesOnGear.includes(category)
+    allCategoriesOnGear.value.includes(category)
   );
 }
 
 // Add all categories that are assigned to gear but not in the category structure to miscellaneous
 categoryStructure["miscellaneous"] = categoryStructure["miscellaneous"].concat(
-  allCategoriesOnGear.filter((category) => !allCategoriesInSections.includes(category))
+  allCategoriesOnGear.value.filter((category) => !allCategoriesInSections.includes(category))
 );
 
 // Put categories in alphabetical order
@@ -54,27 +64,38 @@ interface CategoryObject {
 }
 
 // object with every category as a key to an array of image sources
-const imagesByCategory: CategoryObject = reactive({});
-for (const category of allCategoriesOnGear) {
-  for (const gear of gearArray) {
-    if (gear.categories.includes(category)) {
-      if (!imagesByCategory[category]) {
-        imagesByCategory[category] = [];
-      }
-      imagesByCategory[category].push(gear.source);
-    }
-  }
+const imagesByCategory = ref<CategoryObject>({});
 
-  imagesByCategory[category].sort((a, b) => {
-    const aFormatted = a.split("/")[a.split("/").length - 1].split(".")[0].replaceAll("_", " ");
-    const bFormatted = b.split("/")[a.split("/").length - 1].split(".")[0].replaceAll("_", " ");
-    if ([aFormatted, bFormatted].sort()[0] === aFormatted) {
-      return -1;
-    } else {
-      return 1;
+watch(
+  [filteredGearArray, allCategoriesOnGear],
+  () => {
+    const tempImagesByCategory: CategoryObject = {};
+
+    for (const category of allCategoriesOnGear.value) {
+      for (const gear of filteredGearArray.value) {
+        if (gear.categories.includes(category)) {
+          if (!tempImagesByCategory[category]) {
+            tempImagesByCategory[category] = [];
+          }
+          tempImagesByCategory[category].push(gear.source);
+        }
+      }
+
+      tempImagesByCategory[category].sort((a, b) => {
+        const aFormatted = a.split("/")[a.split("/").length - 1].split(".")[0].replaceAll("_", " ");
+        const bFormatted = b.split("/")[b.split("/").length - 1].split(".")[0].replaceAll("_", " ");
+        if ([aFormatted, bFormatted].sort()[0] === aFormatted) {
+          return -1;
+        } else {
+          return 1;
+        }
+      });
     }
-  });
-}
+
+    imagesByCategory.value = tempImagesByCategory;
+  },
+  { immediate: true }
+);
 </script>
 
 <style scoped lang="scss">

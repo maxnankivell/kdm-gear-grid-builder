@@ -2099,6 +2099,7 @@ __metadata:
     vue: ^3.2.25
     vue-tsc: ^0.29.8
     vue-window-size: ^1.1.2
+    vue3-click-away: ^1.2.4
   languageName: unknown
   linkType: soft
 
@@ -3425,6 +3426,13 @@ __metadata:
   peerDependencies:
     vue: ">=3.0.0"
   checksum: 553e5df734964e09f0a236b2a908dc1505c12f90e650e6ee838b9754ed5c055417c756b92b096b832a43bd1a50d605ec7b652dd290364a30b49ca65c76a0eb4c
+  languageName: node
+  linkType: hard
+
+"vue3-click-away@npm:^1.2.4":
+  version: 1.2.4
+  resolution: "vue3-click-away@npm:1.2.4"
+  checksum: 65b724a6755f2f40a74969a98a37a5f97b2b4942725ceb5582e2d7841a90423094a2ba730468991a48724a229991a918d28897c473a61c0b1ff0fcb1ad265478
   languageName: node
   linkType: hard
 
