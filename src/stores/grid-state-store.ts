@@ -1,9 +1,9 @@
+import { useStorage } from "@vueuse/core";
 import { defineStore } from "pinia";
-import { ref } from "vue";
 import { GridsDisplayed } from "../types";
 
 export const useGridStateStore = defineStore("gridStateStore", () => {
-  const gridState = ref<GridsDisplayed>("one");
+  const gridState = useStorage<GridsDisplayed>("gridState", "one");
   return { gridState };
 });
 

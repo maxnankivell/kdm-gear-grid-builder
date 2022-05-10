@@ -1,8 +1,8 @@
+import { useStorage } from "@vueuse/core";
 import { defineStore } from "pinia";
-import { ref } from "vue";
 
 export const useVersionStateStore = defineStore("versionStateStore", () => {
-  const version = ref(1.5);
+  const version = useStorage("version", 1.5);
   return { version };
 });
 
