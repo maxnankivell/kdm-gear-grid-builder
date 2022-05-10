@@ -129,6 +129,11 @@ const gearArray: GearImage[] = [
     versions: ["all"],
   },
   {
+    source: "gear-images/kdm-1.6-gear/blacksmith/polishing_lantern.webp",
+    categories: ["blacksmith", "item", "metal", "lantern"],
+    versions: ["1.6"],
+  },
+  {
     source: "gear-images/blacksmith/ring_whip.webp",
     categories: ["blacksmith", "weapon", "melee", "whip", "finesse", "metal", "blue"],
     versions: ["all"],
@@ -137,11 +142,6 @@ const gearArray: GearImage[] = [
     source: "gear-images/blacksmith/scrap_shield.webp",
     categories: ["blacksmith", "weapon", "melee", "shield", "bone", "metal", "red"],
     versions: ["all"],
-  },
-  {
-    source: "gear-images/kdm-1.6-gear/blacksmith/polishing_lantern.webp",
-    categories: ["blacksmith", "item", "metal", "lantern"],
-    versions: ["1.6"],
   },
   // bone smith
   {
