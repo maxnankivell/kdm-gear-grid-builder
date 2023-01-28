@@ -7,7 +7,7 @@
     "build": "vue-tsc --noEmit && vite build",
     "preview": "vite preview",
     "lint:script": "eslint --ext .ts,vue --ignore-path .gitignore .",
-    "deploy": "vue-tsc --noEmit && vite build && git checkout main && git add dist -f && git commit -m 'deploy' && git subtree push --prefix dist origin gh-pages"
+    "deploy(dont use this)": "vue-tsc --noEmit && vite build && git checkout main && git add dist -f && git commit -m 'deploy' && git subtree push --prefix dist origin gh-pages"
   },
   "dependencies": {
     "@types/downloadjs": "^1.4.3",
@@ -40,7 +40,7 @@
     "sass": "^1.49.9",
     "sass-loader": "^12.6.0",
     "typescript": "^4.5.4",
-    "vite": "^2.8.0",
+    "vite": "^4.0.4",
     "vue-tsc": "^0.29.8"
   },
   "packageManager": "yarn@3.2.0"
