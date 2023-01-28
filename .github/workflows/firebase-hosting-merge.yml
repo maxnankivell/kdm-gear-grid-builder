@@ -55,7 +55,7 @@ jobs:
       - name: Download Build
         uses: actions/download-artifact@v2
         with:
-          name: build
+          name: dist
           path: dist
       - name: Depoy to Firebase
         uses: w9jds/firebase-action@master
