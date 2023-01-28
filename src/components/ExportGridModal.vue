@@ -34,9 +34,9 @@
 <script setup lang="ts">
 import ModalWindow from "@/components/ModalWindow.vue";
 import ToggleSwitch from "@/components/ToggleSwitch.vue";
-import { computed, defineEmits, defineProps, onMounted, ref, watch } from "vue";
+import { computed, defineEmits, defineProps, onMounted, ref } from "vue";
 import mergeImages from "merge-images";
-import { readAndCompressImage } from "browser-image-resizer";
+// import browserImageResizer from "browser-image-resizer";
 import { ImageLocations } from "@/types";
 import { useWindowSize } from "vue-window-size";
 import { watchDebounced } from "@vueuse/core";
@@ -176,12 +176,12 @@ async function createAllGridImage(): Promise<Blob> {
 }
 
 async function resizeGridImage(imageBlob: Blob): Promise<string> {
-  const resizedImageBlob = await readAndCompressImage(imageBlob, {
-    quality: 0.8,
-    maxWidth: downSizedImageSize.value,
-    maxHeight: downSizedImageSize.value,
-  });
-  return URL.createObjectURL(resizedImageBlob);
+  // const resizedImageBlob = await browserImageResizer.readAndCompressImage(imageBlob, {
+  //   quality: 0.8,
+  //   maxWidth: downSizedImageSize.value,
+  //   maxHeight: downSizedImageSize.value,
+  // });
+  return URL.createObjectURL(imageBlob);
 }
 </script>
 

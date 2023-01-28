@@ -9,7 +9,7 @@
     <template v-for="categorySection in categorySections" :key="categorySection">
       <div class="category-section-header-container">
         <div class="category-section-header">
-          {{ startCase(categorySection) }}
+          {{ _.startCase(categorySection) }}
         </div>
       </div>
       <template v-for="category in categoryStructure[categorySection]" :key="category">
@@ -25,7 +25,7 @@ import gearArray from "@/structures/gear-array";
 import categoryStructure from "../structures/category-structure";
 import ImageAccordion from "./ImageAccordion.vue";
 import { useSideBarSpacingDecorated } from "@/coded-styles";
-import { startCase } from "lodash";
+import _ from "lodash";
 import DropdownWidget from "./DropdownWidget.vue";
 import { useVersionStateStore } from "@/stores/version-state-store";
 import { storeToRefs } from "pinia";

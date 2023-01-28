@@ -1,6 +1,8 @@
 <template>
   <div style="position: relative">
-    <div v-click-away="closePopper" class="dropdown-box" @click="toggle">
+    <!-- Doesnt work with ssg for some reason but doesnt matter -->
+    <!-- <div v-click-away="closePopper" class="dropdown-box" @click="toggle"> -->
+    <div class="dropdown-box" @click="toggle">
       <div>Game Version: {{ modelValue }}</div>
       <ph-caret-down :size="32" class="chevron" :class="{ 'rotate-chevron-180': isActive }" />
     </div>
