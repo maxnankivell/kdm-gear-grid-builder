@@ -43,8 +43,8 @@ jobs:
       - name: Archive Build
         uses: actions/upload-artifact@v2
         with:
-          name: build
-          path: build
+          name: dist
+          path: dist
 
   deploy:
     name: Deploy
@@ -57,7 +57,7 @@ jobs:
         with:
           name: dist
           path: dist
-      - name: Depoy to Firebase
+      - name: Deploy to Firebase
         uses: w9jds/firebase-action@master
         with:
           args: deploy --only hosting
