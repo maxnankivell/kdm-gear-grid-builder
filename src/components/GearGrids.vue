@@ -208,7 +208,7 @@ const dragPositionCounter = ref([0, 0, 0, 0]); // if 0 then not hovering a dropz
 
 const showClearModal = ref(false);
 
-const defaultImage = ref(new URL("../assets/gear_default.webp", import.meta.url).href);
+const defaultImage = ref("/gear_default.webp");
 const imageLocations = useStorage<ImageLocations>("imageLocations", initialImageStructure);
 
 const overflow = computed(() => (gridState.value === "one" ? "hidden" : "auto"));

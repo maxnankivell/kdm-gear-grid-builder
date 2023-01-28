@@ -25,7 +25,8 @@
 <script setup lang="ts">
 import { computed, ref, defineProps, defineEmits } from "vue";
 import { useImageSize, useSideBarSpacingDecorated } from "@/coded-styles";
-import { defaultImage } from "@/structures/initial-image-structure";
+
+const defaultImage = ref("/gear_default.webp");
 
 interface Props {
   id: string;
@@ -48,11 +49,11 @@ const imageSource = computed({
 const imageSize = useImageSize();
 
 let recievedDropZoneId = `-1`;
-let imageToSendToReciever = defaultImage;
+let imageToSendToReciever = defaultImage.value;
 
 const dragPositionCounter = ref(0); // if 0 then not hovering a dropzone and if > 0 is hovering
 
-const isDefaultImage = computed(() => imageSource.value === defaultImage);
+const isDefaultImage = computed(() => imageSource.value === defaultImage.value);
 
 function onDrop(event: DragEvent): void {
   event.preventDefault();
