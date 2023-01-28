@@ -11,10 +11,10 @@
         </div>
       </div>
       <div style="grid-area: image-area" class="image-area">
-        <img ref="gridImageOne" style="place-self: center" />
-        <img ref="gridImageTwo" style="place-self: center" />
-        <img ref="gridImageThree" style="place-self: center" />
-        <img ref="gridImageFour" style="place-self: center" />
+        <img ref="gridImageOne" alt="gridImageOne" style="place-self: center" />
+        <img ref="gridImageTwo" alt="gridImageTwo" style="place-self: center" />
+        <img ref="gridImageThree" alt="gridImageThree" style="place-self: center" />
+        <img ref="gridImageFour" alt="gridImageFour" style="place-self: center" />
       </div>
       <div style="grid-area: export-sidebar" class="export-sidebar">
         <div v-for="index in 4" :key="index" class="export-toggle-boxs">

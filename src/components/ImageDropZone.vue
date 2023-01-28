@@ -10,6 +10,7 @@
     <div>
       <img
         :src="imageSource"
+        alt="dropzone image"
         class="image"
         :class="{ 'no-drag': isDefaultImage }"
         :style="{ width: imageSize + `px`, height: imageSize + `px`, 'border-radius': imageSize / 10 + `px` }"
