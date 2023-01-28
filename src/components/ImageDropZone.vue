@@ -15,6 +15,7 @@
         :class="{ 'no-drag': isDefaultImage }"
         :style="{ width: imageSize + `px`, height: imageSize + `px`, 'border-radius': imageSize / 10 + `px` }"
         :draggable="!isDefaultImage"
+        @contextmenu.prevent="emit('reset-image')"
         @dragstart="onDragStart($event)"
         @dragend="onDragEnd($event)"
       />
