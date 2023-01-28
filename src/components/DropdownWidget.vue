@@ -40,6 +40,7 @@ const isActive = ref(false);
 
 function updateVersion(version: number) {
   modelValue.value = version;
+  closePopper();
 }
 
 function closePopper() {
