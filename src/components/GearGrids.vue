@@ -174,7 +174,7 @@
     <ModalWindow v-if="showClearModal" :modal-width="'420px'" :modal-height="'220px'">
       <div class="clear-modal">
         <h1 style="grid-area: header">Confirm</h1>
-        <p style="grid-area: paragraph; font-size: 1.2rem">Are you sure you want to clear ALL grids?</p>
+        <p style="grid-area: paragraph; font-size: 1.2rem">Are you sure you want to clear this grid?</p>
         <button style="grid-area: yes" @click="confirmClearOneGrid">Yes</button>
         <button style="grid-area: no" @click="showClearModal = false">No</button>
       </div>
