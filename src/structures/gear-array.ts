@@ -1,3 +1,5 @@
+export type Versions = "all" | "1.5" | "1.6";
+
 enum Expansion {
   Base,
   DragonKing,
@@ -15,7 +17,7 @@ enum Expansion {
 interface GearImage {
   source: string;
   categories: string[];
-  versions: string[];
+  versions: Versions[];
   expansion: Expansion;
 }
 

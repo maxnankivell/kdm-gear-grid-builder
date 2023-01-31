@@ -1,11 +1,23 @@
 <template>
   <div
     class="category-container"
+    :style="{
+      width: imageSize * 2 + useSideBarSpacingRaw * 5 + `px`,
+    }"
     @dragenter.prevent
     @dragover.prevent="if ($event.dataTransfer) $event.dataTransfer.dropEffect = 'link';"
     @drop.prevent
   >
-    <DropdownWidget v-model="version" :versions="[1.5, 1.6]"></DropdownWidget>
+    <DropdownWidget v-model="version" :options="['1.5', '1.6']" :allow-multiple-selections="false">
+      Game Version:
+    </DropdownWidget>
+    <DropdownWidget
+      v-model="expansions"
+      :options="['1', '2', '3', '4', '5', '6', '7', '8', '11', '12', '13', '14', '15', '16', '17', '18']"
+      :allow-multiple-selections="true"
+    >
+      Expansions:
+    </DropdownWidget>
     <template v-for="categorySection in categorySections" :key="categorySection">
       <div class="category-section-header-container">
         <div class="category-section-header">
@@ -29,11 +41,14 @@ import _ from "lodash";
 import DropdownWidget from "./DropdownWidget.vue";
 import { useVersionStateStore } from "@/stores/version-state-store";
 import { storeToRefs } from "pinia";
+import { useImageSize, useSideBarSpacingRaw } from "@/coded-styles";
 
 const { version } = storeToRefs(useVersionStateStore());
+const imageSize = useImageSize();
+const expansions = ref(["1"]);
 
 const filteredGearArray = computed(() =>
-  gearArray.filter((gear) => gear.versions.includes(version.value.toString()) || gear.versions.includes(`all`))
+  gearArray.filter((gear) => gear.versions.includes(version.value) || gear.versions.includes(`all`))
 );
 
 const categorySections = ref<string[]>(Object.keys(categoryStructure));

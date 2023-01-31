@@ -240,14 +240,14 @@ function resetImagesToDefault() {
   }
 }
 
-function resetImagesAfterVersionChange(newVerson: number) {
+function resetImagesAfterVersionChange(newVerson: string) {
   for (let i = 1; i <= 4; i++) {
     for (let j = 1; j <= 9; j++) {
-      if (newVerson === 1.5) {
+      if (newVerson === "1.5") {
         if (imageLocations.value["" + i + j].includes(`1.6`)) {
           imageLocations.value["" + i + j] = defaultImage.value;
         }
-      } else if (newVerson === 1.6) {
+      } else if (newVerson === "1.6") {
         if (imageLocations.value["" + i + j].includes(`1.5`)) {
           imageLocations.value["" + i + j] = defaultImage.value;
         }
