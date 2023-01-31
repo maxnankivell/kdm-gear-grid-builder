@@ -93,7 +93,6 @@ interface CategoryObject {
 // object with every category as a key to an array of image sources
 const imagesByCategory = ref<CategoryObject>({});
 
-// console.log(filteredGearArray);
 watch(
   [filteredGearArray, allCategoriesOnGear],
   () => {

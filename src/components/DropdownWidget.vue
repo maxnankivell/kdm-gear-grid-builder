@@ -62,7 +62,6 @@ function updateOption(option: string) {
 }
 
 function displayModelValue() {
-  console.log(modelValue.value);
   if (!props.allowMultipleSelections || !Array.isArray(modelValue.value)) {
     return modelValue.value;
   }

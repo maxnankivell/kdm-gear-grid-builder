@@ -217,7 +217,7 @@ const imageLocations = useStorage<ImageLocations>("imageLocations", initialImage
 const overflow = computed(() => (gridState.value === "one" ? "hidden" : "auto"));
 
 watch(version, () => resetImagesAfterVersionChange(version.value));
-watch(expansions, () => resetImagesAfterExpansionsChange(expansions.value));
+watch(expansions, () => resetImagesAfterExpansionsChange(expansions.value), { deep: true });
 
 let gridToClear: number;
 function clearOneGrid(index: number) {
@@ -264,43 +264,43 @@ function resetImagesAfterExpansionsChange(newExpansions: string[]) {
   for (let i = 1; i <= 4; i++) {
     for (let j = 1; j <= 9; j++) {
       if (!imageLocations.value["" + i + j].includes(`expansion`)) {
-        return;
+        continue;
       }
 
-      if (!newExpansions.includes(Expansion.DragonKing) && !imageLocations.value["" + i + j].includes(`dragon-king`)) {
+      if (!newExpansions.includes(Expansion.DragonKing) && imageLocations.value["" + i + j].includes(`dragon-king`)) {
         imageLocations.value["" + i + j] = defaultImage.value;
       }
       if (
         !newExpansions.includes(Expansion.DungBeetleKnight) &&
-        !imageLocations.value["" + i + j].includes(`dung-beetle-knight`)
+        imageLocations.value["" + i + j].includes(`dung-beetle-knight`)
       ) {
         imageLocations.value["" + i + j] = defaultImage.value;
       }
       if (
         !newExpansions.includes(Expansion.FlowerKnight) &&
-        !imageLocations.value["" + i + j].includes(`flower-knight`)
+        imageLocations.value["" + i + j].includes(`flower-knight`)
       ) {
         imageLocations.value["" + i + j] = defaultImage.value;
       }
-      if (!newExpansions.includes(Expansion.Gorm) && !imageLocations.value["" + i + j].includes(`gorm`)) {
+      if (!newExpansions.includes(Expansion.Gorm) && imageLocations.value["" + i + j].includes(`gorm`)) {
         imageLocations.value["" + i + j] = defaultImage.value;
       }
-      if (!newExpansions.includes(Expansion.LionGod) && !imageLocations.value["" + i + j].includes(`lion-god`)) {
+      if (!newExpansions.includes(Expansion.LionGod) && imageLocations.value["" + i + j].includes(`lion-god`)) {
         imageLocations.value["" + i + j] = defaultImage.value;
       }
-      if (!newExpansions.includes(Expansion.LionKnight) && !imageLocations.value["" + i + j].includes(`lion-knight`)) {
+      if (!newExpansions.includes(Expansion.LionKnight) && imageLocations.value["" + i + j].includes(`lion-knight`)) {
         imageLocations.value["" + i + j] = defaultImage.value;
       }
-      if (!newExpansions.includes(Expansion.Manhunter) && !imageLocations.value["" + i + j].includes(`manhunter`)) {
+      if (!newExpansions.includes(Expansion.Manhunter) && imageLocations.value["" + i + j].includes(`manhunter`)) {
         imageLocations.value["" + i + j] = defaultImage.value;
       }
-      if (!newExpansions.includes(Expansion.Slenderman) && !imageLocations.value["" + i + j].includes(`slenderman`)) {
+      if (!newExpansions.includes(Expansion.Slenderman) && imageLocations.value["" + i + j].includes(`slenderman`)) {
         imageLocations.value["" + i + j] = defaultImage.value;
       }
-      if (!newExpansions.includes(Expansion.Spidicules) && !imageLocations.value["" + i + j].includes(`spidicules`)) {
+      if (!newExpansions.includes(Expansion.Spidicules) && imageLocations.value["" + i + j].includes(`spidicules`)) {
         imageLocations.value["" + i + j] = defaultImage.value;
       }
-      if (!newExpansions.includes(Expansion.Sunstalker) && !imageLocations.value["" + i + j].includes(`sunstalker`)) {
+      if (!newExpansions.includes(Expansion.Sunstalker) && imageLocations.value["" + i + j].includes(`sunstalker`)) {
         imageLocations.value["" + i + j] = defaultImage.value;
       }
     }
