@@ -1,7 +1,7 @@
 export default {
+  11: "/gear_default.webp",
   12: "/gear_default.webp",
   13: "/gear_default.webp",
-  11: "/gear_default.webp",
   14: "/gear_default.webp",
   15: "/gear_default.webp",
   16: "/gear_default.webp",

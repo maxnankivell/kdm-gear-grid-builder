@@ -196,8 +196,11 @@ import ExportGridModal from "./ExportGridModal.vue";
 import { useStorage } from "@vueuse/core";
 import initialImageStructure from "@/structures/initial-image-structure";
 import { useVersionStateStore } from "@/stores/version-state-store";
+import { useExpansionsStateStore } from "@/stores/expansions-state-store";
+import { Expansion } from "@/structures/gear-array";
 
 const { version } = storeToRefs(useVersionStateStore());
+const { expansions } = storeToRefs(useExpansionsStateStore());
 const { gridState } = storeToRefs(useGridStateStore());
 const { showExportGridModal, showClearAllModal } = storeToRefs(useNavBarStateStore());
 
@@ -214,6 +217,7 @@ const imageLocations = useStorage<ImageLocations>("imageLocations", initialImage
 const overflow = computed(() => (gridState.value === "one" ? "hidden" : "auto"));
 
 watch(version, () => resetImagesAfterVersionChange(version.value));
+watch(expansions, () => resetImagesAfterExpansionsChange(expansions.value));
 
 let gridToClear: number;
 function clearOneGrid(index: number) {
@@ -251,6 +255,53 @@ function resetImagesAfterVersionChange(newVerson: string) {
         if (imageLocations.value["" + i + j].includes(`1.5`)) {
           imageLocations.value["" + i + j] = defaultImage.value;
         }
+      }
+    }
+  }
+}
+
+function resetImagesAfterExpansionsChange(newExpansions: string[]) {
+  for (let i = 1; i <= 4; i++) {
+    for (let j = 1; j <= 9; j++) {
+      if (!imageLocations.value["" + i + j].includes(`expansion`)) {
+        return;
+      }
+
+      if (!newExpansions.includes(Expansion.DragonKing) && !imageLocations.value["" + i + j].includes(`dragon-king`)) {
+        imageLocations.value["" + i + j] = defaultImage.value;
+      }
+      if (
+        !newExpansions.includes(Expansion.DungBeetleKnight) &&
+        !imageLocations.value["" + i + j].includes(`dung-beetle-knight`)
+      ) {
+        imageLocations.value["" + i + j] = defaultImage.value;
+      }
+      if (
+        !newExpansions.includes(Expansion.FlowerKnight) &&
+        !imageLocations.value["" + i + j].includes(`flower-knight`)
+      ) {
+        imageLocations.value["" + i + j] = defaultImage.value;
+      }
+      if (!newExpansions.includes(Expansion.Gorm) && !imageLocations.value["" + i + j].includes(`gorm`)) {
+        imageLocations.value["" + i + j] = defaultImage.value;
+      }
+      if (!newExpansions.includes(Expansion.LionGod) && !imageLocations.value["" + i + j].includes(`lion-god`)) {
+        imageLocations.value["" + i + j] = defaultImage.value;
+      }
+      if (!newExpansions.includes(Expansion.LionKnight) && !imageLocations.value["" + i + j].includes(`lion-knight`)) {
+        imageLocations.value["" + i + j] = defaultImage.value;
+      }
+      if (!newExpansions.includes(Expansion.Manhunter) && !imageLocations.value["" + i + j].includes(`manhunter`)) {
+        imageLocations.value["" + i + j] = defaultImage.value;
+      }
+      if (!newExpansions.includes(Expansion.Slenderman) && !imageLocations.value["" + i + j].includes(`slenderman`)) {
+        imageLocations.value["" + i + j] = defaultImage.value;
+      }
+      if (!newExpansions.includes(Expansion.Spidicules) && !imageLocations.value["" + i + j].includes(`spidicules`)) {
+        imageLocations.value["" + i + j] = defaultImage.value;
+      }
+      if (!newExpansions.includes(Expansion.Sunstalker) && !imageLocations.value["" + i + j].includes(`sunstalker`)) {
+        imageLocations.value["" + i + j] = defaultImage.value;
       }
     }
   }

@@ -11,11 +11,7 @@
     <DropdownWidget v-model="version" :options="['1.5', '1.6']" :allow-multiple-selections="false">
       Game Version:
     </DropdownWidget>
-    <DropdownWidget
-      v-model="expansions"
-      :options="['1', '2', '3', '4', '5', '6', '7', '8', '11', '12', '13', '14', '15', '16', '17', '18']"
-      :allow-multiple-selections="true"
-    >
+    <DropdownWidget v-model="expansions" :options="expansionDropdownOptions" :allow-multiple-selections="true">
       Expansions:
     </DropdownWidget>
     <template v-for="categorySection in categorySections" :key="categorySection">
@@ -24,7 +20,7 @@
           {{ _.startCase(categorySection) }}
         </div>
       </div>
-      <template v-for="category in categoryStructure[categorySection]" :key="category">
+      <template v-for="category in categoryStructureFiltered[categorySection]" :key="category">
         <ImageAccordion :category="category" :images="imagesByCategory[category] ?? []" />
       </template>
     </template>
@@ -40,39 +36,55 @@ import { useSideBarSpacingDecorated } from "@/coded-styles";
 import _ from "lodash";
 import DropdownWidget from "./DropdownWidget.vue";
 import { useVersionStateStore } from "@/stores/version-state-store";
+import { useExpansionsStateStore } from "@/stores/expansions-state-store";
 import { storeToRefs } from "pinia";
 import { useImageSize, useSideBarSpacingRaw } from "@/coded-styles";
+import { Expansion } from "../structures/gear-array";
 
 const { version } = storeToRefs(useVersionStateStore());
+const { expansions } = storeToRefs(useExpansionsStateStore());
 const imageSize = useImageSize();
-const expansions = ref(["1"]);
 
+// all gear that passes filters
 const filteredGearArray = computed(() =>
-  gearArray.filter((gear) => gear.versions.includes(version.value) || gear.versions.includes(`all`))
+  gearArray.filter(
+    (gear) =>
+      (gear.versions.includes(version.value) || gear.versions.includes(`all`)) &&
+      (gear.expansion == null || expansions.value.includes(gear.expansion))
+  )
 );
 
-const categorySections = ref<string[]>(Object.keys(categoryStructure));
+// all categories on gear that pass filters
 const allCategoriesOnGear = computed<string[]>(() => [
   ...new Set(filteredGearArray.value.flatMap((gear) => gear.categories)),
 ]);
-const allCategoriesInSections: string[] = Object.values(categoryStructure).flat();
 
-// Remove all categories that are not assigned to any gear
-for (const categorySection in categoryStructure) {
-  categoryStructure[categorySection] = categoryStructure[categorySection].filter((category) =>
-    allCategoriesOnGear.value.includes(category)
+const categorySections = ref<string[]>(Object.keys(categoryStructure));
+
+const categoryStructureFiltered = computed(() => {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const tempCategoryStructureFiltered: any = {};
+
+  // Remove all categories that are not assigned to any gear
+  for (const categorySection in categoryStructure) {
+    tempCategoryStructureFiltered[categorySection] = categoryStructure[categorySection].filter((category) =>
+      allCategoriesOnGear.value.includes(category)
+    );
+  }
+
+  // Add all categories that are assigned to gear but not in the category structure to miscellaneous
+  const allCategoriesInSections: string[] = Object.values(categoryStructure).flat();
+  tempCategoryStructureFiltered["miscellaneous"] = tempCategoryStructureFiltered["miscellaneous"].concat(
+    allCategoriesOnGear.value.filter((category) => !allCategoriesInSections.includes(category))
   );
-}
 
-// Add all categories that are assigned to gear but not in the category structure to miscellaneous
-categoryStructure["miscellaneous"] = categoryStructure["miscellaneous"].concat(
-  allCategoriesOnGear.value.filter((category) => !allCategoriesInSections.includes(category))
-);
+  // Put categories in alphabetical order
+  for (const categorySection in tempCategoryStructureFiltered) {
+    tempCategoryStructureFiltered[categorySection].sort();
+  }
 
-// Put categories in alphabetical order
-for (const categorySection in categoryStructure) {
-  categoryStructure[categorySection].sort();
-}
+  return tempCategoryStructureFiltered;
+});
 
 interface CategoryObject {
   [category: string]: string[];
@@ -81,6 +93,7 @@ interface CategoryObject {
 // object with every category as a key to an array of image sources
 const imagesByCategory = ref<CategoryObject>({});
 
+// console.log(filteredGearArray);
 watch(
   [filteredGearArray, allCategoriesOnGear],
   () => {
@@ -93,6 +106,7 @@ watch(
             tempImagesByCategory[category] = [];
           }
           tempImagesByCategory[category].push(gear.source);
+          // console.log(gear.source);
         }
       }
 
@@ -105,12 +119,19 @@ watch(
           return 1;
         }
       });
+
+      if (category === "rare-gear") {
+        console.log(tempImagesByCategory[category]);
+      }
     }
 
     imagesByCategory.value = tempImagesByCategory;
   },
   { immediate: true }
 );
+
+// get expansion dropdown options
+const expansionDropdownOptions: string[] = Object.values(Expansion);
 </script>
 
 <style scoped lang="scss">
