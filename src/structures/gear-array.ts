@@ -1,7 +1,9 @@
+export type Versions = "all" | "1.5" | "1.6";
+
 interface GearImage {
   source: string;
   categories: string[];
-  versions: string[];
+  versions: Versions[];
 }
 
 const gearArray: GearImage[] = [

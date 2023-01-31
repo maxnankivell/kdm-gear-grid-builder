@@ -176,12 +176,30 @@ async function createAllGridImage(): Promise<Blob> {
 }
 
 async function resizeGridImage(imageBlob: Blob): Promise<string> {
-  // const resizedImageBlob = await browserImageResizer.readAndCompressImage(imageBlob, {
-  //   quality: 0.8,
-  //   maxWidth: downSizedImageSize.value,
-  //   maxHeight: downSizedImageSize.value,
-  // });
-  return URL.createObjectURL(imageBlob);
+  const canvas = document.createElement("canvas");
+  const ctx = canvas.getContext("2d");
+
+  canvas.width = downSizedImageSize.value;
+  canvas.height = downSizedImageSize.value;
+
+  const img = await blobToImage(imageBlob);
+
+  // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+  ctx!.drawImage(img, 0, 0, canvas.width, canvas.height);
+
+  return canvas.toDataURL();
+}
+
+async function blobToImage(blob: Blob): Promise<HTMLImageElement> {
+  return new Promise((resolve) => {
+    const url = URL.createObjectURL(blob);
+    let img = new Image();
+    img.src = url;
+    img.onload = () => {
+      URL.revokeObjectURL(url);
+      resolve(img);
+    };
+  });
 }
 </script>
 

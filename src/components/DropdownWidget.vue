@@ -2,14 +2,20 @@
   <div style="position: relative">
     <!-- Doesnt work with ssg for some reason but doesnt matter -->
     <!-- <div v-click-away="closePopper" class="dropdown-box" @click="toggle"> -->
-    <div class="dropdown-box" @click="toggle">
-      <div>Game Version: {{ modelValue }}</div>
+    <div class="dropdown-box" @click="toggle" @mouseenter="isHovered = true" @mouseleave="isHovered = false">
+      <div><slot></slot> {{ displayModelValue() }}</div>
       <ph-caret-down :size="32" class="chevron" :class="{ 'rotate-chevron-180': isActive }" />
     </div>
     <Transition name="fade">
       <div v-if="isActive" class="popup-menu">
-        <div v-for="version in versions" :key="version" class="list-item" @click="updateVersion(version)">
-          {{ version }}
+        <div
+          v-for="option in options"
+          :key="option"
+          class="list-item"
+          :class="isSelected(option)"
+          @click="updateOption(option)"
+        >
+          {{ option }}
         </div>
       </div>
     </Transition>
@@ -21,26 +27,58 @@ import { ref, defineProps, defineEmits, computed } from "vue";
 import { PhCaretDown } from "phosphor-vue";
 
 interface Props {
-  modelValue: number;
-  versions: number[];
+  modelValue: string | string[];
+  allowMultipleSelections: boolean;
+  options: string[];
 }
 
 const emit = defineEmits<{
-  (emit: "update:modelValue", newValue: number): void;
+  (emit: "update:modelValue", newValue: string | string[]): void;
 }>();
 
 const props = defineProps<Props>();
 
 const modelValue = computed({
   get: () => props.modelValue,
-  set: (newValue: number) => emit("update:modelValue", newValue),
+  set: (newValue: string | string[]) => emit("update:modelValue", newValue),
 });
 
 const isActive = ref(false);
+const isHovered = ref(false);
 
-function updateVersion(version: number) {
-  modelValue.value = version;
-  closePopper();
+function updateOption(option: string) {
+  if (!props.allowMultipleSelections || !Array.isArray(modelValue.value)) {
+    modelValue.value = option;
+    closePopper();
+    return;
+  }
+
+  const currentIndex = modelValue.value.indexOf(option);
+  if (currentIndex === -1) {
+    modelValue.value = [...modelValue.value, option];
+  } else {
+    modelValue.value.splice(currentIndex, 1);
+  }
+}
+
+function displayModelValue() {
+  if (!props.allowMultipleSelections || !Array.isArray(modelValue.value)) {
+    return modelValue.value;
+  }
+  return modelValue.value.sort().join(", ");
+}
+
+function isSelected(option: string) {
+  if (!props.allowMultipleSelections || !Array.isArray(modelValue.value)) {
+    if (modelValue.value === option) {
+      return "selected";
+    }
+    return;
+  }
+
+  if (modelValue.value.includes(option)) {
+    return "selected";
+  }
 }
 
 function closePopper() {
@@ -54,18 +92,19 @@ function toggle() {
 
 <style scoped lang="scss">
 .dropdown-box {
-  display: flex;
+  display: grid;
+  grid-template-columns: 1fr 32px;
   align-items: center;
   padding: 1.2rem;
   font-size: 2rem;
-  background-color: $oxford-blue;
+  border: 3px solid $oxford-blue-1-light;
   color: $platinum;
   cursor: pointer;
   transition: all 0.25s linear;
   border-radius: 0.8rem;
 
   &:hover {
-    background-color: $oxford-blue-2-light;
+    background-color: $oxford-blue-1-light;
     color: $white;
   }
 }
@@ -73,6 +112,14 @@ function toggle() {
 .chevron {
   margin-left: auto;
   transition: transform 0.25s linear;
+}
+
+.rotate-chevron-90 {
+  transform: rotate(90deg);
+}
+
+.rotate-chevron-180 {
+  transform: rotate(180deg);
 }
 
 .popup-menu {
@@ -92,11 +139,19 @@ function toggle() {
   font-size: 2rem;
   color: $platinum;
   cursor: pointer;
+  border-radius: 0.8rem;
+  &.selected {
+    background-color: $cool-green;
+
+    &:hover {
+      background-color: $cool-green-2-light;
+      color: $white;
+    }
+  }
 
   &:hover {
-    background-color: $oxford-blue-3-light;
+    background-color: $oxford-blue-2-light;
     color: $white;
-    border-radius: 0.8rem;
   }
 }
 </style>

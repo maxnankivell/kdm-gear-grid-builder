@@ -4,7 +4,6 @@
       class="accordion-header"
       :style="{
         'border-radius': isOpen ? '8px 8px 0 0 ' : '8px',
-        width: imageSize * 2 + useSideBarSpacingRaw * 3 + `px`,
       }"
       @click="isOpen = !isOpen"
       @mouseenter="isHovered = true"
