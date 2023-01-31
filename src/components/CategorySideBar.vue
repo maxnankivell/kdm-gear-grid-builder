@@ -106,7 +106,6 @@ watch(
             tempImagesByCategory[category] = [];
           }
           tempImagesByCategory[category].push(gear.source);
-          // console.log(gear.source);
         }
       }
 
@@ -119,10 +118,6 @@ watch(
           return 1;
         }
       });
-
-      if (category === "rare-gear") {
-        console.log(tempImagesByCategory[category]);
-      }
     }
 
     imagesByCategory.value = tempImagesByCategory;
