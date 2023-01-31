@@ -31,7 +31,7 @@
 <script setup lang="ts">
 import { computed, defineProps, ref } from "vue";
 import { PhCaretDown } from "phosphor-vue";
-import { useImageSize, useSideBarSpacingRaw, useSideBarSpacingDecorated } from "@/coded-styles";
+import { useImageSize, useSideBarSpacingDecorated } from "@/coded-styles";
 
 interface Props {
   category: string;

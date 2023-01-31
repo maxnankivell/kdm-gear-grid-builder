@@ -12,7 +12,6 @@
   "dependencies": {
     "@types/downloadjs": "^1.4.3",
     "@vueuse/core": "^8.1.2",
-    "browser-image-resizer": "^2.2.1",
     "downloadjs": "^1.4.7",
     "html-to-image": "^1.9.0",
     "lodash": "^4.17.21",

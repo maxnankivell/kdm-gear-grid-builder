@@ -36,7 +36,6 @@ import ModalWindow from "@/components/ModalWindow.vue";
 import ToggleSwitch from "@/components/ToggleSwitch.vue";
 import { computed, defineEmits, defineProps, onMounted, ref } from "vue";
 import mergeImages from "merge-images";
-// import browserImageResizer from "browser-image-resizer";
 import { ImageLocations } from "@/types";
 import { useWindowSize } from "vue-window-size";
 import { watchDebounced } from "@vueuse/core";
