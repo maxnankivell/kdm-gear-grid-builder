@@ -60,7 +60,7 @@ const categoryStructure: categorySectionObject = {
     "warlord-armor",
     "green-armor",
   ],
-  armorLocations: ["arm-armor", "chest-armor", "head-armor", "leg-armor", "waist-armor"],
+  armorLocations: ["arm-armor", "body-armor", "head-armor", "leg-armor", "waist-armor"],
   miscellaneous: [
     "amber",
     "ammunition",

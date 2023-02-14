@@ -13,20 +13,105 @@ export enum Expansion {
   Manhunter = "Manhunter",
 }
 
+export enum ArmorLocations {
+  Head = "head",
+  Arms = "arms",
+  Body = "body",
+  Waist = "waist",
+  Legs = "legs",
+}
+
+export enum ArmorSets {
+  BrawlerArmor,
+  CycloidScaleArmor,
+  DancerArmor,
+  DragonArmor,
+  GormentArmor,
+  GreenArmor,
+  LanternArmor,
+  LeatherArmor,
+  PhoenixArmor,
+  RawhideArmor,
+  RollingArmor,
+  ScreamingArmor,
+  SilkArmor,
+  VagabondArmor,
+  WarlordArmor,
+  WhiteLionArmor,
+}
+
+type AffinityColors = "red" | "blue" | "green";
+type AffinityRequirementColors = "red" | "blue" | "green" | "connectedred" | "connectedblue" | "connectedgreen";
+
+interface StatsObject {
+  movement?: number;
+  evasion?: number;
+  strength?: number;
+  luck?: number;
+  accuracy?: number;
+  speed?: number;
+}
+
+interface AffinityDirections {
+  up?: AffinityColors;
+  right?: AffinityColors;
+  down?: AffinityColors;
+  left?: AffinityColors;
+}
+
+interface ArmorValues {
+  head?: number;
+  arms?: number;
+  body?: number;
+  waist?: number;
+  legs?: number;
+}
+
+interface AffinityBonuses {
+  requirements: AffinityRequirementColors[];
+  stats?: StatsObject;
+  gearAbilities?: string[];
+  abilityText?: string;
+}
+
+interface AttackProfile {
+  speed: number;
+  accuracy: number;
+  strength: number;
+}
+
+// https://kingdomdeath.fandom.com/wiki/Category:Gear_Special_Rules add all these hoes laterm
+interface GearAbilities {
+  accessory?: number;
+  activationLimit?: number;
+  affinityBonus?: number;
+}
+
 interface GearImage {
+  id: number;
   source: string;
   categories: string[];
   versions: Versions[];
   expansion: Expansion | null;
+  stats?: StatsObject;
+  gearAbilities?: GearAbilities;
+  affinities?: AffinityDirections;
+  affinitybonuses?: AffinityBonuses[];
+  armorLocation?: ArmorLocations[];
+  armorValues?: ArmorValues;
+  armorSets?: ArmorSets[];
+  attackProfile?: AttackProfile;
 }
 
 const gearArray: GearImage[] = [
   // barber-surgeon
   {
+    id: 1,
     source: "gear-images/barber-surgeon/almanac.webp",
     categories: ["barber-surgeon", "item", "soluble", "flammable", "blue"],
     versions: ["all"],
     expansion: null,
+    affinities: { right: "blue" },
   },
   {
     source: "gear-images/kdm-1.5-gear/barber-surgeon/brain_mint.webp",
@@ -100,10 +185,12 @@ const gearArray: GearImage[] = [
     categories: ["blacksmith", "weapon", "melee", "grand-weapon", "heavy", "two-handed", "metal", "red", "blue"],
     versions: ["all"],
     expansion: null,
+
+    attackProfile: { speed: 1, accuracy: 6, strength: 5 },
   },
   {
     source: "gear-images/blacksmith/lantern_cuirass.webp",
-    categories: ["blacksmith", "armor", "set", "metal", "heavy", "chest-armor", "green", "blue", "lantern-armor"],
+    categories: ["blacksmith", "armor", "set", "metal", "heavy", "body-armor", "green", "blue", "lantern-armor"],
     versions: ["all"],
     expansion: null,
   },
@@ -303,7 +390,7 @@ const gearArray: GearImage[] = [
   },
   {
     source: "gear-images/catarium/white_lion_coat.webp",
-    categories: ["catarium", "armor", "set", "fur", "heavy", "chest-armor", "blue", "white-lion-armor"],
+    categories: ["catarium", "armor", "set", "fur", "heavy", "body-armor", "blue", "white-lion-armor"],
     versions: ["all"],
     expansion: null,
   },
@@ -377,7 +464,7 @@ const gearArray: GearImage[] = [
   },
   {
     source: "gear-images/dragon-king-expansion/dragon-armory/dragon_mantle.webp",
-    categories: ["dragon-armory", "armor", "set", "metal", "chest-armor", "red", "green", "dragon-armor"],
+    categories: ["dragon-armory", "armor", "set", "metal", "body-armor", "red", "green", "dragon-armor"],
     versions: ["all"],
     expansion: Expansion.DragonKing,
   },
@@ -586,17 +673,7 @@ const gearArray: GearImage[] = [
   },
   {
     source: "gear-images/gorm-expansion/gormery/gorment_suit.webp",
-    categories: [
-      "gormery",
-      "armor",
-      "set",
-      "gormskin",
-      "heavy",
-      "chest-armor",
-      "waist-armor",
-      "green",
-      "gorment-armor",
-    ],
+    categories: ["gormery", "armor", "set", "gormskin", "heavy", "body-armor", "waist-armor", "green", "gorment-armor"],
     versions: ["all"],
     expansion: Expansion.Gorm,
   },
@@ -607,7 +684,7 @@ const gearArray: GearImage[] = [
     expansion: Expansion.Gorm,
   },
   {
-    source: "gear-images/gorm-expansion/gormery/gaxe.webp",
+    source: "gear-images/gorm-expansion/gormery/greater_gaxe.webp",
     categories: ["gormery", "weapon", "melee", "axe", "two-handed", "heavy", "red"],
     versions: ["all"],
     expansion: Expansion.Gorm,
@@ -626,7 +703,7 @@ const gearArray: GearImage[] = [
   },
   {
     source: "gear-images/gorm-expansion/gormery/regeneration_suit.webp",
-    categories: ["gormery", "item", "gorm", "chest-armor", "green", "gorment-armor"],
+    categories: ["gormery", "item", "gorm", "body-armor", "green", "gorment-armor"],
     versions: ["all"],
     expansion: Expansion.Gorm,
   },
@@ -663,7 +740,7 @@ const gearArray: GearImage[] = [
   },
   {
     source: "gear-images/leather-worker/leather_cuirass.webp",
-    categories: ["leather-worker", "armor", "set", "leather", "chest-armor", "red", "blue", "leather-armor"],
+    categories: ["leather-worker", "armor", "set", "leather", "body-armor", "red", "blue", "leather-armor"],
     versions: ["all"],
     expansion: null,
   },
@@ -933,7 +1010,7 @@ const gearArray: GearImage[] = [
       "feather",
       "metal",
       "flammable",
-      "chest-armor",
+      "body-armor",
       "red",
       "green",
       "blue",
@@ -1227,7 +1304,7 @@ const gearArray: GearImage[] = [
   },
   {
     source: "gear-images/rare-gear/regal_plackart.webp",
-    categories: ["rare-gear", "armor", "bone", "metal", "chest-armor"],
+    categories: ["rare-gear", "armor", "bone", "metal", "body-armor"],
     versions: ["all"],
     expansion: null,
   },
@@ -1428,7 +1505,7 @@ const gearArray: GearImage[] = [
   },
   {
     source: "gear-images/spidicules-expansion/silk-mill/silk_robes.webp",
-    categories: ["silk-mill", "armor", "set", "silk", "flammable", "chest-armor", "red", "blue", "silk-armor"],
+    categories: ["silk-mill", "armor", "set", "silk", "flammable", "body-armor", "red", "blue", "silk-armor"],
     versions: ["all"],
     expansion: Expansion.Spidicules,
   },
@@ -1501,7 +1578,7 @@ const gearArray: GearImage[] = [
   },
   {
     source: "gear-images/skinnery/rawhide_vest.webp",
-    categories: ["skinnery", "armor", "set", "rawhide", "chest-armor", "red", "blue", "rawhide-armor"],
+    categories: ["skinnery", "armor", "set", "rawhide", "body-armor", "red", "blue", "rawhide-armor"],
     versions: ["all"],
     expansion: null,
   },
@@ -1520,13 +1597,13 @@ const gearArray: GearImage[] = [
   },
   {
     source: "gear-images/sunstalker-expansion/skyreef-sanctuary/cycloid_scale_jacket.webp",
-    categories: ["skyreef-sanctuary", "armor", "set", "scale", "chest-armor", "red", "blue", "cycloid-scale-armor"],
+    categories: ["skyreef-sanctuary", "armor", "set", "scale", "body-armor", "red", "blue", "cycloid-scale-armor"],
     versions: ["all"],
     expansion: Expansion.Sunstalker,
   },
   {
     source: "gear-images/sunstalker-expansion/skyreef-sanctuary/cycloid_scale_shoes.webp",
-    categories: ["skyreef-sanctuary", "armor", "set", "scale", "chest-armor", "green", "blue", "cycloid-scale-armor"],
+    categories: ["skyreef-sanctuary", "armor", "set", "scale", "body-armor", "green", "blue", "cycloid-scale-armor"],
     versions: ["all"],
     expansion: Expansion.Sunstalker,
   },
@@ -1702,7 +1779,7 @@ const gearArray: GearImage[] = [
   },
   {
     source: "gear-images/stone-circle/screaming_coat.webp",
-    categories: ["stone-circle", "armor", "set", "fur", "chest-armor", "green", "blue", "screaming-armor"],
+    categories: ["stone-circle", "armor", "set", "fur", "body-armor", "green", "blue", "screaming-armor"],
     versions: ["all"],
     expansion: null,
   },
