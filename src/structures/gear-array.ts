@@ -1130,10 +1130,10 @@ const gearArray: GearImage[] = [
     expansion: Expansion.Gorm,
     affinities: { left: "green" },
     affinityBonuses: [
-      {requirements: ["connectedgreen", "blue", "red"], abilityText: "Guard: at the end of your attack, if you are standing and have a shield in your gear grid, spend 1 survival to move 3 spaces directly away from the monster and block 1 for free." },],
-      armorLocation: [ArmorLocations.Body, ArmorLocations.Waist], 
-      armorValues: { body: 2, waist: 2 },
-      armorSets: [ArmorSets.GormentArmor],
+    {requirements: ["connectedgreen", "blue", "red"], abilityText: "Guard: at the end of your attack, if you are standing and have a shield in your gear grid, spend 1 survival to move 3 spaces directly away from the monster and block 1 for free." },],
+    armorLocation: [ArmorLocations.Body, ArmorLocations.Waist], 
+    armorValues: { body: 2, waist: 2 },
+    armorSets: [ArmorSets.GormentArmor],
   },
   {
     id: 88,
@@ -1150,8 +1150,10 @@ const gearArray: GearImage[] = [
     categories: ["gormery", "weapon", "melee", "axe", "two-handed", "heavy", "red"],
     versions: ["all"],
     expansion: Expansion.Gorm,
-    affinities: { down: "red" },
-
+    affinities: { left: "red" },
+    affinityBonuses: [
+      {requirements: [ "green", "red"], abilityText: "On a perfect hit, the edge sharpens. Gain +4 strength for the rest of the attack." },],
+    gearAbilities: { deadly: 1, reach: 2 },
   },
   {
     id: 90,
@@ -1169,24 +1171,44 @@ const gearArray: GearImage[] = [
     categories: ["gormery", "item", "lantern", "gormskin", "fragile", "red"],
     versions: ["all"],
     expansion: Expansion.Gorm,
+    affinities: { up: "red" },
   },
   {
+    id: 92,
     source: "gear-images/gorm-expansion/gormery/regeneration_suit.webp",
     categories: ["gormery", "item", "gorm", "body-armor", "green", "gorment-armor"],
     versions: ["all"],
     expansion: Expansion.Gorm,
+    affinities: { up: "green", down: "green", left: "green" },
+    affinityBonuses: [
+      {requirements: [ "connectedgreen", "green", "green"], abilityText: "At the end of the showdown, remove any permanent injuries you suffered this showdown." },],
+    gearAbilities: { accessory: 0 },
+    armorLocation: [ArmorLocations.Body], 
+    armorValues: { body: 2 },
+    armorSets: [ArmorSets.GormentArmor],
   },
   {
+    id: 93,
     source: "gear-images/gorm-expansion/gormery/rib_blade.webp",
     categories: ["gormery", "weapon", "melee", "grand-weapon", "bone", "blue"],
     versions: ["all"],
     expansion: Expansion.Gorm,
+    affinities: { right: "blue" },
+    gearAbilities: { slow: 0, deadly: 1 },
+    attackProfile: { speed: 1, accuracy: 6, strength: 5 },
+
+
   },
   {
+    id: 94,
     source: "gear-images/gorm-expansion/gormery/riot_mace.webp",
     categories: ["gormery", "weapon", "melee", "club", "blue"],
     versions: ["all"],
     expansion: Expansion.Gorm,
+    affinities: { right: "blue" },
+    gearAbilities: { deadly: 1 },
+    attackProfile: { speed: 2, accuracy: 5, strength: 5 },
+
   },
   //leather worker
   {
