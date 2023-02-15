@@ -40,6 +40,29 @@ export enum ArmorSets {
   WhiteLionArmor,
 }
 
+export enum Impairments {
+  Blind,
+  BrokenArm,
+  BrokenHip,
+  BrokenLeg,
+  BrokenRib,
+  Contracture,
+  DeadInside,
+  Deaf,
+  DestroyedBack,
+  DestroyedGeneitals,
+  DismemberedArm,
+  DismemberdLEg,
+  EndlessBabble,
+  IntracranialHemorrhage,
+  Leprosy,
+  MarrowHunger,
+  RupturedMuscle,
+  ShatteredJaw,
+  Thin_Skinned,
+  WarpedPelvis,
+}
+
 type AffinityColors = "red" | "blue" | "green";
 type AffinityRequirementColors = "red" | "blue" | "green" | "connectedred" | "connectedblue" | "connectedgreen";
 
@@ -70,8 +93,9 @@ interface ArmorValues {
 interface AffinityBonuses {
   requirements: AffinityRequirementColors[];
   stats?: StatsObject;
-  gearAbilities?: string[];
+  gearAbilities?: GearAbilities;
   abilityText?: string;
+  impairments: Impairments[];
 }
 
 interface AttackProfile {
@@ -144,7 +168,8 @@ interface GearImage {
   stats?: StatsObject;
   gearAbilities?: GearAbilities;
   affinities?: AffinityDirections;
-  affinitybonuses?: AffinityBonuses[];
+  builtInAffinites?: AffinityColors[];
+  affinityBonuses?: AffinityBonuses[];
   armorLocation?: ArmorLocations[];
   armorValues?: ArmorValues;
   armorSets?: ArmorSets[];
@@ -168,67 +193,93 @@ const gearArray: GearImage[] = [
     versions: ["1.5"],
     expansion: null,
     affinities: { up: "green", left: "blue" },
+    gearAbilities: { consume: 0 },
   },
   {
+    id: 3,
     source: "gear-images/barber-surgeon/bug_trap.webp",
     categories: ["barber-surgeon", "item", "soluble"],
     versions: ["all"],
     expansion: null,
   },
   {
+    id: 4,
     source: "gear-images/kdm-1.5-gear/barber-surgeon/elder_earrings.webp",
     categories: ["barber-surgeon", "item", "jewelery", "red", "blue", "green"],
     versions: ["1.5"],
     expansion: null,
+    affinities: { right: "green", down: "blue", left: "red" },
   },
   {
+    id: 5,
     source: "gear-images/barber-surgeon/first_aid_kit.webp",
     categories: ["barber-surgeon", "item", "heavy", "green"],
     versions: ["all"],
     expansion: null,
+    affinities: { up: "green", right: "green", down: "green", left: "green" },
   },
   {
+    id: 6,
     source: "gear-images/barber-surgeon/musk_bomb.webp",
     categories: ["barber-surgeon", "item", "stinky", "thrown", "fragile"],
     versions: ["all"],
     expansion: null,
   },
   {
+    id: 7,
     source: "gear-images/barber-surgeon/scavenger_kit.webp",
     categories: ["barber-surgeon", "item", "heavy", "green"],
     versions: ["all"],
     expansion: null,
+    affinities: { down: "green" },
   },
   {
+    id: 8,
     source: "gear-images/kdm-1.5-gear/barber-surgeon/speed_powder.webp",
     categories: ["barber-surgeon", "item", "soluble", "blue"],
     versions: ["1.5"],
     expansion: null,
   },
   {
+    id: 9,
     source: "gear-images/kdm-1.6-gear/barber-surgeon/blue_charm.webp",
     categories: ["barber-surgeon", "item", "jewelery", "fragile", "blue"],
     versions: ["1.6"],
     expansion: null,
+
+    builtInAffinites: ["blue"],
+    affinityBonuses: [{ requirements: ["blue", "blue", "blue", "blue", "blue"], gearAbilities: { unshakeable: 0 } }],
   },
   {
+    id: 10,
     source: "gear-images/kdm-1.6-gear/barber-surgeon/green_charm.webp",
     categories: ["barber-surgeon", "item", "jewelery", "fragile", "green"],
     versions: ["1.6"],
     expansion: null,
+    builtInAffinites: ["green"],
+    affinityBonuses: [
+      { requirements: ["green", "green", "green", "green", "green"], gearAbilities: { undeathable: 0 } },
+    ],
   },
   {
+    id: 11,
     source: "gear-images/kdm-1.6-gear/barber-surgeon/red_charm.webp",
     categories: ["barber-surgeon", "item", "jewelery", "fragile", "red"],
     versions: ["1.6"],
     expansion: null,
+    builtInAffinites: ["red"],
+    affinityBonuses: [{ requirements: ["red", "red", "red", "red", "red"], gearAbilities: { unstoppable: 0 } }],
   },
   // blacksmith
   {
+    id: 12,
     source: "gear-images/blacksmith/beacon_shield.webp",
     categories: ["blacksmith", "weapon", "melee", "metal", "shield", "heavy"],
     versions: ["all"],
     expansion: null,
+    gearAbilities: { block: 2 },
+    armorValues: { head: 2, arms: 2, body: 2, waist: 2, legs: 2 },
+    attackProfile: { speed: 1, accuracy: 6, strength: 5 },
   },
   {
     source: "gear-images/blacksmith/dragon_slayer.webp",
