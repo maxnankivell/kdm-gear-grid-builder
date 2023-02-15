@@ -85,6 +85,54 @@ interface GearAbilities {
   accessory?: number;
   activationLimit?: number;
   affinityBonus?: number;
+  aim?: number;
+  ammo_bow?: number;
+  barbed?: number;
+  blindside?: number;
+  block?: number;
+  charge?: number;
+  cleavage?: number;
+  cleave?: number;
+  consume?: number;
+  cumbersome?: number;
+  cursed?: number;
+  dazed?: number;
+  deadly?: number;
+  devastating?: number;
+  earlyIron?: number;
+  ethereal?: number;
+  frail?: number;
+  grimstep?: number;
+  irreplaceable?: number;
+  leap?: number;
+  outfit?: number;
+  paired?: number;
+  perfectHit?: number;
+  pounce?: number;
+  provoke?: number;
+  puzzleAffinity?: number;
+  range?: number;
+  reach?: number;
+  refined?: number;
+  ripplePattern?: number;
+  roar?: number;
+  savage?: number;
+  scream?: number;
+  sealed?: number;
+  selfish?: number;
+  sentient?: number;
+  shadowWalk?: number;
+  sharp?: number;
+  sideswipe?: number;
+  skewer?: number;
+  slam?: number;
+  slow?: number;
+  undeathable?: number;
+  unique?: number;
+  unshakeable?: number;
+  unstoppable?: number;
+  unwieldy?: number;
+  vital?: number;
 }
 
 interface GearImage {
@@ -114,10 +162,12 @@ const gearArray: GearImage[] = [
     affinities: { right: "blue" },
   },
   {
+    id: 2,
     source: "gear-images/kdm-1.5-gear/barber-surgeon/brain_mint.webp",
     categories: ["barber-surgeon", "item", "consumable", "green", "blue"],
     versions: ["1.5"],
     expansion: null,
+    affinities: { up: "green", left: "blue" },
   },
   {
     source: "gear-images/barber-surgeon/bug_trap.webp",
