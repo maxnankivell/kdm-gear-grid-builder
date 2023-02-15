@@ -1,3 +1,5 @@
+import { head } from "lodash";
+
 export type Versions = "all" | "1.5" | "1.6";
 
 export enum Expansion {
@@ -122,6 +124,7 @@ interface GearAbilities {
   cursed?: number;
   dazed?: number;
   deadly?: number;
+  deflect?: number;
   devastating?: number;
   earlyIron?: number;
   ethereal?: number;
@@ -803,69 +806,120 @@ const gearArray: GearImage[] = [
     categories: ["dragon-armory", "weapon", "melee", "dagger", "nuclear", "red", "green", "blue"],
     versions: ["all"],
     expansion: Expansion.DragonKing,
+    affinities: { up: "blue", right: "red", down: "green", left: "blue" },
+    affinityBonuses: [
+      {
+        requirements: ["connectedred", "connectedgreen", "connectedblue"],
+        abilityText:
+          "Activation: Edge ignites! Suffer 3 brain damage. Your next attack with this weapon games Devastating 1. Limit, once per round.",
+      },
+    ],
+    attackProfile: { speed: 3, accuracy: 6, strength: 3 },
   },
   {
+    id: 60,
     source: "gear-images/dragon-king-expansion/dragon-armory/nuclear_scythe.webp",
     categories: ["dragon-armory", "weapon", "melee", "scythe", "nuclear", "red", "blue"],
     versions: ["all"],
     expansion: Expansion.DragonKing,
+    affinities: { up: "red", down: "red", left: "blue" },
+    gearAbilities: { range: 3 },
+    affinityBonuses: [
+      {
+        requirements: ["connectedred", "connectedred", "connectedblue"],
+        abilityText:
+          "Activation: Edge ignites! Suffer 3 brain damage. Your next attack with this weapon games Devastating 1. Limit, once per round.",
+      },
+    ],
+    attackProfile: { speed: 2, accuracy: 6, strength: 4 },
   },
   {
+    id: 60,
     source: "gear-images/dragon-king-expansion/dragon-armory/red_power_core.webp",
     categories: ["dragon-armory", "item", "jewelry"],
     versions: ["all"],
     expansion: Expansion.DragonKing,
   },
   {
+    id: 61,
     source: "gear-images/dragon-king-expansion/dragon-armory/shielded_quiver.webp",
     categories: ["dragon-armory", "item", "leather"],
     versions: ["all"],
     expansion: Expansion.DragonKing,
   },
   {
+    id: 62,
     source: "gear-images/dragon-king-expansion/dragon-armory/talon_knife.webp",
     categories: ["dragon-armory", "weapon", "melee", "katar", "bone", "paired", "blue"],
     versions: ["all"],
     expansion: Expansion.DragonKing,
+    affinities: { up: "blue", left: "blue" },
+    gearAbilities: { paired: 0 },
+    attackProfile: { speed: 2, accuracy: 6, strength: 4 },
   },
   //exhausted lantern hoard
   {
+    id: 63
     source: "gear-images/kdm-1.5-gear/exhausted-lantern-hoard/final_lantern.webp",
     categories: ["exhausted-lantern-hoard", "item", "lantern", "other", "green", "blue"],
     versions: ["1.5"],
     expansion: null,
+    affinities: { up: "green", left: "blue" },
+    gearAbilities: { vital: 0 },
+
   },
   {
+    id: 64
     source: "gear-images/kdm-1.6-gear/exhausted-lantern-hoard/final_lantern.webp",
     categories: ["exhausted-lantern-hoard", "item", "lantern", "other", "green", "blue"],
     versions: ["1.6"],
     expansion: null,
+    affinities: { up: "green", left: "blue" },
+    gearAbilities: { vital: 0 },
   },
   {
+    id: 65,
     source: "gear-images/kdm-1.5-gear/exhausted-lantern-hoard/final_lantern_closed.webp",
     categories: ["exhausted-lantern-hoard", "item", "lantern", "other", "green", "blue"],
     versions: ["1.5"],
     expansion: null,
+    affinities: { up: "green", left: "blue" },
+    gearAbilities: { vital: 0 },
   },
   {
+    id: 66,
     source: "gear-images/kdm-1.6-gear/exhausted-lantern-hoard/final_lantern_closed.webp",
     categories: ["exhausted-lantern-hoard", "item", "lantern", "other", "green", "blue"],
     versions: ["1.6"],
     expansion: null,
+    affinities: { up: "green", left: "blue" },
+    gearAbilities: { vital: 0 },
   },
   {
+    id: 67,
     source: "gear-images/exhausted-lantern-hoard/oxidized_beacon_shield.webp",
     categories: ["exhausted-lantern-hoard", "weapon", "melee", "shield", "metal", "heavy"],
     versions: ["all"],
     expansion: null,
+    gearAbilities: { deflect: 2 },
+    armorValues: { head: 2, arms: 2, body: 2, waist: 2, legs: 2 },
+    attackProfile: { speed: 1, accuracy: 6, strength: 6 },
   },
   {
+    id: 68,
     source: "gear-images/exhausted-lantern-hoard/oxidized_lantern_dagger.webp",
     categories: ["exhausted-lantern-hoard", "weapon", "melee", "dagger", "finesse", "metal", "red"],
     versions: ["all"],
     expansion: null,
+    affinities: { right: "red", left: "red" },
+    gearAbilities: { sharp: 0, paired: 0 },
+    affinityBonuses: [
+      {requirements: ["connectedred", "red"],abilityText:"On a Perfect hit, gain +1 survival",},],
+    attackProfile: { speed: 3, accuracy: 6, strength: 4 },
+
   },
   {
+    id: 69,
     source: "gear-images/kdm-1.5-gear/exhausted-lantern-hoard/oxidized_lantern_glaive.webp",
     categories: [
       "exhausted-lantern-hoard",
@@ -880,8 +934,14 @@ const gearArray: GearImage[] = [
     ],
     versions: ["1.5"],
     expansion: null,
+    affinities: { down: "green" },
+    gearAbilities: { sharp: 0, reach: 2 },
+    affinityBonuses: [
+      {requirements: ["connectedgreen", "red"], abilityText: "On a Perfect Hit, the edge sharpens. This weapon gains +4 strength for this attack.",},],
+      attackProfile: { speed: 2, accuracy: 5, strength: 6 },
   },
   {
+    id: 70,
     source: "gear-images/kdm-1.6-gear/exhausted-lantern-hoard/oxidized_lantern_glaive.webp",
     categories: [
       "exhausted-lantern-hoard",
@@ -896,61 +956,95 @@ const gearArray: GearImage[] = [
     ],
     versions: ["1.6"],
     expansion: null,
+    affinities: { down: "green" },
+    gearAbilities: { sharp: 0, reach: 2 },
+    affinityBonuses: [
+      {requirements: ["connectedgreen", "red"], gearAbilities: {barbed: 4}},],
+      attackProfile: { speed: 2, accuracy: 5, strength: 6 },
   },
   {
+    id: 71,
     source: "gear-images/exhausted-lantern-hoard/oxidized_lantern_helm.webp",
     categories: ["exhausted-lantern-hoard", "armor", "set", "metal", "head-armor", "blue"],
     versions: ["all"],
     expansion: null,
+    affinities: { down: "red" },
+    gearAbilities: { outfit: 0 },
+    armorValues: { head: 6},
+    armorLocation: [ArmorLocations.Head],
   },
   {
+    id: 72,
     source: "gear-images/exhausted-lantern-hoard/oxidized_lantern_sword.webp",
     categories: ["exhausted-lantern-hoard", "weapon", "melee", "sword", "finesse", "metal", "red"],
     versions: ["all"],
     expansion: null,
+    affinities: { left: "red" },
+    gearAbilities: { sharp: 0, deflect: 1 },
+    attackProfile: { speed: 3, accuracy: 5, strength: 5 },
   },
   {
+    id: 73,
     source: "gear-images/exhausted-lantern-hoard/oxidized_ring_whip.webp",
     categories: ["exhausted-lantern-hoard", "weapon", "melee", "whip", "finesse", "metal", "blue"],
     versions: ["all"],
     expansion: null,
+    affinities: { left: "blue" },
+    gearAbilities: { sharp: 0, reach: 2 },
+    attackProfile: { speed: 2, accuracy: 5, strength: 3 },
+    affinityBonuses: [
+      {requirements: ["connectedblue", "red", "red", "red"], gearAbilities: {provoke: 0}},],
   },
   {
+    id: 74,
     source: "gear-images/exhausted-lantern-hoard/survivors'_lantern.webp",
     categories: ["exhausted-lantern-hoard", "item", "lantern", "red", "green", "blue"],
     versions: ["all"],
     expansion: null,
+    affinities: { right: "green", down: "blue", left: "red" },
+
   },
   //gormchymist
   {
+    id: 75,
     source: "gear-images/gorm-expansion/gormchymist/healing_potion.webp",
     categories: ["gormchymist", "item", "consumable", "fragile", "red"],
     versions: ["all"],
     expansion: Expansion.Gorm,
+    affinities: { down: "red" },
   },
   {
+    id: 76,
     source: "gear-images/gorm-expansion/gormchymist/life_elixir.webp",
     categories: ["gormchymist", "item", "consumable", "stinky"],
     versions: ["all"],
     expansion: Expansion.Gorm,
   },
   {
+    id: 77,
     source: "gear-images/gorm-expansion/gormchymist/power_potion.webp",
     categories: ["gormchymist", "item", "consumable", "green"],
     versions: ["all"],
     expansion: Expansion.Gorm,
+    affinities: { up: "green" },
   },
   {
+    id: 78,
     source: "gear-images/gorm-expansion/gormchymist/steadfast_potion.webp",
     categories: ["gormchymist", "item", "consumable", "heavy", "red"],
     versions: ["all"],
     expansion: Expansion.Gorm,
+    affinities: { up: "red" },
   },
   {
+    id: 79,
     source: "gear-images/gorm-expansion/gormchymist/wisdom_potion.webp",
     categories: ["gormchymist", "item", "consumable", "other", "blue"],
     versions: ["all"],
     expansion: Expansion.Gorm,
+    affinities: { right: "blue" },
+    affinityBonuses: [
+      {requirements: ["connectedblue", "blue"], abilityText: "Play the showdown with the top card of the hit location deck revealed."},],
   },
   //gormery
   {
