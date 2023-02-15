@@ -95,7 +95,7 @@ interface AffinityBonuses {
   stats?: StatsObject;
   gearAbilities?: GearAbilities;
   abilityText?: string;
-  impairments: Impairments[];
+  impairments?: Impairments[];
 }
 
 interface AttackProfile {
@@ -246,7 +246,6 @@ const gearArray: GearImage[] = [
     categories: ["barber-surgeon", "item", "jewelery", "fragile", "blue"],
     versions: ["1.6"],
     expansion: null,
-
     builtInAffinites: ["blue"],
     affinityBonuses: [{ requirements: ["blue", "blue", "blue", "blue", "blue"], gearAbilities: { unshakeable: 0 } }],
   },
@@ -282,18 +281,29 @@ const gearArray: GearImage[] = [
     attackProfile: { speed: 1, accuracy: 6, strength: 5 },
   },
   {
+    id: 13,
     source: "gear-images/blacksmith/dragon_slayer.webp",
     categories: ["blacksmith", "weapon", "melee", "grand-weapon", "heavy", "two-handed", "metal", "red", "blue"],
     versions: ["all"],
     expansion: null,
-
-    attackProfile: { speed: 1, accuracy: 6, strength: 5 },
+    affinities: { up: "blue", right: "red" },
+    gearAbilities: { frail: 0, slow: 0, sharp: 0, devastating: 1, earlyIron: 0 },
+    attackProfile: { speed: 1, accuracy: 6, strength: 9 },
   },
   {
+    id: 14,
     source: "gear-images/blacksmith/lantern_cuirass.webp",
     categories: ["blacksmith", "armor", "set", "metal", "heavy", "body-armor", "green", "blue", "lantern-armor"],
     versions: ["all"],
     expansion: null,
+    affinities: { up: "blue", right: "green", down: "blue", left: "green" },
+    stats: { movement: -2 },
+    affinityBonuses: [
+      {
+        requirements: ["connectedblue", "connectedgreen", "connectedgreen", "connectedblue"],
+        gearAbilities: { unstoppable: 0 },
+      },
+    ],
   },
   {
     source: "gear-images/blacksmith/lantern_dagger.webp",
