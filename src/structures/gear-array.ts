@@ -990,10 +990,10 @@ const gearArray: GearImage[] = [
     versions: ["all"],
     expansion: null,
     affinities: { left: "blue" },
-    gearAbilities: { sharp: 0, reach: 2 },
-    attackProfile: { speed: 2, accuracy: 5, strength: 3 },
     affinityBonuses: [
       {requirements: ["connectedblue", "red", "red", "red"], gearAbilities: {provoke: 0}},],
+    gearAbilities: { sharp: 0, reach: 2 },
+    attackProfile: { speed: 2, accuracy: 5, strength: 3 },
   },
   {
     id: 74,
@@ -1048,22 +1048,33 @@ const gearArray: GearImage[] = [
   },
   //gormery
   {
+    id: 80,
     source: "gear-images/gorm-expansion/gormery/acid-tooth_dagger.webp",
     categories: ["gormery", "weapon", "melee", "dagger", "bone", "red", "paired"],
     versions: ["all"],
     expansion: Expansion.Gorm,
+    affinities: { up: "red", down: "red" },
+    gearAbilities: { paired: 0 },
+    attackProfile: { speed: 2, accuracy: 7, strength: 2 },
+
+
   },
   {
+    id: 81,
     source: "gear-images/gorm-expansion/gormery/armor_spikes.webp",
     categories: ["gormery", "item", "bone", "heavy", "blue"],
     versions: ["all"],
     expansion: Expansion.Gorm,
+    affinities: { down: "blue" },
   },
   {
+    id: 82
     source: "gear-images/gorm-expansion/gormery/black_sword.webp",
     categories: ["gormery", "weapon", "melee", "sword", "heavy"],
     versions: ["all"],
     expansion: Expansion.Gorm,
+    attackProfile: { speed: 3, accuracy: 5, strength: 10 },
+
   },
   {
     source: "gear-images/gorm-expansion/gormery/gaxe.webp",
@@ -1946,7 +1957,7 @@ const gearArray: GearImage[] = [
     expansion: Expansion.Spidicules,
   },
   {
-    source: "gear-images/spidicules-expansion/silk-mill/silk_weaps.webp",
+    source: "gear-images/spidicules-expansion/silk-mill/silk_wraps.webp",
     categories: ["silk-mill", "armor", "set", "silk", "flammable", "arm-armor", "red", "green", "silk-armor"],
     versions: ["all"],
     expansion: Expansion.Spidicules,
