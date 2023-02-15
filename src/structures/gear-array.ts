@@ -1068,7 +1068,7 @@ const gearArray: GearImage[] = [
     affinities: { down: "blue" },
   },
   {
-    id: 82
+    id: 82,
     source: "gear-images/gorm-expansion/gormery/black_sword.webp",
     categories: ["gormery", "weapon", "melee", "sword", "heavy"],
     versions: ["all"],
@@ -1077,28 +1077,50 @@ const gearArray: GearImage[] = [
 
   },
   {
+    id: 83,
     source: "gear-images/gorm-expansion/gormery/gaxe.webp",
     categories: ["gormery", "weapon", "melee", "axe", "bone", "red"],
     versions: ["all"],
     expansion: Expansion.Gorm,
+    affinities: { up: "red", left: "red" },
+    affinityBonuses: [
+      {requirements: ["red"], stats: {speed: 1}, gearAbilities: {savage: 0} },],
   },
   {
+    id: 84,
     source: "gear-images/gorm-expansion/gormery/gorment_boots.webp",
     categories: ["gormery", "armor", "set", "gormskin", "heavy", "leg-armor", "gorment-armor"],
     versions: ["all"],
     expansion: Expansion.Gorm,
+    armorLocation: [ArmorLocations.Legs],
+    armorValues: { legs: 2 },
+    armorSets: [ArmorSets.GormentArmor],
   },
   {
+    id: 85,
     source: "gear-images/gorm-expansion/gormery/gorment_mask.webp",
     categories: ["gormery", "armor", "set", "gormskin", "heavy", "head-armor", "green", "blue", "gorment-armor"],
     versions: ["all"],
     expansion: Expansion.Gorm,
+    affinities: { up: "blue", down: "green" },
+    affinityBonuses: [
+      {requirements: ["connectedgreen", "connectedblue"], abilityText: "If your courage is higher than [Star], ignore intimidate actions" },],
+    armorLocation: [ArmorLocations.Head],
+    armorValues: { head: 2 },
+    armorSets: [ArmorSets.GormentArmor],
   },
   {
+    id: 86,
     source: "gear-images/gorm-expansion/gormery/gorment_sleeves.webp",
     categories: ["gormery", "armor", "set", "gormskin", "heavy", "arm-armor", "green", "gorment-armor"],
     versions: ["all"],
     expansion: Expansion.Gorm,
+    affinities: { right: "green" },
+    affinityBonuses: [
+      {requirements: ["green", "green"], abilityText: "You may Guard without spending survival." },],
+    armorLocation: [ArmorLocations.Arms],
+    armorValues: { arms: 2 },
+    armorSets: [ArmorSets.GormentArmor],
   },
   {
     source: "gear-images/gorm-expansion/gormery/gorment_suit.webp",
