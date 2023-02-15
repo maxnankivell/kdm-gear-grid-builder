@@ -1123,30 +1123,48 @@ const gearArray: GearImage[] = [
     armorSets: [ArmorSets.GormentArmor],
   },
   {
+    id: 87,
     source: "gear-images/gorm-expansion/gormery/gorment_suit.webp",
     categories: ["gormery", "armor", "set", "gormskin", "heavy", "body-armor", "waist-armor", "green", "gorment-armor"],
     versions: ["all"],
     expansion: Expansion.Gorm,
+    affinities: { left: "green" },
+    affinityBonuses: [
+      {requirements: ["connectedgreen", "blue", "red"], abilityText: "Guard: at the end of your attack, if you are standing and have a shield in your gear grid, spend 1 survival to move 3 spaces directly away from the monster and block 1 for free." },],
+      armorLocation: [ArmorLocations.Body, ArmorLocations.Waist], 
+      armorValues: { body: 2, waist: 2 },
+      armorSets: [ArmorSets.GormentArmor],
   },
   {
+    id: 88,
     source: "gear-images/gorm-expansion/gormery/gorn.webp",
     categories: ["gormery", "item", "instrument", "gormskin", "blue"],
     versions: ["all"],
     expansion: Expansion.Gorm,
+    affinities: { down: "blue" },
+
   },
   {
+    id: 89,
     source: "gear-images/gorm-expansion/gormery/greater_gaxe.webp",
     categories: ["gormery", "weapon", "melee", "axe", "two-handed", "heavy", "red"],
     versions: ["all"],
     expansion: Expansion.Gorm,
+    affinities: { down: "red" },
+
   },
   {
+    id: 90,
     source: "gear-images/gorm-expansion/gormery/knuckle_shield.webp",
     categories: ["gormery", "weapon", "melee", "shield", "gormskin", "red"],
     versions: ["all"],
     expansion: Expansion.Gorm,
+    affinities: { down: "red" },
+    gearAbilities: { block: 1 },
+    attackProfile: { speed: 3, accuracy: 7, strength: 1 },
   },
   {
+    id: 91,
     source: "gear-images/gorm-expansion/gormery/pulse_lantern.webp",
     categories: ["gormery", "item", "lantern", "gormskin", "fragile", "red"],
     versions: ["all"],
