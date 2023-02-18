@@ -607,7 +607,7 @@ const gearArray: GearImage[] = [
     expansion: Expansion.Gorm,
   },
   {
-    source: "gear-images/gorm-expansion/gormery/gaxe.webp",
+    source: "gear-images/gorm-expansion/gormery/greater_gaxe.webp",
     categories: ["gormery", "weapon", "melee", "axe", "two-handed", "heavy", "red"],
     versions: ["all"],
     expansion: Expansion.Gorm,
@@ -1006,6 +1006,12 @@ const gearArray: GearImage[] = [
   {
     source: "gear-images/dung-beetle-knight-expansion/rare-gear/calcified_juggernaut_blade.webp",
     categories: ["rare-gear", "weapon", "melee", "grand-weapon", "bone", "other", "red"],
+    versions: ["all"],
+    expansion: Expansion.DungBeetleKnight,
+  },
+  {
+    source: "gear-images/dung-beetle-knight-expansion/rare-gear/calcified_zanbato.webp",
+    categories: ["rare-gear", "weapon", "melee", "grand-weapon", "two-handed", "bone", "heavy", "green", "red"],
     versions: ["all"],
     expansion: Expansion.DungBeetleKnight,
   },
