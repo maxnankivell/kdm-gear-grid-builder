@@ -1451,7 +1451,7 @@ const gearArray: GearImage[] = [
     expansion: Expansion.Spidicules,
   },
   {
-    source: "gear-images/spidicules-expansion/silk-mill/silk_weaps.webp",
+    source: "gear-images/spidicules-expansion/silk-mill/silk_wraps.webp",
     categories: ["silk-mill", "armor", "set", "silk", "flammable", "arm-armor", "red", "green", "silk-armor"],
     versions: ["all"],
     expansion: Expansion.Spidicules,
