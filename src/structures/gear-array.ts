@@ -67,6 +67,7 @@ export enum Impairments {
 
 type AffinityColors = "red" | "blue" | "green";
 type AffinityRequirementColors = "red" | "blue" | "green" | "connectedred" | "connectedblue" | "connectedgreen";
+type Directions = "up" | "right" | "down" | "left";
 
 interface StatsObject {
   movement?: number;
@@ -82,6 +83,11 @@ interface AffinityDirections {
   right?: AffinityColors;
   down?: AffinityColors;
   left?: AffinityColors;
+}
+
+interface SynergyArrows {
+  directions: Directions[];
+  ability: string;
 }
 
 interface ArmorValues {
@@ -177,6 +183,7 @@ interface GearImage {
   armorValues?: ArmorValues;
   armorSets?: ArmorSets[];
   attackProfile?: AttackProfile;
+  synergyArrows?: SynergyArrows;
 }
 
 const gearArray: GearImage[] = [
@@ -859,17 +866,16 @@ const gearArray: GearImage[] = [
   },
   //exhausted lantern hoard
   {
-    id: 63
+    id: 63,
     source: "gear-images/kdm-1.5-gear/exhausted-lantern-hoard/final_lantern.webp",
     categories: ["exhausted-lantern-hoard", "item", "lantern", "other", "green", "blue"],
     versions: ["1.5"],
     expansion: null,
     affinities: { up: "green", left: "blue" },
     gearAbilities: { vital: 0 },
-
   },
   {
-    id: 64
+    id: 64,
     source: "gear-images/kdm-1.6-gear/exhausted-lantern-hoard/final_lantern.webp",
     categories: ["exhausted-lantern-hoard", "item", "lantern", "other", "green", "blue"],
     versions: ["1.6"],
@@ -913,10 +919,8 @@ const gearArray: GearImage[] = [
     expansion: null,
     affinities: { right: "red", left: "red" },
     gearAbilities: { sharp: 0, paired: 0 },
-    affinityBonuses: [
-      {requirements: ["connectedred", "red"],abilityText:"On a Perfect hit, gain +1 survival",},],
+    affinityBonuses: [{ requirements: ["connectedred", "red"], abilityText: "On a Perfect hit, gain +1 survival" }],
     attackProfile: { speed: 3, accuracy: 6, strength: 4 },
-
   },
   {
     id: 69,
@@ -937,8 +941,12 @@ const gearArray: GearImage[] = [
     affinities: { down: "green" },
     gearAbilities: { sharp: 0, reach: 2 },
     affinityBonuses: [
-      {requirements: ["connectedgreen", "red"], abilityText: "On a Perfect Hit, the edge sharpens. This weapon gains +4 strength for this attack.",},],
-      attackProfile: { speed: 2, accuracy: 5, strength: 6 },
+      {
+        requirements: ["connectedgreen", "red"],
+        abilityText: "On a Perfect Hit, the edge sharpens. This weapon gains +4 strength for this attack.",
+      },
+    ],
+    attackProfile: { speed: 2, accuracy: 5, strength: 6 },
   },
   {
     id: 70,
@@ -958,9 +966,8 @@ const gearArray: GearImage[] = [
     expansion: null,
     affinities: { down: "green" },
     gearAbilities: { sharp: 0, reach: 2 },
-    affinityBonuses: [
-      {requirements: ["connectedgreen", "red"], gearAbilities: {barbed: 4}},],
-      attackProfile: { speed: 2, accuracy: 5, strength: 6 },
+    affinityBonuses: [{ requirements: ["connectedgreen", "red"], gearAbilities: { barbed: 4 } }],
+    attackProfile: { speed: 2, accuracy: 5, strength: 6 },
   },
   {
     id: 71,
@@ -970,7 +977,7 @@ const gearArray: GearImage[] = [
     expansion: null,
     affinities: { down: "red" },
     gearAbilities: { outfit: 0 },
-    armorValues: { head: 6},
+    armorValues: { head: 6 },
     armorLocation: [ArmorLocations.Head],
   },
   {
@@ -990,8 +997,7 @@ const gearArray: GearImage[] = [
     versions: ["all"],
     expansion: null,
     affinities: { left: "blue" },
-    affinityBonuses: [
-      {requirements: ["connectedblue", "red", "red", "red"], gearAbilities: {provoke: 0}},],
+    affinityBonuses: [{ requirements: ["connectedblue", "red", "red", "red"], gearAbilities: { provoke: 0 } }],
     gearAbilities: { sharp: 0, reach: 2 },
     attackProfile: { speed: 2, accuracy: 5, strength: 3 },
   },
@@ -1002,7 +1008,6 @@ const gearArray: GearImage[] = [
     versions: ["all"],
     expansion: null,
     affinities: { right: "green", down: "blue", left: "red" },
-
   },
   //gormchymist
   {
@@ -1044,7 +1049,11 @@ const gearArray: GearImage[] = [
     expansion: Expansion.Gorm,
     affinities: { right: "blue" },
     affinityBonuses: [
-      {requirements: ["connectedblue", "blue"], abilityText: "Play the showdown with the top card of the hit location deck revealed."},],
+      {
+        requirements: ["connectedblue", "blue"],
+        abilityText: "Play the showdown with the top card of the hit location deck revealed.",
+      },
+    ],
   },
   //gormery
   {
@@ -1056,8 +1065,6 @@ const gearArray: GearImage[] = [
     affinities: { up: "red", down: "red" },
     gearAbilities: { paired: 0 },
     attackProfile: { speed: 2, accuracy: 7, strength: 2 },
-
-
   },
   {
     id: 81,
@@ -1074,7 +1081,6 @@ const gearArray: GearImage[] = [
     versions: ["all"],
     expansion: Expansion.Gorm,
     attackProfile: { speed: 3, accuracy: 5, strength: 10 },
-
   },
   {
     id: 83,
@@ -1083,8 +1089,7 @@ const gearArray: GearImage[] = [
     versions: ["all"],
     expansion: Expansion.Gorm,
     affinities: { up: "red", left: "red" },
-    affinityBonuses: [
-      {requirements: ["red"], stats: {speed: 1}, gearAbilities: {savage: 0} },],
+    affinityBonuses: [{ requirements: ["red"], stats: { speed: 1 }, gearAbilities: { savage: 0 } }],
   },
   {
     id: 84,
@@ -1104,7 +1109,11 @@ const gearArray: GearImage[] = [
     expansion: Expansion.Gorm,
     affinities: { up: "blue", down: "green" },
     affinityBonuses: [
-      {requirements: ["connectedgreen", "connectedblue"], abilityText: "If your courage is higher than [Star], ignore intimidate actions" },],
+      {
+        requirements: ["connectedgreen", "connectedblue"],
+        abilityText: "If your courage is higher than [Star], ignore intimidate actions",
+      },
+    ],
     armorLocation: [ArmorLocations.Head],
     armorValues: { head: 2 },
     armorSets: [ArmorSets.GormentArmor],
@@ -1116,8 +1125,7 @@ const gearArray: GearImage[] = [
     versions: ["all"],
     expansion: Expansion.Gorm,
     affinities: { right: "green" },
-    affinityBonuses: [
-      {requirements: ["green", "green"], abilityText: "You may Guard without spending survival." },],
+    affinityBonuses: [{ requirements: ["green", "green"], abilityText: "You may Guard without spending survival." }],
     armorLocation: [ArmorLocations.Arms],
     armorValues: { arms: 2 },
     armorSets: [ArmorSets.GormentArmor],
@@ -1130,8 +1138,13 @@ const gearArray: GearImage[] = [
     expansion: Expansion.Gorm,
     affinities: { left: "green" },
     affinityBonuses: [
-    {requirements: ["connectedgreen", "blue", "red"], abilityText: "Guard: at the end of your attack, if you are standing and have a shield in your gear grid, spend 1 survival to move 3 spaces directly away from the monster and block 1 for free." },],
-    armorLocation: [ArmorLocations.Body, ArmorLocations.Waist], 
+      {
+        requirements: ["connectedgreen", "blue", "red"],
+        abilityText:
+          "Guard: at the end of your attack, if you are standing and have a shield in your gear grid, spend 1 survival to move 3 spaces directly away from the monster and block 1 for free.",
+      },
+    ],
+    armorLocation: [ArmorLocations.Body, ArmorLocations.Waist],
     armorValues: { body: 2, waist: 2 },
     armorSets: [ArmorSets.GormentArmor],
   },
@@ -1142,7 +1155,6 @@ const gearArray: GearImage[] = [
     versions: ["all"],
     expansion: Expansion.Gorm,
     affinities: { down: "blue" },
-
   },
   {
     id: 89,
@@ -1152,7 +1164,11 @@ const gearArray: GearImage[] = [
     expansion: Expansion.Gorm,
     affinities: { left: "red" },
     affinityBonuses: [
-      {requirements: [ "green", "red"], abilityText: "On a perfect hit, the edge sharpens. Gain +4 strength for the rest of the attack." },],
+      {
+        requirements: ["green", "red"],
+        abilityText: "On a perfect hit, the edge sharpens. Gain +4 strength for the rest of the attack.",
+      },
+    ],
     gearAbilities: { deadly: 1, reach: 2 },
   },
   {
@@ -1181,9 +1197,13 @@ const gearArray: GearImage[] = [
     expansion: Expansion.Gorm,
     affinities: { up: "green", down: "green", left: "green" },
     affinityBonuses: [
-      {requirements: [ "connectedgreen", "green", "green"], abilityText: "At the end of the showdown, remove any permanent injuries you suffered this showdown." },],
+      {
+        requirements: ["connectedgreen", "green", "green"],
+        abilityText: "At the end of the showdown, remove any permanent injuries you suffered this showdown.",
+      },
+    ],
     gearAbilities: { accessory: 0 },
-    armorLocation: [ArmorLocations.Body], 
+    armorLocation: [ArmorLocations.Body],
     armorValues: { body: 2 },
     armorSets: [ArmorSets.GormentArmor],
   },
@@ -1196,8 +1216,6 @@ const gearArray: GearImage[] = [
     affinities: { right: "blue" },
     gearAbilities: { slow: 0, deadly: 1 },
     attackProfile: { speed: 1, accuracy: 6, strength: 5 },
-
-
   },
   {
     id: 94,
@@ -1208,89 +1226,152 @@ const gearArray: GearImage[] = [
     affinities: { right: "blue" },
     gearAbilities: { deadly: 1 },
     attackProfile: { speed: 2, accuracy: 5, strength: 5 },
-
   },
   //leather worker
   {
+    id: 95,
     source: "gear-images/leather-worker/hunter_whip.webp",
     categories: ["leather-worker", "weapon", "melee", "whip", "leather", "blue"],
     versions: ["all"],
     expansion: null,
+    affinities: { up: "blue", right: "blue" },
+    affinityBonuses: [
+      { requirements: ["connectedblue", "connectedblue"], abilityText: "On a Perfect hit, discard 1 mood in play." },
+    ],
+    attackProfile: { speed: 3, accuracy: 6, strength: 3 },
   },
   {
+    id: 96,
     source: "gear-images/leather-worker/leather_boots.webp",
     categories: ["leather-worker", "armor", "set", "leather", "leg-armor", "green", "leather-armor"],
     versions: ["all"],
     expansion: null,
+    affinities: { left: "green", right: "green" },
+    affinityBonuses: [
+      { requirements: ["connectedgreen", "connectedgreen"], abilityText: "On a Perfect hit, discard 1 mood in play." },
+    ],
+    armorLocation: [ArmorLocations.Legs],
+    armorValues: { legs: 3 },
+    armorSets: [ArmorSets.LeatherArmor, ArmorSets.DancerArmor],
   },
   {
+    id: 97,
     source: "gear-images/leather-worker/leather_bracers.webp",
     categories: ["leather-worker", "armor", "set", "leather", "arm-armor", "green", "leather-armor"],
     versions: ["all"],
     expansion: null,
+    affinities: { right: "green" },
+    armorLocation: [ArmorLocations.Arms],
+    armorValues: { arms: 3 },
+    armorSets: [ArmorSets.LeatherArmor, ArmorSets.WarlordArmor],
   },
   {
+    id: 98,
     source: "gear-images/leather-worker/leather_cuirass.webp",
     categories: ["leather-worker", "armor", "set", "leather", "body-armor", "red", "blue", "leather-armor"],
     versions: ["all"],
     expansion: null,
+    affinities: { up: "red", down: "blue" },
+    armorLocation: [ArmorLocations.Body],
+    armorValues: { body: 3 },
+    armorSets: [ArmorSets.LeatherArmor],
   },
   {
+    id: 99,
     source: "gear-images/leather-worker/leather_mask.webp",
     categories: ["leather-worker", "armor", "set", "leather", "head-armor", "red", "blue", "leather-armor"],
     versions: ["all"],
     expansion: null,
+    affinities: { up: "blue", down: "red" },
+    armorLocation: [ArmorLocations.Head],
+    armorValues: { head: 3 },
+    armorSets: [ArmorSets.LeatherArmor],
   },
   {
+    id: 100,
     source: "gear-images/leather-worker/leather_skirt.webp",
     categories: ["leather-worker", "armor", "set", "leather", "waist-armor", "green", "leather-armor"],
     versions: ["all"],
     expansion: null,
+    affinities: { down: "green" },
+    armorLocation: [ArmorLocations.Waist],
+    armorValues: { waist: 3 },
+    armorSets: [ArmorSets.LeatherArmor],
   },
   {
+    id: 101,
     source: "gear-images/leather-worker/round_leather_shield.webp",
     categories: ["leather-worker", "weapon", "melee", "shield", "leather", "green"],
     versions: ["all"],
     expansion: null,
+    affinities: { up: "green" },
+    gearAbilities: { block: 1 },
+    armorValues: { head: 1, arms: 1, body: 1, waist: 1, legs: 1 },
+    attackProfile: { speed: 1, accuracy: 8, strength: 1 },
   },
   //light-forging
   {
+    id: 102,
     source: "gear-images/slenderman-expansion/light-forging/dark_water_vial.webp",
     categories: ["light-forging", "item", "consumable", "gloomy", "fragile", "green"],
     versions: ["all"],
     expansion: Expansion.Slenderman,
+    affinities: { down: "green" },
+    gearAbilities: { consume: 0 },
   },
   {
+    id: 106,
     source: "gear-images/slenderman-expansion/light-forging/gloom_bracelets.webp",
     categories: ["light-forging", "item", "jewelry", "gloomy", "fragile", "heavy", "arm-armor", "red", "blue"],
     versions: ["all"],
     expansion: Expansion.Slenderman,
+    affinities: { right: "red", down: "blue", left: "red" },
+    gearAbilities: { accessory: 0 },
+    armorLocation: [ArmorLocations.Arms],
+    armorValues: { arms: 6 },
   },
   {
+    id: 107,
     source: "gear-images/slenderman-expansion/light-forging/gloom_cream.webp",
     categories: ["light-forging", "item", "consumable", "balm", "gloomy", "stinky", "other", "red", "blue"],
     versions: ["all"],
     expansion: Expansion.Slenderman,
+    affinities: { up: "blue", right: "red", down: "blue", left: "red" },
+    affinityBonuses: [
+      {
+        requirements: ["connectedred", "connectedred", "blue", "blue"],
+        abilityText: "When you depart, gain -3 Hunt XP, -1 understanding. If you have no understanding, die instantly.",
+      },
+    ],
   },
   {
+    id: 108,
     source: "gear-images/slenderman-expansion/light-forging/gloom_hammer.webp",
     categories: ["light-forging", "weapon", "melee", "club", "two-handed", "gloomy", "other", "red", "blue"],
     versions: ["all"],
     expansion: Expansion.Slenderman,
+    affinities: { up: "blue", left: "red" },
+    gearAbilities: { unique: 0, sentient: 0, reach: 2, deadly: 1 },
+    attackProfile: { speed: 2, accuracy: 7, strength: 13 },
   },
   {
+    id: 109,
     source: "gear-images/slenderman-expansion/light-forging/gloom_katana.webp",
     categories: ["light-forging", "weapon", "melee", "katana", "two-handed", "gloomy", "other", "blue"],
     versions: ["all"],
     expansion: Expansion.Slenderman,
+    attackProfile: { speed: 4, accuracy: 5, strength: 0 },
   },
   {
+    id: 110,
     source: "gear-images/slenderman-expansion/light-forging/gloom_mehndi.webp",
     categories: ["light-forging", "item", "gloomy", "soluble", "red", "blue"],
     versions: ["all"],
     expansion: Expansion.Slenderman,
+    affinities: { right: "red", down: "red", left: "blue" },
   },
   {
+    id: 111,
     source: "gear-images/slenderman-expansion/light-forging/gloom_sheath.webp",
     categories: ["light-forging", "item", "gloomy", "other", "red"],
     versions: ["all"],
@@ -1580,6 +1661,12 @@ const gearArray: GearImage[] = [
   {
     source: "gear-images/dung-beetle-knight-expansion/rare-gear/calcified_shoulder_pads.webp",
     categories: ["rare-gear", "item", "bone", "heavy", "green"],
+    versions: ["all"],
+    expansion: Expansion.DungBeetleKnight,
+  },
+  {
+    source: "gear-images/dung-beetle-knight-expansion/rare-gear/calcified_zanbato.webp",
+    categories: ["rare-gear", "weapon", "melee", "grand-weapon", "two-handed", "bone", "heavy", "red", "green"],
     versions: ["all"],
     expansion: Expansion.DungBeetleKnight,
   },
@@ -2396,7 +2483,7 @@ const gearArray: GearImage[] = [
     expansion: null,
   },
   {
-    source: "gear-images/weapon-crafter/zambato.webp",
+    source: "gear-images/weapon-crafter/zanbato.webp",
     categories: ["weapon-crafter", "weapon", "melee", "grand-weapon", "two-handed", "bone", "red", "green"],
     versions: ["all"],
     expansion: null,
