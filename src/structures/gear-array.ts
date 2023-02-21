@@ -78,6 +78,12 @@ interface StatsObject {
   speed?: number;
 }
 
+interface ItemStatsObject {
+  speed?: number;
+  accuracy?: number;
+  strength?: number;
+}
+
 interface AffinityDirections {
   up?: AffinityColors;
   right?: AffinityColors;
@@ -101,6 +107,7 @@ interface ArmorValues {
 interface AffinityBonuses {
   requirements: AffinityRequirementColors[];
   stats?: StatsObject;
+  weaponStats?: ItemStatsObject;
   gearAbilities?: GearAbilities;
   abilityText?: string;
   impairments?: Impairments[];
@@ -3144,7 +3151,7 @@ const gearArray: GearImage[] = [
       {
         requirements: ["connectedred", "red", "red"],
         gearAbilities: { slow: 0 },
-        abilityText: "This weapon gains +4 strength.",
+        weaponStats: { strength: 4 },
       },
     ],
     attackProfile: { speed: 3, accuracy: 6, strength: 0 },
