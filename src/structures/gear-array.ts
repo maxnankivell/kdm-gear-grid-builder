@@ -505,7 +505,7 @@ const gearArray: GearImage[] = [
     expansion: null,
   },
   {
-    source: "gear-images/exhausted-lantern-hoard/survivors'_lantern.webp",
+    source: "gear-images/exhausted-lantern-hoard/survivors_lantern.webp",
     categories: ["exhausted-lantern-hoard", "item", "lantern", "red", "green", "blue"],
     versions: ["all"],
     expansion: null,
