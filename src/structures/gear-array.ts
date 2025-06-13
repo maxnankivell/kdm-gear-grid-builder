@@ -1834,7 +1834,7 @@ const gearArray: GearImage[] = [
     expansion: null,
   },
   {
-    source: "gear-images/weapon-crafter/zambato.webp",
+    source: "gear-images/weapon-crafter/zanbato.webp",
     categories: ["weapon-crafter", "weapon", "melee", "grand-weapon", "two-handed", "bone", "red", "green"],
     versions: ["all"],
     expansion: null,
